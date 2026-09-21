@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>St. Veronica Bumadeya Primary School — ClassConnect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- Three-colour system: deep green, light green, white ----
+     Every colour in the app resolves to one of these tokens. There are no
+     blues, purples, reds, golds or neutral greys anywhere in the build. */
+  --white:#FFFFFF;
+  --paper:#F4F9EF;          /* very light green tint behind the app */
+  --surface:#FFFFFF;        /* cards */
+  --surface2:#F8FBF4;       /* subtle tinted surface */
+  --sunken:#E9F3E0;         /* wells, chart grid, inactive chips */
+  --border:#D9E9CE; --border-strong:#BCD8A6;
+
+  --ink:#06331C;            /* dark forest green — all body text */
+  --muted:#2E5C42;
+  --faint:#45785B;
+
+  --green:#095C32;          /* crest shield green — primary accent */
+  --green-2:#063F22;        /* hover / pressed */
+  --green-soft:#E6F2DD;     /* light green fill behind active items */
+  --light-green:#90C144;    /* crest lower-panel green — secondary accent */
+  --light-green-2:#BBDB8C;
+
+  /* legacy semantic names, all resolved into the crest palette */
+  --ochre:#4F8C2F; --ochre-soft:#EDF5E1;
+  --clay:#063F22;  --clay-soft:#E6F2DD;
+  --ok:#095C32;    --ok-soft:#E6F2DD;
+  --on-green:#FFFFFF;
+
+  --r-sm:8px; --r:12px; --r-lg:18px;
+  --shadow:0 1px 2px rgba(6,51,28,.06), 0 10px 26px -18px rgba(6,51,28,.32);
+  --shadow-lg:0 2px 6px rgba(6,51,28,.08), 0 26px 50px -28px rgba(6,51,28,.4);
+  --sans:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display:"Space Grotesk", "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --sidebar:252px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top,0px); -webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100%; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.num{font-family:var(--display); font-weight:600; letter-spacing:-.02em; margin:0}
+h1{font-size:clamp(1.45rem,1.1rem + 1.4vw,2rem); line-height:1.15}
+h2{font-size:1.18rem}
+h3{font-size:1rem}
+p{margin:0 0 .8em}
+a{color:var(--green); text-underline-offset:3px}
+a:hover{color:var(--green-2)}
+img{max-width:100%}
+:focus-visible{outline:2.5px solid var(--green-2); outline-offset:2px; border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important; transition-duration:.01ms !important}}
+
+/* ---------- primitives ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  font:inherit; font-weight:600; font-size:.9rem; padding:.62rem 1rem; border-radius:var(--r-sm);
+  border:1px solid transparent; background:var(--green); color:var(--on-green); cursor:pointer;
+  transition:background .15s ease, border-color .15s ease, color .15s ease; text-decoration:none; white-space:nowrap;
+}
+.btn:hover{background:var(--green-2); color:var(--on-green)}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+.btn.ghost{background:transparent; border-color:var(--border-strong); color:var(--ink)}
+.btn.ghost:hover{background:var(--surface2); color:var(--ink)}
+.btn.quiet{background:transparent; color:var(--muted); padding:.4rem .55rem}
+.btn.quiet:hover{background:var(--surface2); color:var(--ink)}
+.btn.danger{background:var(--white); color:var(--green-2); border-color:var(--green-2); border-style:dashed}
+.btn.danger:hover{background:var(--green-soft); color:var(--green-2)}
+.btn.sm{padding:.4rem .7rem; font-size:.82rem}
+.btn.block{width:100%}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow)}
+.pad{padding:1.1rem 1.15rem}
+.stack{display:flex; flex-direction:column; gap:1rem}
+.row{display:flex; align-items:center; gap:.65rem}
+.row.wrap{flex-wrap:wrap}
+.spread{display:flex; align-items:center; justify-content:space-between; gap:.75rem; flex-wrap:wrap}
+.grid{display:grid; gap:1rem}
+.muted{color:var(--muted)}
+.faint{color:var(--faint); font-size:.85rem}
+.small{font-size:.85rem}
+.mono-num{font-family:var(--display); font-variant-numeric:tabular-nums}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.divider{height:1px; background:var(--border); border:0; margin:.9rem 0}
+
+.tag{display:inline-flex; align-items:center; gap:.35rem; font-size:.76rem; font-weight:600; padding:.22rem .55rem; border-radius:999px; background:var(--sunken); color:var(--muted); white-space:nowrap}
+.tag.ok{background:var(--green); color:var(--white)}
+.tag.warn{background:var(--white); color:var(--green); box-shadow:inset 0 0 0 1.5px var(--light-green)}
+.tag.bad{background:var(--sunken); color:var(--muted); box-shadow:inset 0 0 0 1.5px var(--border-strong)}
+.tag.info{background:var(--light-green-2); color:var(--green-2)}
+.tag.dot::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor}
+
+.avatar{display:grid; place-items:center; width:38px; height:38px; border-radius:50%; font-family:var(--display); font-weight:600; font-size:.82rem; color:var(--on-green); flex:none; letter-spacing:.01em}
+.avatar.lg{width:72px; height:72px; font-size:1.4rem}
+.avatar.sm{width:30px; height:30px; font-size:.7rem}
+
+/* ---------- forms ---------- */
+label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.3rem; color:var(--ink)}
+input,select,textarea{
+  width:100%; font:inherit; font-size:.92rem; color:var(--ink); background:var(--surface);
+  border:1px solid var(--border-strong); border-radius:var(--r-sm); padding:.6rem .7rem;
+}
+textarea{min-height:110px; resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px solid color-mix(in srgb, var(--green) 25%, transparent); outline-offset:0}
+.field{margin-bottom:.9rem}
+.field .hint{font-size:.78rem; color:var(--faint); margin-top:.25rem}
+.field .err{font-size:.78rem; color:var(--green-2); margin-top:.25rem; font-weight:600; display:none}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--green-2); border-width:2px; background:var(--green-soft)}
+.field.invalid .err{display:block}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:.75rem}
+@media (max-width:540px){.field-row{grid-template-columns:1fr}}
+.checkrow{display:flex; align-items:flex-start; gap:.55rem; font-size:.88rem}
+.checkrow input{width:auto; margin-top:.2rem}
+
+/* ---------- auth / landing ---------- */
+.public{min-height:100vh; display:flex; flex-direction:column}
+.pubnav{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem clamp(1rem,4vw,3rem); border-bottom:1px solid var(--border); background:var(--surface)}
+.wordmark{display:flex; align-items:center; gap:.55rem; font-family:var(--display); font-weight:700; font-size:1.05rem; letter-spacing:-.03em; color:var(--ink); text-decoration:none}
+.wordmark .mk{display:grid; place-items:center; width:30px; height:30px; border-radius:9px; background:var(--green); color:var(--on-green); font-size:.85rem}
+.brand{display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--ink); min-width:0}
+.brand .crest{width:42px; height:42px; flex:none; border-radius:50%}
+.brand .crest.lg{width:120px; height:120px}
+.brand b{display:block; font-family:var(--display); font-weight:700; font-size:.92rem; letter-spacing:-.02em; line-height:1.15}
+.brand span.sub{display:block; font-size:.72rem; color:var(--faint); font-weight:500; line-height:1.3}
+.side-head .brand{flex:1; min-width:0}
+.pubnav .brand .crest{width:46px; height:46px}
+@media (max-width:560px){.pubnav .brand b{font-size:.82rem} .pubnav .brand span.sub{display:none}}
+.crest-hero{display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem}
+.crest-hero img{width:88px; height:88px; flex:none}
+.motto{font-family:var(--display); font-weight:600; color:var(--green); letter-spacing:.01em}
+.auth-crest{display:block; width:84px; height:84px; margin:0 auto 1rem}
+.hero{padding:clamp(2.2rem,6vw,4.5rem) clamp(1rem,4vw,3rem); max-width:1140px; margin:0 auto; width:100%}
+.hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2rem,1.2rem + 3.4vw,3.35rem); letter-spacing:-.035em; line-height:1.04; margin-bottom:.9rem}
+.hero .lede{font-size:1.06rem; color:var(--muted); max-width:52ch}
+.rollcall{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:1.25rem; box-shadow:var(--shadow-lg)}
+.rollcall .rc-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.9rem; font-size:.85rem; color:var(--muted)}
+.rc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(52px,1fr)); gap:.5rem}
+.rc-cell{aspect-ratio:1; border-radius:11px; display:grid; place-items:center; font-family:var(--display); font-weight:600; font-size:.8rem; color:var(--on-green)}
+.rc-cell.empty{background:var(--sunken); color:var(--faint); font-size:1rem}
+.rc-foot{margin-top:1rem; padding-top:.9rem; border-top:1px solid var(--border); display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; text-align:left}
+.rc-foot b{display:block; font-family:var(--display); font-size:1.15rem}
+.features{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:1rem; padding:0 clamp(1rem,4vw,3rem) clamp(2.5rem,6vw,4rem); max-width:1140px; margin:0 auto; width:100%}
+.feature{background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:1.1rem}
+.feature h3{margin-bottom:.35rem}
+.feature p{font-size:.9rem; color:var(--muted); margin:0}
+.pubfoot{margin-top:auto; padding:1.25rem clamp(1rem,4vw,3rem); border-top:1px solid var(--border); color:var(--faint); font-size:.85rem; background:var(--surface)}
+
+.auth-wrap{flex:1; display:grid; place-items:center; padding:clamp(1.25rem,4vw,3rem) 1rem}
+.auth-card{width:100%; max-width:430px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:clamp(1.3rem,3vw,2rem); box-shadow:var(--shadow-lg)}
+.auth-card h1{font-size:1.5rem; margin-bottom:.35rem}
+.auth-card .sub{color:var(--muted); font-size:.92rem; margin-bottom:1.3rem}
+
+/* ---------- app shell ---------- */
+.shell{display:grid; grid-template-columns:var(--sidebar) 1fr; min-height:100vh}
+@media (max-width:1000px){.shell{grid-template-columns:1fr}}
+.sidebar{
+  background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column;
+  position:sticky; top:0; height:100vh; overflow-y:auto; padding:1rem .75rem;
+  padding-top:calc(1rem + env(safe-area-inset-top,0px));
+}
+@media (max-width:1000px){
+  .sidebar{position:fixed; inset:0 auto 0 0; width:280px; z-index:60; transform:translateX(-102%); transition:transform .22s ease; box-shadow:var(--shadow-lg)}
+  body.nav-open .sidebar{transform:none}
+  .scrim{position:fixed; inset:0; background:rgba(6,51,28,.4); z-index:55; opacity:0; pointer-events:none; transition:opacity .2s ease}
+  body.nav-open .scrim{opacity:1; pointer-events:auto}
+}
+.side-head{display:flex; align-items:center; justify-content:space-between; padding:.35rem .5rem 1rem}
+.nav-group{margin-bottom:.9rem}
+.nav-group > span{display:block; font-size:.72rem; font-weight:700; color:var(--faint); padding:0 .6rem .35rem; letter-spacing:.04em}
+.nav-link{
+  display:flex; align-items:center; gap:.6rem; padding:.52rem .6rem; border-radius:var(--r-sm);
+  color:var(--muted); text-decoration:none; font-size:.9rem; font-weight:500; position:relative;
+}
+.nav-link:hover{background:var(--surface2); color:var(--ink)}
+.nav-link.active{background:var(--green-soft); color:var(--green); font-weight:600}
+.nav-link svg{width:17px; height:17px; flex:none; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.nav-link .count{margin-left:auto; background:var(--green); color:var(--white); font-size:.7rem; font-weight:700; padding:.05rem .4rem; border-radius:999px}
+.side-foot{margin-top:auto; padding-top:.8rem; border-top:1px solid var(--border)}
+
+.main{min-width:0; display:flex; flex-direction:column}
+.topbar{
+  position:sticky; top:0; z-index:40; background:color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter:saturate(1.3) blur(10px); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:.75rem; padding:.7rem clamp(.85rem,2.5vw,1.6rem);
+  padding-top:calc(.7rem + env(safe-area-inset-top,0px));
+}
+.search{position:relative; flex:1; max-width:420px}
+.search input{padding-left:2.1rem; background:var(--surface2)}
+.search svg{position:absolute; left:.65rem; top:50%; transform:translateY(-50%); width:16px; height:16px; stroke:var(--faint); fill:none; stroke-width:1.8}
+.icon-btn{position:relative; display:grid; place-items:center; width:38px; height:38px; border-radius:var(--r-sm); border:1px solid transparent; background:transparent; cursor:pointer; color:var(--muted)}
+.icon-btn:hover{background:var(--surface2); color:var(--ink)}
+.icon-btn svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.badge{position:absolute; top:4px; right:4px; min-width:17px; height:17px; padding:0 4px; border-radius:999px; background:var(--green); color:var(--white); font-size:.66rem; font-weight:700; display:grid; place-items:center; font-family:var(--display)}
+.menu{position:relative}
+.menu-pop{position:absolute; right:0; top:calc(100% + .5rem); background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow-lg); min-width:220px; padding:.35rem; display:none; z-index:50}
+.menu-pop.open{display:block}
+.menu-pop a,.menu-pop button{display:flex; width:100%; align-items:center; gap:.5rem; padding:.5rem .6rem; border-radius:var(--r-sm); background:none; border:0; font:inherit; font-size:.88rem; color:var(--ink); text-decoration:none; cursor:pointer; text-align:left}
+.menu-pop a:hover,.menu-pop button:hover{background:var(--surface2)}
+.content{padding:clamp(1rem,2.5vw,1.75rem); max-width:1280px; width:100%; margin:0 auto; flex:1}
+.page-head{margin-bottom:1.25rem}
+.page-head p{color:var(--muted); margin:.25rem 0 0; max-width:70ch}
+
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:.85rem}
+.stat{background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:.95rem 1rem; box-shadow:var(--shadow)}
+.stat .k{font-size:.82rem; color:var(--muted); font-weight:600}
+.stat .v{font-family:var(--display); font-size:1.62rem; font-weight:600; letter-spacing:-.03em; margin-top:.2rem; font-variant-numeric:tabular-nums; line-height:1.15}
+.stat .s{font-size:.8rem; color:var(--faint); margin-top:.15rem}
+.stat.accent{border-left:3px solid var(--green)}
+.stat.warnline{border-left:3px solid var(--light-green)}
+.stat.ochreline{border-left:3px solid var(--light-green-2)}
+
+/* ---------- tables ---------- */
+.table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table{width:100%; border-collapse:collapse; font-size:.9rem; min-width:560px}
+th{text-align:left; font-size:.78rem; color:var(--muted); font-weight:700; padding:.6rem .8rem; border-bottom:1px solid var(--border); white-space:nowrap; background:var(--surface2)}
+td{padding:.7rem .8rem; border-bottom:1px solid var(--border); vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface2)}
+td.right,th.right{text-align:right}
+.linkish{background:none; border:0; padding:0; font:inherit; color:var(--green); font-weight:600; cursor:pointer; text-align:left}
+.linkish:hover{text-decoration:underline}
+
+.empty{text-align:center; padding:2.4rem 1rem; color:var(--muted)}
+.empty h3{margin-bottom:.3rem; color:var(--ink)}
+
+/* ---------- lists ---------- */
+.item{display:flex; gap:.85rem; padding:.85rem 0; border-bottom:1px solid var(--border)}
+.item:last-child{border-bottom:0}
+.item .body{min-width:0; flex:1}
+.item h4{font-size:.95rem; margin-bottom:.15rem}
+.item p{font-size:.88rem; color:var(--muted); margin:0}
+.clamp2{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.notif{display:flex; gap:.8rem; padding:.85rem .9rem; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); margin-bottom:.6rem}
+.notif.unread{background:var(--green-soft); border-color:color-mix(in srgb, var(--green) 30%, var(--border))}
+.filters{display:flex; gap:.6rem; flex-wrap:wrap; align-items:flex-end}
+.filters .field{margin-bottom:0; min-width:150px; flex:1 1 150px}
+.chips{display:flex; gap:.4rem; flex-wrap:wrap}
+.chip{border:1px solid var(--border-strong); background:var(--surface); color:var(--muted); border-radius:999px; padding:.3rem .7rem; font-size:.82rem; font-weight:600; cursor:pointer; font-family:inherit}
+.chip[aria-pressed="true"]{background:var(--green); border-color:var(--green); color:var(--on-green)}
+.vote{display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--border-strong); background:var(--surface); border-radius:999px; padding:.3rem .65rem; font:inherit; font-size:.85rem; font-weight:600; cursor:pointer; color:var(--muted)}
+.vote[aria-pressed="true"].up{background:var(--green); border-color:var(--green); color:var(--white)}
+.vote[aria-pressed="true"].down{background:var(--white); border-color:var(--green-2); color:var(--green-2); box-shadow:inset 0 0 0 1px var(--green-2)}
+.agenda{margin:0; padding-left:1.1rem}
+.agenda li{margin-bottom:.3rem}
+.timeline{list-style:none; margin:0; padding:0}
+.timeline li{display:flex; gap:.7rem; padding:.5rem 0; font-size:.88rem; border-bottom:1px solid var(--border)}
+.timeline li:last-child{border-bottom:0}
+.timeline .when{color:var(--faint); font-size:.78rem; white-space:nowrap; margin-left:auto}
+
+/* ---------- charts ---------- */
+.chart{width:100%; height:auto; display:block; overflow:visible}
+.chart text{font-family:var(--sans); fill:var(--muted); font-size:11px}
+.legend{display:flex; gap:1rem; flex-wrap:wrap; font-size:.83rem; color:var(--muted); margin-top:.6rem}
+.legend i{width:10px; height:10px; border-radius:3px; display:inline-block; margin-right:.35rem}
+
+/* ---------- modal & toast ---------- */
+.modal-bg{position:fixed; inset:0; background:rgba(6,51,28,.45); display:grid; place-items:center; padding:1rem; z-index:100; overflow-y:auto}
+.modal{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); width:100%; max-width:520px; box-shadow:var(--shadow-lg); margin:auto; max-height:92vh; display:flex; flex-direction:column}
+.modal.wide{max-width:680px}
+.modal-head{display:flex; align-items:center; justify-content:space-between; padding:1rem 1.15rem; border-bottom:1px solid var(--border)}
+.modal-body{padding:1.15rem; overflow-y:auto}
+.modal-foot{display:flex; justify-content:flex-end; gap:.6rem; padding:.9rem 1.15rem; border-top:1px solid var(--border); background:var(--surface2); border-radius:0 0 var(--r-lg) var(--r-lg)}
+.toasts{position:fixed; z-index:200; bottom:calc(1rem + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); display:flex; flex-direction:column; gap:.5rem; width:calc(100% - 2rem); max-width:400px}
+.toast{background:var(--green-2); color:var(--white); padding:.7rem .9rem; border-radius:var(--r-sm); font-size:.88rem; box-shadow:var(--shadow-lg); display:flex; gap:.5rem; align-items:center}
+.toast.bad{background:var(--ink); color:var(--white); box-shadow:inset 0 0 0 2px var(--light-green), var(--shadow-lg)}
+.hide-desktop{display:none}
+@media (max-width:1000px){.hide-desktop{display:grid}.hide-mobile{display:none}}
+@media (max-width:640px){
+  .content{padding:.9rem}
+  .search{max-width:none}
+  .hero .rollcall{order:-1}
+}
+pre.code{background:var(--sunken); border:1px solid var(--border); border-radius:var(--r-sm); padding:.85rem; overflow-x:auto; font-size:.8rem; line-height:1.5; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; margin:0 0 1rem}
+.docs h2{margin:1.6rem 0 .6rem}
+.docs h3{margin:1.1rem 0 .4rem}
+.docs ol,.docs ul{padding-left:1.2rem; color:var(--muted)}
+.docs li{margin-bottom:.35rem}
+.prose{max-width:72ch}
+.prose p{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div id="root"><div style="min-height:100vh;display:grid;place-items:center;color:var(--faint);font:600 .9rem var(--sans)">Loading ClassConnect…</div></div>
+<div id="modal-root"></div>
+<div class="toasts" id="toasts"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+/* =========================================================================
+   ClassConnect — St. Veronica Bumadeya Primary School Association
+   Production build backed by Supabase (Postgres + Auth), not localStorage.
+   Run supabase-schema.sql once in the Supabase SQL Editor before using this
+   file — it creates the tables, security policies and the trigger that
+   makes the first person to register the administrator.
+   ========================================================================= */
+'use strict';
+
+const SCHOOL = 'St. Veronica Bumadeya Primary School';
+const MOTTO = 'Knowledge For Life';
+const CUR = 'KSh';
+/* School crest, inlined so the page stays self-contained. */
+const LOGO = 'data:image/webp;base64,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';
+
+const SUPABASE_URL = 'https://lxshtrqgyhcrcfpvjehb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Bc4E8gA7mjtvC46B3SUCPg_GVhU4v_j';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+});
+
+/* ---------------- tiny utilities ---------------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = (n) => CUR + ' ' + Number(n || 0).toLocaleString('en-KE', { maximumFractionDigits: 0 });
+const initials = (u) => ((u && u.firstName || '?')[0] + ((u && u.lastName) || '')[0] || '').toUpperCase();
+const fullName = (u) => u ? `${u.firstName} ${u.lastName}`.trim() || u.email : 'Unknown member';
+const todayISO = () => new Date().toISOString().slice(0, 10);
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function fmtLong(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? iso : d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+function fmtTime(t) {
+  if (!t) return '';
+  const [h, m] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'PM' : 'AM';
+  return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${ap}`;
+}
+function ago(iso) {
+  const s = (Date.now() - new Date(iso).getTime()) / 1000;
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s / 60) + 'm ago';
+  if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+  if (s < 604800) return Math.floor(s / 86400) + 'd ago';
+  return fmtDate(iso);
+}
+const AVATAR_GREENS = ['#095C32', '#063F22', '#177040', '#0B4A29', '#2E7F3C'];
+function avatarColor(seed) {
+  let h = 0;
+  for (const ch of String(seed)) h = (h * 31 + ch.charCodeAt(0)) % 997;
+  return AVATAR_GREENS[h % AVATAR_GREENS.length];
+}
+function avatar(u, cls = '') {
+  if (!u) return '';
+  return `<div class="avatar ${cls}" style="background:${avatarColor(u.id)}" aria-hidden="true">${esc(initials(u))}</div>`;
+}
+function toast(msg, bad) {
+  const el = document.createElement('div');
+  el.className = 'toast' + (bad ? ' bad' : '');
+  el.setAttribute('role', 'status');
+  el.textContent = msg;
+  $('#toasts').appendChild(el);
+  setTimeout(() => el.remove(), 4200);
+}
+
+/* ---------------- camelCase (app) <-> snake_case (Postgres) ----------------
+   Every JS field name below was chosen to convert mechanically to its
+   Postgres column name (userId -> user_id, defaultAmount -> default_amount,
+   ...), so one generic pair of functions replaces a hand-written map per
+   table. See supabase-schema.sql for the column names this assumes. */
+const toSnake = (s) => s.replace(/[A-Z]/g, c => '_' + c.toLowerCase());
+const toCamel = (s) => s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+function rowToObj(row) {
+  if (!row) return null;
+  const o = {};
+  for (const k in row) o[toCamel(k)] = row[k];
+  return o;
+}
+function objToRow(obj) {
+  const o = {};
+  for (const k in obj) if (obj[k] !== undefined) o[toSnake(k)] = obj[k];
+  return o;
+}
+
+/* ---------------- repository layer ------------------------------------
+   state[cacheKey] mirrors the current user's readable rows (Postgres RLS
+   decides what that includes) so every view function can keep reading
+   db.x.all()/find()/where() synchronously, exactly as before. Only the
+   mutating calls — insert/update/remove — talk to the network, so every
+   call site that writes data has to be awaited; the render-only call
+   sites needed no changes at all when this replaced localStorage. */
+let state = null;
+const CACHE_KEYS = ['users', 'contributionTypes', 'contributions', 'suggestions', 'suggestionVotes',
+  'announcements', 'meetings', 'meetingMinutes', 'notifications', 'activityLogs'];
+const TABLE_NAMES = {
+  users: 'profiles', contributionTypes: 'contribution_types', contributions: 'contributions',
+  suggestions: 'suggestions', suggestionVotes: 'suggestion_votes', announcements: 'announcements',
+  meetings: 'meetings', meetingMinutes: 'meeting_minutes', notifications: 'notifications',
+  activityLogs: 'activity_logs'
+};
+function resetCache() {
+  state = { settings: defaultSettings(), groupSummary: null, monthlyCollections: [] };
+  CACHE_KEYS.forEach(k => { state[k] = []; });
+}
+function defaultSettings() {
+  return {
+    orgName: SCHOOL + ' Association', tagline: MOTTO, currency: CUR, monthlyWelfare: 500,
+    allowRegistration: true, mpesaPaybill: '', mpesaAccountPrefix: 'SVB'
+  };
+}
+resetCache();
+
+function sbTable(cacheKey) {
+  const table = TABLE_NAMES[cacheKey];
+  return {
+    all: () => state[cacheKey].slice(),
+    find: (id) => state[cacheKey].find(r => r.id === id) || null,
+    where: (fn) => state[cacheKey].filter(fn),
+    async insert(obj) {
+      const { data, error } = await sb.from(table).insert(objToRow(obj)).select().single();
+      if (error) { toast('Could not save: ' + error.message, true); throw error; }
+      const r = rowToObj(data);
+      state[cacheKey].push(r);
+      return r;
+    },
+    async update(id, patch) {
+      const { data, error } = await sb.from(table).update(objToRow(patch)).eq('id', id).select().single();
+      if (error) { toast('Could not save: ' + error.message, true); throw error; }
+      const r = rowToObj(data);
+      const idx = state[cacheKey].findIndex(x => x.id === id);
+      if (idx >= 0) state[cacheKey][idx] = r; else state[cacheKey].push(r);
+      return r;
+    },
+    async remove(id) {
+      const { error } = await sb.from(table).delete().eq('id', id);
+      if (error) { toast('Could not delete: ' + error.message, true); throw error; }
+      state[cacheKey] = state[cacheKey].filter(x => x.id !== id);
+    }
+  };
+}
+const db = {};
+CACHE_KEYS.forEach(k => { db[k] = sbTable(k); });
+
+/* ---------------- domain helpers ---------------- */
+const ROLES = {
+  member: { label: 'Member', rank: 1 },
+  treasurer: { label: 'Treasurer', rank: 2 },
+  admin: { label: 'Administrator', rank: 3 }
+};
+const STATUSES = ['Paid', 'Partially Paid', 'Pending', 'Cancelled'];
+const SUGGESTION_STATUSES = ['Submitted', 'Under Review', 'Accepted', 'Rejected', 'Implemented'];
+
+const statusTag = (s) => {
+  const m = { 'Paid': 'ok', 'Pending': 'warn', 'Partially Paid': 'info', 'Cancelled': 'bad' };
+  return `<span class="tag ${m[s] || ''} dot">${esc(s)}</span>`;
+};
+const suggestionTag = (s) => {
+  const m = { 'Submitted': '', 'Under Review': 'warn', 'Accepted': 'ok', 'Rejected': 'bad', 'Implemented': 'info' };
+  return `<span class="tag ${m[s] || ''}">${esc(s)}</span>`;
+};
+const outstandingOf = (c) => c.status === 'Cancelled' ? 0 : Math.max(0, (c.amount || 0) - (c.paid || 0));
+const deriveStatus = (amount, paid) => paid <= 0 ? 'Pending' : (paid >= amount ? 'Paid' : 'Partially Paid');
+
+function memberTotals(userId) {
+  const rows = db.contributions.where(c => c.userId === userId && c.status !== 'Cancelled');
+  return {
+    paid: rows.reduce((s, c) => s + (c.paid || 0), 0),
+    due: rows.reduce((s, c) => s + (c.amount || 0), 0),
+    outstanding: rows.reduce((s, c) => s + outstandingOf(c), 0),
+    count: rows.length
+  };
+}
+// A plain member's `contributions` cache only ever contains their own rows
+// — Postgres RLS enforces that server-side (see supabase-schema.sql) so
+// there is no separate client-side check needed. Staff (treasurer/admin)
+// can read every row, so groupTotals() computes exact figures from the
+// full cache for them; everyone else falls back to the pre-fetched
+// security-definer summary, which is exact but has no per-row detail.
+function groupTotals() {
+  if (canManageMoney()) {
+    const rows = db.contributions.where(c => c.status !== 'Cancelled');
+    const members = db.users.where(u => u.status === 'active');
+    const paidIds = new Set(rows.filter(c => c.status === 'Paid').map(c => c.userId));
+    const owingIds = new Set(rows.filter(c => outstandingOf(c) > 0).map(c => c.userId));
+    return {
+      collected: rows.reduce((s, c) => s + (c.paid || 0), 0),
+      expected: rows.reduce((s, c) => s + (c.amount || 0), 0),
+      outstanding: rows.reduce((s, c) => s + outstandingOf(c), 0),
+      members: members.length,
+      fullyPaid: [...paidIds].filter(id => !owingIds.has(id)).length,
+      owing: owingIds.size
+    };
+  }
+  return state.groupSummary || { collected: 0, expected: 0, outstanding: 0, members: db.users.all().length, fullyPaid: 0, owing: 0 };
+}
+const voteCount = (sid) => {
+  const v = db.suggestionVotes.where(x => x.suggestionId === sid);
+  return { up: v.filter(x => x.value === 1).length, down: v.filter(x => x.value === -1).length };
+};
+const myVote = (sid) => {
+  const v = db.suggestionVotes.where(x => x.suggestionId === sid && x.userId === session.user.id)[0];
+  return v ? v.value : 0;
+};
+async function notify(userId, message, link) {
+  try { await db.notifications.insert({ userId, message, link: link || '#/dashboard', read: false }); }
+  catch (e) { /* best-effort: a failed notification should never block the action that caused it */ }
+}
+async function notifyAll(message, link, exceptId) {
+  const targets = db.users.where(u => u.status === 'active' && u.id !== exceptId);
+  await Promise.all(targets.map(u => notify(u.id, message, link)));
+}
+async function logActivity(action) {
+  try { await db.activityLogs.insert({ actorId: session.user ? session.user.id : null, action }); }
+  catch (e) { /* activity log is a courtesy trail, never a blocker */ }
+}
+const unreadCount = () => session.user ? db.notifications.where(n => n.userId === session.user.id && !n.read).length : 0;
+
+/* ---------------- session + Supabase Auth ---------------- */
+const session = { user: null };
+const is = (...roles) => !!session.user && roles.includes(session.user.role);
+const atLeast = (role) => !!session.user && ROLES[session.user.role].rank >= ROLES[role].rank;
+const canManageMoney = () => is('treasurer', 'admin');
+
+function friendlyAuthError(error) {
+  const m = String(error && error.message || error);
+  if (/invalid login credentials/i.test(m)) return 'That email and password combination is not correct.';
+  if (/email not confirmed/i.test(m)) return 'Please confirm your email address first — check your inbox for the link we sent.';
+  if (/user already registered/i.test(m)) return 'That email address is already registered.';
+  if (/password.*at least/i.test(m)) return 'Use a password of at least 8 characters.';
+  return m;
+}
+// The trigger in supabase-schema.sql creates the profile row in the same
+// transaction as the auth.users insert, but the client still makes a
+// separate round trip to read it back, so a short retry absorbs any
+// ordinary replication lag rather than surfacing a spurious error.
+async function fetchProfile(id, tries = 6) {
+  for (let i = 0; i < tries; i++) {
+    const { data, error } = await sb.from('profiles').select('*').eq('id', id).maybeSingle();
+    if (data) return rowToObj(data);
+    if (error) break;
+    await new Promise(r => setTimeout(r, 350));
+  }
+  return null;
+}
+async function login(email, password) {
+  const { data, error } = await sb.auth.signInWithPassword({ email: String(email).trim().toLowerCase(), password });
+  if (error) return { error: friendlyAuthError(error) };
+  const profile = await fetchProfile(data.user.id);
+  if (!profile) return { error: 'Signed in, but no profile was found for this account. Contact an administrator.' };
+  if (profile.status !== 'active') { await sb.auth.signOut(); return { error: 'This account has been deactivated. Contact an administrator.' }; }
+  session.user = profile;
+  logActivity('Signed in');
+  return { user: profile };
+}
+async function register(data) {
+  const email = String(data.email).trim().toLowerCase();
+  const { data: authData, error } = await sb.auth.signUp({
+    email, password: data.password,
+    options: { data: { first_name: data.firstName, last_name: data.lastName, phone: data.phone } }
+  });
+  if (error) return { error: friendlyAuthError(error) };
+  if (!authData.session) return { needsConfirmation: true };
+  const profile = await fetchProfile(authData.user.id);
+  if (!profile) return { error: 'Account created, but the profile could not be loaded. Try signing in.' };
+  session.user = profile;
+  const isFirstAccount = profile.role === 'admin';
+  if (isFirstAccount) logActivity('Created the first account and became administrator');
+  else {
+    notify(profile.id, 'Welcome to ClassConnect. Complete your profile so other members can find you.', '#/profile');
+  }
+  return { user: profile, isFirstAccount };
+}
+async function requestPasswordReset(email) {
+  const redirectTo = location.origin + location.pathname;
+  const { error } = await sb.auth.resetPasswordForEmail(String(email).trim().toLowerCase(), { redirectTo });
+  if (error) return { error: friendlyAuthError(error) };
+  return { ok: true };
+}
+async function completePasswordReset(password) {
+  const { error } = await sb.auth.updateUser({ password });
+  if (error) return { error: friendlyAuthError(error) };
+  return { ok: true };
+}
+async function logout() {
+  await logActivity('Signed out');
+  await sb.auth.signOut();
+  session.user = null;
+  resetCache();
+}
+
+/* ---------------- loading everything the signed-in user can see ---------------- */
+async function loadAllData() {
+  const fetches = CACHE_KEYS.map(async (key) => {
+    const { data, error } = await sb.from(TABLE_NAMES[key]).select('*');
+    state[key] = error ? [] : data.map(rowToObj);
+    if (error) console.warn('Could not load', TABLE_NAMES[key], error.message);
+  });
+  const settingsFetch = sb.from('settings').select('*').eq('id', 1).maybeSingle()
+    .then(({ data }) => { if (data) state.settings = Object.assign(defaultSettings(), rowToObj(data)); });
+  const summaryFetch = sb.rpc('contribution_summary').then(({ data }) => {
+    if (data && data[0]) state.groupSummary = rowToObj(data[0]);
+  }).catch(() => { });
+  const monthlyFetch = sb.rpc('monthly_collections', { months: 6 }).then(({ data }) => {
+    state.monthlyCollections = (data || []).map(rowToObj);
+  }).catch(() => { });
+  await Promise.all([...fetches, settingsFetch, summaryFetch, monthlyFetch]);
+}
+
+/* ---------------- payment gateway seam ------------------------------------
+   Contributions are recorded by hand in this version. An M-Pesa Daraja
+   (STK push) driver can be registered here without touching the UI: it only
+   has to return { reference, paid } and the rest of the flow is unchanged. */
+const PaymentGateway = {
+  driver: 'manual',
+  available: () => ['manual'],
+  async charge() { throw new Error('No online payment driver is configured yet.'); }
+};
+
+/* ---------------- validation ---------------- */
+const RULES = {
+  required: (v) => String(v || '').trim() ? '' : 'This field is required.',
+  email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim()) ? '' : 'Enter a valid email address.',
+  phone: (v) => /^[0-9+\s-]{7,15}$/.test(String(v).trim()) ? '' : 'Enter a valid phone number.',
+  password: (v) => String(v).length >= 8 ? '' : 'Use at least 8 characters.',
+  money: (v) => (!isNaN(v) && Number(v) >= 0) ? '' : 'Enter a valid amount.',
+  positive: (v) => (!isNaN(v) && Number(v) > 0) ? '' : 'Enter an amount greater than zero.'
+};
+function validate(form, spec) {
+  let ok = true;
+  Object.entries(spec).forEach(([name, checks]) => {
+    const input = form.elements[name];
+    if (!input) return;
+    const field = input.closest('.field');
+    const errEl = field ? field.querySelector('.err') : null;
+    let msg = '';
+    for (const c of checks) { msg = RULES[c](input.value); if (msg) break; }
+    if (field) field.classList.toggle('invalid', !!msg);
+    if (errEl) errEl.textContent = msg;
+    if (msg && ok) { input.focus(); ok = false; }
+  });
+  return ok;
+}
+const fieldHTML = (name, label, opts = {}) => {
+  const { type = 'text', value = '', hint = '', placeholder = '', options, rows, required } = opts;
+  let control;
+  if (type === 'select') {
+    control = `<select id="f_${name}" name="${name}">${options.map(o => {
+      const v = typeof o === 'string' ? o : o.value, l = typeof o === 'string' ? o : o.label;
+      return `<option value="${esc(v)}"${String(v) === String(value) ? ' selected' : ''}>${esc(l)}</option>`;
+    }).join('')}</select>`;
+  } else if (type === 'textarea') {
+    control = `<textarea id="f_${name}" name="${name}" rows="${rows || 4}" placeholder="${esc(placeholder)}">${esc(value)}</textarea>`;
+  } else {
+    control = `<input id="f_${name}" name="${name}" type="${type}" value="${esc(value)}" placeholder="${esc(placeholder)}"${required ? ' required' : ''}>`;
+  }
+  return `<div class="field">
+    <label for="f_${name}">${esc(label)}</label>${control}
+    ${hint ? `<div class="hint">${esc(hint)}</div>` : ''}<div class="err"></div>
+  </div>`;
+};
+
+/* ---------------- modal ---------------- */
+let closeModal = () => { };
+function openModal({ title, body, submitLabel = 'Save', onSubmit, wide, danger }) {
+  const root = $('#modal-root');
+  root.innerHTML = `<div class="modal-bg" role="dialog" aria-modal="true" aria-label="${esc(title)}">
+    <div class="modal${wide ? ' wide' : ''}">
+      <div class="modal-head"><h2>${esc(title)}</h2>
+        <button class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <form id="modal-form" novalidate><div class="modal-body">${body}</div>
+      <div class="modal-foot">
+        <button type="button" class="btn ghost" data-close>Cancel</button>
+        <button type="submit" class="btn${danger ? ' danger' : ''}">${esc(submitLabel)}</button>
+      </div></form>
+    </div></div>`;
+  const form = $('#modal-form', root);
+  closeModal = () => { root.innerHTML = ''; document.removeEventListener('keydown', onKey); };
+  const onKey = (e) => { if (e.key === 'Escape') closeModal(); };
+  document.addEventListener('keydown', onKey);
+  $$('[data-close]', root).forEach(b => b.onclick = () => closeModal());
+  $('.modal-bg', root).onclick = (e) => { if (e.target.classList.contains('modal-bg')) closeModal(); };
+  form.onsubmit = (e) => { e.preventDefault(); onSubmit(form, Object.fromEntries(new FormData(form))); };
+  const first = form.querySelector('input,select,textarea');
+  if (first) setTimeout(() => first.focus(), 30);
+}
+function confirmAction(message, onYes, label = 'Delete') {
+  openModal({
+    title: label === 'Delete' ? 'Confirm deletion' : 'Please confirm',
+    body: `<p style="margin:0">${esc(message)}</p>`,
+    submitLabel: label, danger: label === 'Delete',
+    onSubmit: () => { closeModal(); onYes(); }
+  });
+}
+
+/* ---------------- charts (inline SVG, no libraries) ---------------- */
+const CHART_GREENS = ['var(--green)', 'var(--light-green)', 'var(--green-2)', 'var(--light-green-2)'];
+function barChart(data, { height = 190, format = money } = {}) {
+  if (!data.length) return '<div class="empty small">No data yet.</div>';
+  const max = Math.max(...data.map(d => d.value), 1);
+  const w = 100 / data.length;
+  return `<svg class="chart" viewBox="0 0 320 ${height}" role="img" aria-label="Bar chart">
+    ${[0, .25, .5, .75, 1].map(t => `<line x1="0" x2="320" y1="${8 + (height - 42) * t}" y2="${8 + (height - 42) * t}" stroke="var(--border)" stroke-width="1"/>`).join('')}
+    ${data.map((d, i) => {
+    const h = Math.max(2, (d.value / max) * (height - 42));
+    const x = (i * w + w * 0.18) * 3.2, bw = w * 0.64 * 3.2;
+    return `<g><rect x="${x}" y="${height - 34 - h}" width="${bw}" height="${h}" rx="3" fill="${d.color || 'var(--green)'}"><title>${esc(d.label)}: ${esc(format(d.value))}</title></rect>
+      <text x="${x + bw / 2}" y="${height - 20}" text-anchor="middle" style="font-size:10px">${esc(d.label)}</text></g>`;
+  }).join('')}
+  </svg>`;
+}
+function donut(parts, centerTop, centerSub) {
+  const total = parts.reduce((s, p) => s + p.value, 0) || 1;
+  let acc = 0;
+  const R = 54, C = 2 * Math.PI * R;
+  return `<div class="row" style="gap:1.2rem; flex-wrap:wrap">
+    <svg viewBox="0 0 140 140" style="width:140px;height:140px;flex:none" role="img" aria-label="Distribution">
+      <circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--sunken)" stroke-width="18"/>
+      ${parts.map(p => {
+    const len = (p.value / total) * C, dash = `${len} ${C - len}`, off = -acc;
+    acc += len;
+    return `<circle cx="70" cy="70" r="${R}" fill="none" stroke="${p.color}" stroke-width="18"
+      stroke-dasharray="${dash}" stroke-dashoffset="${off}" transform="rotate(-90 70 70)"><title>${esc(p.label)}: ${esc(money(p.value))}</title></circle>`;
+  }).join('')}
+      <text x="70" y="66" text-anchor="middle" style="font-family:var(--display);font-size:15px;fill:var(--ink);font-weight:600">${esc(centerTop)}</text>
+      <text x="70" y="84" text-anchor="middle" style="font-size:10px">${esc(centerSub)}</text>
+    </svg>
+    <div class="legend" style="flex-direction:column;gap:.45rem;margin:0">
+      ${parts.map(p => `<span><i style="background:${p.color}"></i>${esc(p.label)} — <b class="mono-num">${esc(money(p.value))}</b></span>`).join('')}
+    </div></div>`;
+}
+// Staff (full row access) compute the trend live from the cache, same as
+// before. Everyone else uses the pre-fetched security-definer summary
+// (state.monthlyCollections), which reports the same group-wide totals
+// without exposing anyone's individual contribution rows.
+function monthlySeries(months = 6) {
+  if (canManageMoney()) {
+    const out = [];
+    const now = new Date();
+    for (let i = months - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = d.toISOString().slice(0, 7);
+      const value = db.contributions.where(c => c.status !== 'Cancelled' && String(c.date).slice(0, 7) === key)
+        .reduce((s, c) => s + (c.paid || 0), 0);
+      out.push({ label: d.toLocaleDateString('en-GB', { month: 'short' }), value });
+    }
+    return out;
+  }
+  return (state.monthlyCollections || []).map(m => ({
+    label: new Date(m.monthStart).toLocaleDateString('en-GB', { month: 'short' }),
+    value: Number(m.collected) || 0
+  }));
+}
+/* =========================================================================
+   Views, router and shell
+   ========================================================================= */
+
+const ICONS = {
+  home: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+  wallet: '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16.5 14.5h.01"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5.9 1.2.9 1.9V16h5.2v-.2c0-.7.3-1.4.9-1.9A6 6 0 0 0 12 3z"/>',
+  megaphone: '<path d="M4 10v4a1 1 0 0 0 1 1h3l8 4V5L8 9H5a1 1 0 0 0-1 1z"/><path d="M19 9a3.5 3.5 0 0 1 0 6"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  users: '<circle cx="9" cy="9" r="3.2"/><path d="M3.5 19a5.8 5.8 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.8M17.5 19a5.6 5.6 0 0 0-1.6-3.6"/>',
+  bell: '<path d="M18 9a6 6 0 0 0-12 0c0 5-2 6-2 6h16s-2-1-2-6z"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/>',
+  user: '<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>',
+  shield: '<path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/>',
+  cog: '<circle cx="12" cy="12" r="3"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 7.2l1.9 1.1M17.9 15.7l1.9 1.1M4.2 16.8l1.9-1.1M17.9 8.3l1.9-1.1"/>',
+  book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v18H5.5A1.5 1.5 0 0 1 4 19.5z"/><path d="M8 3v18"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  logout: '<path d="M15 5V3.8A1.8 1.8 0 0 0 13.2 2H5.8A1.8 1.8 0 0 0 4 3.8v16.4A1.8 1.8 0 0 0 5.8 22h7.4a1.8 1.8 0 0 0 1.8-1.8V19"/><path d="M19 12H9M16 8.5l3.5 3.5L16 15.5"/>'
+};
+const icon = (n, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
+
+/* ---------------- routing ---------------- */
+const PUBLIC_ROUTES = ['', 'login', 'register', 'forgot'];
+let route = { path: '', parts: [], query: {} };
+
+function parseHash() {
+  let raw = (location.hash || '#/').replace(/^#\/?/, '');
+  // Supabase's auth redirect appends its own tokens as a URL fragment
+  // (#access_token=...&type=recovery...); boot() swaps that for #/reset
+  // once it has consumed them, but guard here too so a route is never
+  // parsed out of raw token data in between.
+  if (/access_token=|type=recovery|error=/.test(raw)) raw = 'reset';
+  const [pathStr, qs] = raw.split('?');
+  const parts = pathStr.split('/').filter(Boolean);
+  const query = {};
+  new URLSearchParams(qs || '').forEach((v, k) => query[k] = v);
+  return { path: parts[0] || '', parts, query };
+}
+const go = (hash) => { location.hash = hash; };
+
+/* ---------------- shell ---------------- */
+function navConfig() {
+  const groups = [{
+    label: 'Association', items: [
+      ['#/dashboard', 'home', 'Dashboard'],
+      ['#/announcements', 'megaphone', 'Announcements'],
+      ['#/meetings', 'calendar', 'Meetings & events'],
+      ['#/suggestions', 'bulb', 'Suggestions'],
+      ['#/members', 'users', 'Members'],
+    ]
+  }, {
+    label: 'Money', items: [['#/contributions', 'wallet', 'Contributions']]
+  }, {
+    label: 'You', items: [
+      ['#/notifications', 'bell', 'Notifications', unreadCount()],
+      ['#/profile', 'user', 'My profile'],
+      ['#/settings', 'cog', 'Settings'],
+      ['#/docs', 'book', 'Setup guide'],
+    ]
+  }];
+  if (is('treasurer')) groups[1].items.push(['#/admin/contributions', 'shield', 'Record payments']);
+  if (is('admin')) {
+    groups.splice(2, 0, {
+      label: 'Administration', items: [
+        ['#/admin', 'shield', 'Admin dashboard'],
+        ['#/admin/members', 'users', 'Manage members'],
+        ['#/admin/contributions', 'wallet', 'Manage contributions'],
+        ['#/admin/suggestions', 'bulb', 'Manage suggestions'],
+        ['#/admin/announcements', 'megaphone', 'Manage announcements'],
+        ['#/admin/meetings', 'calendar', 'Manage meetings'],
+      ]
+    });
+  }
+  return groups;
+}
+function shell(content) {
+  const u = session.user;
+  const here = '#/' + route.parts.join('/');
+  const nav = navConfig().map(g => `<div class="nav-group"><span>${esc(g.label)}</span>
+    ${g.items.map(([href, ic, label, count]) => `<a class="nav-link${here === href || (href !== '#/dashboard' && here.startsWith(href + '/')) ? ' active' : ''}" href="${href}">${icon(ic)}<span>${esc(label)}</span>${count ? `<span class="count">${count}</span>` : ''}</a>`).join('')}
+  </div>`).join('');
+
+  return `<div class="scrim" data-act="close-nav"></div>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="side-head">
+        <a class="brand" href="#/dashboard">
+          <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+          <span style="min-width:0"><b>St. Veronica Bumadeya</b><span class="sub">Primary School · Knowledge For Life</span></span>
+        </a>
+        <button class="icon-btn hide-desktop" data-act="close-nav" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <nav>${nav}</nav>
+      <div class="side-foot">
+        <div class="row">${avatar(u, 'sm')}<div style="min-width:0">
+          <div style="font-weight:600;font-size:.86rem;overflow:hidden;text-overflow:ellipsis">${esc(fullName(u))}</div>
+          <div class="faint">${esc(ROLES[u.role].label)}</div>
+        </div></div>
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn hide-desktop" data-act="open-nav" aria-label="Open menu">${icon('menu')}</button>
+        <form class="search" data-act="search-form" role="search">
+          ${icon('search')}
+          <input type="search" name="q" placeholder="Search members, suggestions, meetings…" value="${esc(route.query.q || '')}" aria-label="Search">
+        </form>
+        <div style="margin-left:auto"></div>
+        <a class="icon-btn" href="#/notifications" aria-label="Notifications">${icon('bell')}${unreadCount() ? `<span class="badge">${unreadCount()}</span>` : ''}</a>
+        <div class="menu">
+          <button class="icon-btn" data-act="user-menu" aria-label="Account menu" style="width:auto;padding:0 .2rem">${avatar(u, 'sm')}</button>
+          <div class="menu-pop" id="user-menu">
+            <div style="padding:.5rem .6rem;border-bottom:1px solid var(--border);margin-bottom:.3rem">
+              <div style="font-weight:600">${esc(fullName(u))}</div><div class="faint">${esc(u.email)}</div>
+            </div>
+            <a href="#/profile">${icon('user')} My profile</a>
+            <a href="#/settings">${icon('cog')} Settings</a>
+            <button data-act="logout">${icon('logout')} Sign out</button>
+          </div>
+        </div>
+      </header>
+      <main class="content" id="page">${content}</main>
+    </div>
+  </div>`;
+}
+const page = (title, sub, body, actions = '') => `
+  <div class="page-head spread">
+    <div><h1>${esc(title)}</h1>${sub ? `<p>${esc(sub)}</p>` : ''}</div>
+    ${actions ? `<div class="row wrap">${actions}</div>` : ''}
+  </div>${body}`;
+const empty = (h, p, action = '') => `<div class="card empty"><h3>${esc(h)}</h3><p class="muted">${esc(p)}</p>${action}</div>`;
+
+/* =========================================================================
+   Public views
+   ========================================================================= */
+function viewLanding() {
+  const members = db.users.where(u => u.status === 'active');
+  const t = groupTotals();
+  const cells = members.slice(0, 15).map(u => `<div class="rc-cell" style="background:${avatarColor(u.id)}" title="${esc(fullName(u))}">${esc(initials(u))}</div>`).join('')
+    + `<div class="rc-cell empty" title="Seats still open">+</div>`;
+  return `<div class="public">
+    <nav class="pubnav">
+      <a class="brand" href="#/">
+        <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+        <span><b>St. Veronica Bumadeya Primary School</b><span class="sub">Knowledge For Life</span></span>
+      </a>
+      <div class="row"><a class="btn ghost sm" href="#/login">Sign in</a><a class="btn sm" href="#/register">Join the association</a></div>
+    </nav>
+    <section class="hero"><div class="hero-grid">
+      <div>
+        <div class="crest-hero">
+          <img src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+          <div><h2 style="font-size:1.05rem;line-height:1.25">St. Veronica Bumadeya<br>Primary School Association</h2>
+          <div class="motto">Knowledge For Life</div></div>
+        </div>
+        <h1>The school register never really closed.</h1>
+        <p class="lede">ClassConnect keeps the St. Veronica Bumadeya school association together long after the last assembly: one place for announcements, meetings, suggestions and the money every member contributes — with a record anyone can check.</p>
+        <div class="row wrap" style="margin-top:1.5rem">
+          <a class="btn" href="#/register">${members.length ? 'Create your account' : 'Register — first account becomes admin'}</a>
+          <a class="btn ghost" href="#/login">Sign in</a>
+        </div>
+        <p class="faint" style="margin-top:1rem">${members.length ? 'Members, contributions and meetings are all recorded here.' : 'No one has registered yet. The first person to sign up sets up the association as its administrator.'}</p>
+      </div>
+      <div class="rollcall">
+        <div class="rc-head"><span>Association roll call</span><span class="motto">Knowledge For Life</span></div>
+        ${members.length ? `<div class="rc-grid">${cells}</div>
+        <div class="rc-foot">
+          <div><b class="mono-num">${members.length}</b><span class="faint">members</span></div>
+          <div><b class="mono-num">${money(t.collected)}</b><span class="faint">collected</span></div>
+          <div><b class="mono-num">${db.meetings.all().length}</b><span class="faint">meetings held</span></div>
+        </div>`
+        : `<div style="padding:1.6rem 0;text-align:center">
+          <div class="rc-cell empty" style="width:56px;height:56px;font-size:1.4rem;margin:0 auto 1rem">+</div>
+          <p class="muted small" style="margin:0">This roll call is empty. Register to fill the first seat.</p>
+        </div>`}
+      </div>
+    </div></section>
+    <section class="features">
+      <div class="feature"><h3>Contributions with receipts</h3><p>The treasurer records every payment against a member, a type and a reference. Members see their own balance and the group total.</p></div>
+      <div class="feature"><h3>Suggestions the members vote on</h3><p>Anyone can propose something. Everyone else backs it or doesn't, and the committee moves it through review to implemented.</p></div>
+      <div class="feature"><h3>Meetings, agendas and minutes</h3><p>Upcoming meetings with agendas, past meetings with the minutes attached, so nobody has to ask what was agreed.</p></div>
+      <div class="feature"><h3>Roles that actually restrict</h3><p>Members, treasurer and administrator each see a different application. Permissions are checked on every screen and action.</p></div>
+    </section>
+    <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Knowledge For Life. Demo data only; no real payments are processed.</footer>
+  </div>`;
+}
+const authShell = (inner) => `<div class="public">
+  <nav class="pubnav"><a class="brand" href="#/">
+        <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+        <span><b>St. Veronica Bumadeya Primary School</b><span class="sub">Knowledge For Life</span></span>
+      </a>
+  <a class="btn ghost sm" href="#/">Back to home</a></nav>
+  <div class="auth-wrap">${inner}</div>
+  <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Passwords are hashed with a per-account salt before storage.</footer></div>`;
+
+function viewLogin() {
+  return authShell(`<div class="auth-card">
+    <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+    <h1 style="text-align:center">Sign in</h1>
+    <p class="sub" style="text-align:center">${esc(state.settings.orgName)} · <span class="motto">Knowledge For Life</span></p>
+    <form id="login-form" novalidate>
+      ${fieldHTML('email', 'Email address', { type: 'email', placeholder: 'you@example.com' })}
+      ${fieldHTML('password', 'Password', { type: 'password' })}
+      <div class="spread" style="margin:.2rem 0 1rem"><a class="small" href="#/forgot">Forgot your password?</a></div>
+      <button class="btn block" type="submit">Sign in</button>
+    </form>
+    <p class="small" style="margin-top:1rem">New here? <a href="#/register">Create an account</a>.</p>
+  </div>`);
+}
+function viewRegister() {
+  if (!state.settings.allowRegistration)
+    return authShell(`<div class="auth-card"><h1>Registration is closed</h1>
+      <p class="sub">An administrator has turned off self-registration. Ask the committee to add you, then sign in.</p>
+      <a class="btn block" href="#/login">Go to sign in</a></div>`);
+  const isFirst = db.users.all().length === 0;
+  return authShell(`<div class="auth-card">
+    <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+    <h1 style="text-align:center">${isFirst ? 'Set up the association' : 'Join the association'}</h1>
+    <p class="sub" style="text-align:center">${isFirst
+      ? 'No account exists yet. The first person to register becomes the administrator and can add everyone else afterwards.'
+      : 'Your account starts as a member. An administrator can change that later.'}</p>
+    <form id="register-form" novalidate>
+      <div class="field-row">${fieldHTML('firstName', 'First name')}${fieldHTML('lastName', 'Last name')}</div>
+      ${fieldHTML('email', 'Email address', { type: 'email', placeholder: 'you@example.com' })}
+      ${fieldHTML('phone', 'Phone number', { placeholder: '07xx xxx xxx' })}
+      ${fieldHTML('course', 'Year you left the school', { placeholder: 'e.g. 2019 cohort' })}
+      ${fieldHTML('password', 'Password', { type: 'password', hint: 'At least 8 characters.' })}
+      ${fieldHTML('confirm', 'Repeat password', { type: 'password' })}
+      <label class="checkrow" style="margin-bottom:1rem"><input type="checkbox" name="terms"> <span>I agree that my name, photo and role are visible to other members.</span></label>
+      <button class="btn block" type="submit">Create account</button>
+    </form>
+    <p class="small" style="margin-top:1rem">Already registered? <a href="#/login">Sign in</a>.</p>
+  </div>`);
+}
+function viewForgot() {
+  return authShell(`<div class="auth-card">
+    <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+    <h1 style="text-align:center">Reset your password</h1>
+    <p class="sub" style="text-align:center">Enter the email on your account. We'll send a link that lets you set a new password.</p>
+    <form id="forgot-form" novalidate>
+      ${fieldHTML('email', 'Email address', { type: 'email', placeholder: 'you@example.com' })}
+      <button class="btn block" type="submit">Send reset link</button>
+    </form>
+    <p class="small" style="margin-top:1rem"><a href="#/login">Back to sign in</a></p>
+  </div>`);
+}
+function viewResetPassword() {
+  if (!recoveryActive) {
+    return authShell(`<div class="auth-card">
+      <h1 style="text-align:center">Link expired</h1>
+      <p class="sub" style="text-align:center">This password reset link has already been used or has expired.</p>
+      <a class="btn block" href="#/forgot">Request a new link</a>
+    </div>`);
+  }
+  return authShell(`<div class="auth-card">
+    <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+    <h1 style="text-align:center">Choose a new password</h1>
+    <p class="sub" style="text-align:center">You're verified — set a new password to finish.</p>
+    <form id="reset-form" novalidate>
+      ${fieldHTML('password', 'New password', { type: 'password', hint: 'At least 8 characters.' })}
+      ${fieldHTML('confirm', 'Repeat new password', { type: 'password' })}
+      <button class="btn block" type="submit">Set new password</button>
+    </form>
+  </div>`);
+}
+
+/* =========================================================================
+   Member views
+   ========================================================================= */
+function viewDashboard() {
+  const u = session.user, t = memberTotals(u.id);
+  const anns = db.announcements.where(a => a.published).sort((a, b) => b.date.localeCompare(a.date));
+  const next = db.meetings.where(m => m.date >= todayISO()).sort((a, b) => a.date.localeCompare(b.date))[0];
+  const sugs = db.suggestions.all().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 4);
+  const notes = db.notifications.where(n => n.userId === u.id).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 4);
+  const g = groupTotals();
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+
+  return page(`${greet}, ${u.firstName} 👋`, `Here is where the association stands today, ${fmtLong(todayISO())}.`, `
+  <div class="stats" style="margin-bottom:1rem">
+    <div class="stat accent"><div class="k">You have paid</div><div class="v">${money(t.paid)}</div><div class="s">${t.count} contribution records</div></div>
+    <div class="stat warnline"><div class="k">You still owe</div><div class="v">${money(t.outstanding)}</div><div class="s">${t.outstanding ? 'Pay the treasurer to clear this' : 'Nothing outstanding — thank you'}</div></div>
+    <div class="stat"><div class="k">Association kitty</div><div class="v">${money(g.collected)}</div><div class="s">${money(g.outstanding)} still expected</div></div>
+    <div class="stat ochreline"><div class="k">Members</div><div class="v">${g.members}</div><div class="s">${g.fullyPaid} fully paid up</div></div>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(310px,1fr))">
+    <div class="card pad">
+      <div class="spread" style="margin-bottom:.5rem"><h2>Latest announcements</h2><a class="small" href="#/announcements">All</a></div>
+      ${anns.length ? anns.slice(0, 3).map(a => `<div class="item"><div class="body">
+        <h4><button class="linkish" data-act="goto" data-href="#/announcements/${a.id}">${esc(a.title)}</button></h4>
+        <p class="clamp2">${esc(a.content)}</p>
+        <div class="faint" style="margin-top:.3rem">${esc(fullName(db.users.find(a.authorId)))} · ${fmtDate(a.date)}</div>
+      </div></div>`).join('') : '<p class="muted">Nothing posted yet.</p>'}
+    </div>
+    <div class="card pad">
+      <div class="spread" style="margin-bottom:.5rem"><h2>Next meeting</h2><a class="small" href="#/meetings">All</a></div>
+      ${next ? `<h3 style="margin-bottom:.4rem">${esc(next.title)}</h3>
+        <table style="min-width:0"><tbody>
+          <tr><td class="muted" style="padding-left:0">Date</td><td><b>${fmtLong(next.date)}</b></td></tr>
+          <tr><td class="muted" style="padding-left:0">Time</td><td><b>${fmtTime(next.time)}</b></td></tr>
+          <tr><td class="muted" style="padding-left:0;border-bottom:0">Venue</td><td style="border-bottom:0">${esc(next.location)}</td></tr>
+        </tbody></table>
+        <div style="margin-top:.9rem"><a class="btn ghost sm" href="#/meetings/${next.id}">Agenda and details</a></div>`
+      : '<p class="muted">No meeting is scheduled.</p>'}
+    </div>
+    <div class="card pad">
+      <div class="spread" style="margin-bottom:.5rem"><h2>Recent suggestions</h2><a class="small" href="#/suggestions">All</a></div>
+      ${sugs.map(s => { const v = voteCount(s.id); return `<div class="item"><div class="body">
+        <h4><button class="linkish" data-act="goto" data-href="#/suggestions/${s.id}">${esc(s.title)}</button></h4>
+        <div class="row" style="margin-top:.3rem;gap:.5rem">${suggestionTag(s.status)}<span class="faint">👍 ${v.up} · 👎 ${v.down}</span></div>
+      </div></div>`; }).join('')}
+      <div style="margin-top:.9rem"><button class="btn sm" data-act="new-suggestion">Submit a suggestion</button></div>
+    </div>
+    <div class="card pad">
+      <div class="spread" style="margin-bottom:.5rem"><h2>Notifications</h2><a class="small" href="#/notifications">All</a></div>
+      ${notes.length ? notes.map(n => `<div class="item"><div class="body">
+        <p style="color:var(--ink)">${esc(n.message)}</p><div class="faint">${ago(n.createdAt)}${n.read ? '' : ' · unread'}</div>
+      </div></div>`).join('') : '<p class="muted">You are all caught up.</p>'}
+    </div>
+  </div>`);
+}
+
+function viewProfile() {
+  const u = session.user, t = memberTotals(u.id);
+  return page('My profile', 'Everything here except your email and phone is visible to other members.', `
+  <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
+    <div class="card pad">
+      <form id="profile-form" novalidate>
+        <div class="row" style="margin-bottom:1.2rem">${avatar(u, 'lg')}
+          <div><h2>${esc(fullName(u))}</h2><div class="muted">${esc(ROLES[u.role].label)} · joined ${fmtDate(u.joinedAt)}</div></div>
+        </div>
+        <div class="field-row">${fieldHTML('firstName', 'First name', { value: u.firstName })}${fieldHTML('lastName', 'Last name', { value: u.lastName })}</div>
+        <div class="field-row">${fieldHTML('email', 'Email address', { type: 'email', value: u.email })}${fieldHTML('phone', 'Phone number', { value: u.phone })}</div>
+        <div class="field-row">${fieldHTML('occupation', 'What you do now', { value: u.occupation || '' })}${fieldHTML('town', 'Town or city', { value: u.town || '' })}</div>
+        ${fieldHTML('bio', 'Short bio', { type: 'textarea', value: u.bio || '', rows: 3, placeholder: 'A couple of lines other members would like to read.' })}
+        <button class="btn" type="submit">Save changes</button>
+      </form>
+    </div>
+    <div class="stack">
+      <div class="card pad">
+        <h2 style="margin-bottom:.7rem">Your contributions</h2>
+        <div class="spread"><span class="muted">Paid</span><b class="mono-num">${money(t.paid)}</b></div>
+        <div class="spread" style="margin-top:.4rem"><span class="muted">Outstanding</span><b class="mono-num" style="color:var(--green)">${money(t.outstanding)}</b></div>
+        <hr class="divider">
+        <a class="btn ghost sm" href="#/contributions">See my records</a>
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.5rem">Password</h2>
+        <p class="muted small">Changing your password signs out nobody else — sessions are per device.</p>
+        <button class="btn ghost sm" data-act="change-password">Change password</button>
+      </div>
+    </div>
+  </div>`);
+}
+
+function viewMembers() {
+  const q = (route.query.q || '').toLowerCase();
+  let list = db.users.where(u => u.status === 'active' || is('admin'));
+  if (q) list = list.filter(u => (fullName(u) + ' ' + (u.occupation || '') + ' ' + (u.town || '')).toLowerCase().includes(q));
+  list.sort((a, b) => a.firstName.localeCompare(b.firstName));
+  return page('Members', `${list.length} member${list.length === 1 ? '' : 's'} in the directory. Contact details stay private to the committee.`, `
+    <div class="card pad" style="margin-bottom:1rem">
+      <form data-act="member-search" class="filters">
+        <div class="field" style="flex:1 1 240px"><label for="mq">Search the directory</label>
+          <input id="mq" name="q" value="${esc(route.query.q || '')}" placeholder="Name, job or town"></div>
+        <button class="btn">Search</button>
+        ${q ? '<button type="button" class="btn ghost" data-act="goto" data-href="#/members">Clear</button>' : ''}
+      </form>
+    </div>
+    ${list.length ? `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">
+      ${list.map(u => `<div class="card pad">
+        <div class="row">${avatar(u)}<div style="min-width:0">
+          <h3 style="overflow:hidden;text-overflow:ellipsis">${esc(fullName(u))}</h3>
+          <div class="faint">${esc(u.occupation || 'Classmate')}${u.town ? ' · ' + esc(u.town) : ''}</div>
+        </div></div>
+        <div class="row wrap" style="margin-top:.75rem">
+          <span class="tag ${u.role === 'admin' ? 'info' : u.role === 'treasurer' ? 'warn' : ''}">${esc(ROLES[u.role].label)}</span>
+          <span class="tag ${u.status === 'active' ? 'ok' : 'bad'} dot">${u.status === 'active' ? 'Active' : 'Inactive'}</span>
+        </div>
+        ${u.bio ? `<p class="small muted clamp2" style="margin-top:.6rem">${esc(u.bio)}</p>` : ''}
+      </div>`).join('')}</div>`
+      : empty('No member matches that', 'Try a first name, a town or a job title.')}`);
+}
+
+/* ---------------- contributions ---------------- */
+function contributionRow(c, { showMember }) {
+  const u = db.users.find(c.userId), ty = db.contributionTypes.find(c.typeId);
+  return `<tr>
+    ${showMember ? `<td><div class="row">${avatar(u, 'sm')}<span>${esc(fullName(u))}</span></div></td>` : ''}
+    <td>${esc(ty ? ty.name : 'Unknown')}</td>
+    <td>${fmtDate(c.date)}</td>
+    <td class="right mono-num">${money(c.amount)}</td>
+    <td class="right mono-num">${money(c.paid)}</td>
+    <td class="right mono-num" style="color:${outstandingOf(c) ? 'var(--green)' : 'var(--faint)'}; font-weight:${outstandingOf(c) ? 600 : 400}">${money(outstandingOf(c))}</td>
+    <td>${statusTag(c.status)}</td>
+    <td class="right"><button class="linkish" data-act="goto" data-href="#/contributions/${c.id}">Open</button></td>
+  </tr>`;
+}
+function viewContributions() {
+  const g = groupTotals();
+  const mine = memberTotals(session.user.id);
+  const canSeeAll = canManageMoney();
+  const f = route.query;
+  let rows = canSeeAll ? db.contributions.all() : db.contributions.where(c => c.userId === session.user.id);
+  if (f.member) rows = rows.filter(c => c.userId === f.member);
+  if (f.type) rows = rows.filter(c => c.typeId === f.type);
+  if (f.status) rows = rows.filter(c => c.status === f.status);
+  if (f.from) rows = rows.filter(c => c.date >= f.from);
+  if (f.to) rows = rows.filter(c => c.date <= f.to);
+  rows.sort((a, b) => b.date.localeCompare(a.date));
+
+  const byType = db.contributionTypes.all().map(t => ({
+    label: t.name.split(' ')[0], value: db.contributions.where(c => c.typeId === t.id && c.status !== 'Cancelled').reduce((s, c) => s + c.paid, 0)
+  }));
+  const filtersBar = `<div class="card pad" style="margin-bottom:1rem"><form class="filters" data-act="contrib-filter">
+    ${canSeeAll ? `<div class="field"><label for="ff_member">Member</label><select id="ff_member" name="member">
+      <option value="">Everyone</option>${db.users.all().map(u => `<option value="${u.id}"${f.member === u.id ? ' selected' : ''}>${esc(fullName(u))}</option>`).join('')}</select></div>` : ''}
+    <div class="field"><label for="ff_type">Type</label><select id="ff_type" name="type"><option value="">All types</option>
+      ${db.contributionTypes.all().map(t => `<option value="${t.id}"${f.type === t.id ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></div>
+    <div class="field"><label for="ff_status">Status</label><select id="ff_status" name="status"><option value="">Any status</option>
+      ${STATUSES.map(s => `<option${f.status === s ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
+    <div class="field"><label for="ff_from">From</label><input id="ff_from" type="date" name="from" value="${esc(f.from || '')}"></div>
+    <div class="field"><label for="ff_to">To</label><input id="ff_to" type="date" name="to" value="${esc(f.to || '')}"></div>
+    <button class="btn">Apply</button>
+    <button type="button" class="btn ghost" data-act="goto" data-href="#/contributions">Reset</button>
+  </form></div>`;
+
+  const actions = canSeeAll
+    ? `<button class="btn" data-act="record-payment">Record a payment</button><button class="btn ghost" data-act="export-report">Download report</button>`
+    : '';
+
+  return page('Contributions', canSeeAll
+    ? 'Every contribution recorded for the association, with filters for member, type, status and date.'
+    : 'Your own records, plus how the association is doing as a whole.', `
+    <div class="stats" style="margin-bottom:1rem">
+      ${canSeeAll ? `
+        <div class="stat accent"><div class="k">Collected</div><div class="v">${money(g.collected)}</div><div class="s">of ${money(g.expected)} expected</div></div>
+        <div class="stat warnline"><div class="k">Outstanding</div><div class="v">${money(g.outstanding)}</div><div class="s">${g.owing} members owe something</div></div>
+        <div class="stat"><div class="k">Fully paid up</div><div class="v">${g.fullyPaid} / ${g.members}</div><div class="s">members with a clean record</div></div>
+        <div class="stat ochreline"><div class="k">Records</div><div class="v">${db.contributions.all().length}</div><div class="s">${db.contributionTypes.all().length} contribution types</div></div>`
+      : `
+        <div class="stat accent"><div class="k">You have paid</div><div class="v">${money(mine.paid)}</div><div class="s">across ${mine.count} records</div></div>
+        <div class="stat warnline"><div class="k">You still owe</div><div class="v">${money(mine.outstanding)}</div><div class="s">of ${money(mine.due)} expected from you</div></div>
+        <div class="stat"><div class="k">Association kitty</div><div class="v">${money(g.collected)}</div><div class="s">collected from everyone</div></div>
+        <div class="stat ochreline"><div class="k">Association outstanding</div><div class="v">${money(g.outstanding)}</div><div class="s">still to come in</div></div>`}
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr));margin-bottom:1rem">
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Collected each month</h2>${barChart(monthlySeries(6))}</div>
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Collected against outstanding</h2>
+        ${donut([{ label: 'Collected', value: g.collected, color: 'var(--green)' }, { label: 'Outstanding', value: g.outstanding, color: 'var(--light-green)' }],
+    Math.round(g.collected / (g.expected || 1) * 100) + '%', 'of target')}</div>
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Collected by type</h2>${barChart(byType.map((b, i) => ({ ...b, color: CHART_GREENS[i % CHART_GREENS.length] })))}</div>
+    </div>
+    ${filtersBar}
+    <div class="card">
+      <div class="pad spread" style="padding-bottom:.6rem"><h2>${rows.length} record${rows.length === 1 ? '' : 's'}</h2>
+        <span class="faint mono-num">${money(rows.reduce((s, c) => s + c.paid, 0))} shown</span></div>
+      ${rows.length ? `<div class="table-wrap"><table>
+        <thead><tr>${canSeeAll ? '<th>Member</th>' : ''}<th>Type</th><th>Date</th><th class="right">Due</th><th class="right">Paid</th><th class="right">Balance</th><th>Status</th><th></th></tr></thead>
+        <tbody>${rows.map(c => contributionRow(c, { showMember: canSeeAll })).join('')}</tbody></table></div>`
+      : `<div class="empty"><h3>Nothing matches these filters</h3><p class="muted">Widen the date range or clear the filters.</p></div>`}
+    </div>`, actions);
+}
+function viewContributionDetail(id) {
+  const c = db.contributions.find(id);
+  if (!c) return empty('Record not found', 'It may have been removed.');
+  if (c.userId !== session.user.id && !canManageMoney()) return empty('Not your record', 'You can only open your own contribution records.');
+  const u = db.users.find(c.userId), ty = db.contributionTypes.find(c.typeId), rec = db.users.find(c.recordedBy);
+  const row = (k, v) => `<tr><td class="muted" style="padding-left:0;width:42%">${k}</td><td><b>${v}</b></td></tr>`;
+  return page(ty ? ty.name : 'Contribution', `Recorded for ${fullName(u)}.`, `
+    <div class="grid" style="grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)">
+      <div class="card pad"><table style="min-width:0"><tbody>
+        ${row('Member', esc(fullName(u)))}
+        ${row('Contribution type', esc(ty ? ty.name : '—'))}
+        ${row('Amount due', `<span class="mono-num">${money(c.amount)}</span>`)}
+        ${row('Amount paid', `<span class="mono-num">${money(c.paid)}</span>`)}
+        ${row('Balance', `<span class="mono-num" style="color:${outstandingOf(c) ? 'var(--green)' : 'inherit'}">${money(outstandingOf(c))}</span>`)}
+        ${row('Date', fmtDate(c.date))}
+        ${row('Status', statusTag(c.status))}
+        ${row('Payment reference', esc(c.reference || 'Not recorded'))}
+        ${row('Recorded by', esc(rec ? fullName(rec) : 'System'))}
+        ${row('Notes', esc(c.notes || '—'))}
+      </tbody></table></div>
+      <div class="stack">
+        ${canManageMoney() ? `<div class="card pad"><h2 style="margin-bottom:.6rem">Treasurer actions</h2>
+          <div class="row wrap"><button class="btn sm" data-act="edit-contribution" data-id="${c.id}">Edit record</button>
+          ${c.status !== 'Paid' ? `<button class="btn ghost sm" data-act="mark-paid" data-id="${c.id}">Mark fully paid</button>` : ''}
+          <button class="btn ghost sm" data-act="delete-contribution" data-id="${c.id}">Delete</button></div></div>` : ''}
+        <div class="card pad"><h2 style="margin-bottom:.5rem">How to pay</h2>
+          <p class="muted small">Online payment is not switched on yet. Hand your contribution to the treasurer, or send it the way the committee announced, and it will be recorded here with a reference.</p>
+          <span class="tag warn">M-Pesa integration pending</span></div>
+      </div>
+    </div>`, `<a class="btn ghost" href="#/contributions">Back to contributions</a>`);
+}
+
+/* ---------------- suggestions ---------------- */
+function viewSuggestions() {
+  const filter = route.query.status || '';
+  let list = db.suggestions.all();
+  if (filter) list = list.filter(s => s.status === filter);
+  list.sort((a, b) => voteCount(b.id).up - voteCount(a.id).up || b.createdAt.localeCompare(a.createdAt));
+  return page('Suggestions', 'Anything a member proposes for the association. Back the ones you want the committee to take up.', `
+    <div class="chips" style="margin-bottom:1rem">
+      <button class="chip" data-act="goto" data-href="#/suggestions" aria-pressed="${!filter}">All (${db.suggestions.all().length})</button>
+      ${SUGGESTION_STATUSES.map(s => `<button class="chip" data-act="goto" data-href="#/suggestions?status=${encodeURIComponent(s)}" aria-pressed="${filter === s}">${s} (${db.suggestions.where(x => x.status === s).length})</button>`).join('')}
+    </div>
+    ${list.length ? `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+      ${list.map(s => {
+    const v = voteCount(s.id), mine = myVote(s.id), a = db.users.find(s.authorId);
+    return `<div class="card pad">
+        <div class="spread" style="align-items:flex-start"><h3 style="flex:1"><button class="linkish" data-act="goto" data-href="#/suggestions/${s.id}">${esc(s.title)}</button></h3>${suggestionTag(s.status)}</div>
+        <p class="muted small clamp2" style="margin:.5rem 0">${esc(s.description)}</p>
+        <div class="row" style="margin-bottom:.7rem">${avatar(a, 'sm')}<span class="faint">${esc(fullName(a))} · ${fmtDate(s.date)}</span></div>
+        <div class="row">
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">👍 ${v.up}</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">👎 ${v.down}</button>
+        </div></div>`;
+  }).join('')}</div>` : empty('No suggestions with that status', 'Try another filter, or add the first one.')}`,
+    `<button class="btn" data-act="new-suggestion">Submit a suggestion</button>`);
+}
+function viewSuggestionDetail(id) {
+  const s = db.suggestions.find(id);
+  if (!s) return empty('Suggestion not found', 'It may have been withdrawn.');
+  const a = db.users.find(s.authorId), v = voteCount(s.id), mine = myVote(s.id);
+  const voters = db.suggestionVotes.where(x => x.suggestionId === id);
+  const isOwner = s.authorId === session.user.id;
+  return page(s.title, '', `
+    <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)">
+      <div class="card pad">
+        <div class="row" style="margin-bottom:1rem">${avatar(a)}<div>
+          <b>${esc(fullName(a))}</b><div class="faint">Submitted ${fmtDate(s.date)}</div></div>
+          <span style="margin-left:auto">${suggestionTag(s.status)}</span></div>
+        <div class="prose"><p>${esc(s.description)}</p></div>
+        <hr class="divider">
+        <div class="row wrap">
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">👍 Support (${v.up})</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">👎 Do not support (${v.down})</button>
+          ${isOwner && s.status === 'Submitted' ? `<button class="btn ghost sm" data-act="edit-suggestion" data-id="${s.id}">Edit</button>` : ''}
+          ${is('admin') ? `<button class="btn ghost sm" data-act="set-suggestion-status" data-id="${s.id}">Change status</button>` : ''}
+        </div>
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.7rem">Who has voted</h2>
+        ${voters.length ? voters.slice(0, 12).map(x => { const vu = db.users.find(x.userId); return `<div class="row" style="padding:.3rem 0">${avatar(vu, 'sm')}<span class="small">${esc(fullName(vu))}</span><span style="margin-left:auto">${x.value === 1 ? '👍' : '👎'}</span></div>`; }).join('')
+      : '<p class="muted small">No votes yet. Be the first.</p>'}
+        ${voters.length > 12 ? `<p class="faint small" style="margin-top:.5rem">and ${voters.length - 12} more</p>` : ''}
+      </div>
+    </div>`, `<a class="btn ghost" href="#/suggestions">Back to suggestions</a>`);
+}
+
+/* ---------------- announcements ---------------- */
+function viewAnnouncements() {
+  const list = db.announcements.where(a => a.published || is('admin')).sort((a, b) => b.date.localeCompare(a.date));
+  return page('Announcements', 'Notices from the committee, newest first.',
+    list.length ? `<div class="stack">${list.map(a => {
+      const au = db.users.find(a.authorId);
+      return `<div class="card pad">
+      <div class="spread" style="align-items:flex-start">
+        <h2><button class="linkish" data-act="goto" data-href="#/announcements/${a.id}">${esc(a.title)}</button></h2>
+        ${a.published ? '' : '<span class="tag warn">Draft</span>'}
+      </div>
+      <p class="muted clamp2" style="margin:.5rem 0">${esc(a.content)}</p>
+      <div class="row wrap">${avatar(au, 'sm')}<span class="faint">${esc(fullName(au))} · ${fmtDate(a.date)}</span>
+      ${a.attachment ? `<span class="tag">📎 ${esc(a.attachment)}</span>` : ''}</div>
+    </div>`; }).join('')}</div>` : empty('No announcements yet', 'The committee has not posted anything.'),
+    is('admin') ? `<button class="btn" data-act="new-announcement">Write an announcement</button>` : '');
+}
+function viewAnnouncementDetail(id) {
+  const a = db.announcements.find(id);
+  if (!a || (!a.published && !is('admin'))) return empty('Announcement not found', 'It may have been unpublished.');
+  const au = db.users.find(a.authorId);
+  return page(a.title, '', `<div class="card pad" style="max-width:820px">
+    <div class="row" style="margin-bottom:1rem">${avatar(au)}<div><b>${esc(fullName(au))}</b>
+      <div class="faint">${fmtLong(a.date)}${a.published ? '' : ' · draft'}</div></div></div>
+    <div class="prose"><p>${esc(a.content)}</p></div>
+    ${a.attachment ? `<div style="margin-top:1rem"><span class="tag">📎 ${esc(a.attachment)}</span>
+      <div class="faint small" style="margin-top:.3rem">File storage arrives with the document module; the filename is recorded for now.</div></div>` : ''}
+    ${is('admin') ? `<hr class="divider"><div class="row wrap"><button class="btn sm" data-act="edit-announcement" data-id="${a.id}">Edit</button>
+      <button class="btn ghost sm" data-act="toggle-publish" data-id="${a.id}">${a.published ? 'Unpublish' : 'Publish'}</button>
+      <button class="btn ghost sm" data-act="delete-announcement" data-id="${a.id}">Delete</button></div>` : ''}
+  </div>`, `<a class="btn ghost" href="#/announcements">All announcements</a>`);
+}
+
+/* ---------------- meetings ---------------- */
+function viewMeetings() {
+  const all = db.meetings.all();
+  const upcoming = all.filter(m => m.date >= todayISO()).sort((a, b) => a.date.localeCompare(b.date));
+  const past = all.filter(m => m.date < todayISO()).sort((a, b) => b.date.localeCompare(a.date));
+  const card = (m) => `<div class="card pad">
+    <div class="spread" style="align-items:flex-start">
+      <h3><button class="linkish" data-act="goto" data-href="#/meetings/${m.id}">${esc(m.title)}</button></h3>
+      ${db.meetingMinutes.where(x => x.meetingId === m.id).length ? '<span class="tag ok">Minutes filed</span>' : ''}
+    </div>
+    <div class="muted small" style="margin:.45rem 0">${fmtLong(m.date)} · ${fmtTime(m.time)}</div>
+    <div class="faint small">${esc(m.location)}</div>
+    <p class="muted small clamp2" style="margin-top:.5rem">${esc(m.description)}</p>
+  </div>`;
+  return page('Meetings & events', 'Where the association is meeting next, and what was agreed last time.', `
+    <h2 style="margin-bottom:.7rem">Coming up</h2>
+    ${upcoming.length ? `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin-bottom:1.6rem">${upcoming.map(card).join('')}</div>`
+      : `<div style="margin-bottom:1.6rem">${empty('Nothing scheduled', 'No meeting has been put on the calendar yet.')}</div>`}
+    <h2 style="margin-bottom:.7rem">Already held</h2>
+    ${past.length ? `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">${past.map(card).join('')}</div>`
+      : empty('No past meetings', 'Once a meeting date passes it moves here.')}`,
+    is('admin', 'treasurer') ? `<button class="btn" data-act="new-meeting">Schedule a meeting</button>` : '');
+}
+function viewMeetingDetail(id) {
+  const m = db.meetings.find(id);
+  if (!m) return empty('Meeting not found', 'It may have been cancelled.');
+  const mins = db.meetingMinutes.where(x => x.meetingId === id)[0];
+  const by = db.users.find(m.createdBy);
+  const upcoming = m.date >= todayISO();
+  return page(m.title, '', `
+    <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)">
+      <div class="stack">
+        <div class="card pad">
+          <span class="tag ${upcoming ? 'info' : ''}">${upcoming ? 'Upcoming' : 'Held'}</span>
+          <table style="min-width:0;margin-top:.8rem"><tbody>
+            <tr><td class="muted" style="padding-left:0;width:36%">Date</td><td><b>${fmtLong(m.date)}</b></td></tr>
+            <tr><td class="muted" style="padding-left:0">Time</td><td><b>${fmtTime(m.time)}</b></td></tr>
+            <tr><td class="muted" style="padding-left:0">Venue</td><td>${esc(m.location)}</td></tr>
+            <tr><td class="muted" style="padding-left:0;border-bottom:0">Called by</td><td style="border-bottom:0">${esc(by ? fullName(by) : '—')}</td></tr>
+          </tbody></table>
+          <hr class="divider">
+          <p class="muted" style="margin:0">${esc(m.description)}</p>
+        </div>
+        <div class="card pad">
+          <h2 style="margin-bottom:.6rem">Minutes</h2>
+          ${mins ? `<div class="prose"><p>${esc(mins.content)}</p></div>
+            <div class="faint small">Filed by ${esc(fullName(db.users.find(mins.authorId)))} · ${fmtDate(mins.createdAt)}</div>`
+      : `<p class="muted">No minutes have been filed for this meeting.</p>`}
+          ${is('admin', 'treasurer') ? `<div style="margin-top:.9rem"><button class="btn ghost sm" data-act="edit-minutes" data-id="${m.id}">${mins ? 'Edit minutes' : 'Add minutes'}</button></div>` : ''}
+        </div>
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.6rem">Agenda</h2>
+        ${(m.agenda || []).length ? `<ol class="agenda">${m.agenda.map(a => `<li>${esc(a)}</li>`).join('')}</ol>` : '<p class="muted small">No agenda published.</p>'}
+        ${is('admin', 'treasurer') ? `<hr class="divider"><div class="row wrap">
+          <button class="btn sm" data-act="edit-meeting" data-id="${m.id}">Edit meeting</button>
+          <button class="btn ghost sm" data-act="delete-meeting" data-id="${m.id}">Delete</button></div>` : ''}
+      </div>
+    </div>`, `<a class="btn ghost" href="#/meetings">All meetings</a>`);
+}
+
+/* ---------------- notifications & search ---------------- */
+function viewNotifications() {
+  const list = db.notifications.where(n => n.userId === session.user.id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const unread = list.filter(n => !n.read).length;
+  return page('Notifications', unread ? `${unread} unread.` : 'You are all caught up.',
+    list.length ? list.map(n => `<div class="notif${n.read ? '' : ' unread'}">
+      <div class="body" style="flex:1">
+        <p style="margin:0">${esc(n.message)}</p>
+        <div class="faint small">${ago(n.createdAt)}</div>
+      </div>
+      <div class="row" style="align-items:flex-start">
+        <button class="btn quiet sm" data-act="goto" data-href="${esc(n.link)}">Open</button>
+        ${n.read ? '' : `<button class="btn quiet sm" data-act="read-one" data-id="${n.id}">Mark read</button>`}
+      </div></div>`).join('') : empty('No notifications', 'Activity in the group will show up here.'),
+    unread ? `<button class="btn ghost" data-act="read-all">Mark all as read</button>` : '');
+}
+function viewSearch() {
+  const q = (route.query.q || '').toLowerCase().trim();
+  if (!q) return page('Search', 'Type something in the search box above.', '');
+  const hit = (s) => String(s).toLowerCase().includes(q);
+  const members = db.users.where(u => hit(fullName(u)) || hit(u.occupation || '') || hit(u.town || ''));
+  const sugs = db.suggestions.where(s => hit(s.title) || hit(s.description));
+  const anns = db.announcements.where(a => (a.published || is('admin')) && (hit(a.title) || hit(a.content)));
+  const mtgs = db.meetings.where(m => hit(m.title) || hit(m.location) || hit(m.description));
+  const total = members.length + sugs.length + anns.length + mtgs.length;
+  const block = (title, rows) => rows.length ? `<div class="card pad" style="margin-bottom:1rem"><h2 style="margin-bottom:.4rem">${title}</h2>${rows.join('')}</div>` : '';
+  return page('Search', `${total} result${total === 1 ? '' : 's'} for “${route.query.q}”.`, total ? `
+    ${block('Members', members.map(u => `<div class="item"><div class="body"><h4>${esc(fullName(u))}</h4><p>${esc(u.occupation || '')}${u.town ? ' · ' + esc(u.town) : ''}</p></div></div>`))}
+    ${block('Suggestions', sugs.map(s => `<div class="item"><div class="body"><h4><button class="linkish" data-act="goto" data-href="#/suggestions/${s.id}">${esc(s.title)}</button></h4><p class="clamp2">${esc(s.description)}</p></div></div>`))}
+    ${block('Announcements', anns.map(a => `<div class="item"><div class="body"><h4><button class="linkish" data-act="goto" data-href="#/announcements/${a.id}">${esc(a.title)}</button></h4><p class="clamp2">${esc(a.content)}</p></div></div>`))}
+    ${block('Meetings', mtgs.map(m => `<div class="item"><div class="body"><h4><button class="linkish" data-act="goto" data-href="#/meetings/${m.id}">${esc(m.title)}</button></h4><p>${fmtDate(m.date)} · ${esc(m.location)}</p></div></div>`))}
+  ` : empty('Nothing found', 'Try a shorter search term.'));
+}
+
+/* =========================================================================
+   Administration
+   ========================================================================= */
+function viewAdmin() {
+  const g = groupTotals();
+  const users = db.users.all();
+  const acts = db.activityLogs.all().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 8);
+  const growth = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(); d.setMonth(d.getMonth() - i);
+    const cut = new Date(d.getFullYear(), d.getMonth() + 1, 0).toISOString().slice(0, 10);
+    growth.push({ label: d.toLocaleDateString('en-GB', { month: 'short' }), value: users.filter(u => u.joinedAt <= cut).length, color: 'var(--light-green)' });
+  }
+  const upcoming = db.meetings.where(m => m.date >= todayISO()).sort((a, b) => a.date.localeCompare(b.date));
+  return page('Administrator dashboard', 'The health of the association at a glance.', `
+    <div class="stats" style="margin-bottom:1rem">
+      <div class="stat accent"><div class="k">Members</div><div class="v">${users.length}</div><div class="s">${users.filter(u => u.status === 'active').length} active · ${users.filter(u => u.status !== 'active').length} inactive</div></div>
+      <div class="stat"><div class="k">Collected</div><div class="v">${money(g.collected)}</div><div class="s">${Math.round(g.collected / (g.expected || 1) * 100)}% of expected</div></div>
+      <div class="stat warnline"><div class="k">Outstanding</div><div class="v">${money(g.outstanding)}</div><div class="s">${g.owing} members owe</div></div>
+      <div class="stat ochreline"><div class="k">Suggestions</div><div class="v">${db.suggestions.all().length}</div><div class="s">${db.suggestions.where(s => s.status === 'Under Review').length} under review</div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:1rem">
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Collections by month</h2>${barChart(monthlySeries(6))}</div>
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Membership growth</h2>${barChart(growth, { format: v => v + ' members' })}</div>
+      <div class="card pad"><h2 style="margin-bottom:.8rem">Kitty position</h2>
+        ${donut([{ label: 'Collected', value: g.collected, color: 'var(--green)' }, { label: 'Outstanding', value: g.outstanding, color: 'var(--light-green)' }], money(g.collected).replace('KSh ', ''), 'in the kitty')}</div>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="card pad"><h2 style="margin-bottom:.6rem">Recent activity</h2>
+        <ul class="timeline">${acts.map(a => { const u = db.users.find(a.actorId); return `<li><span>${esc(u ? fullName(u) : 'System')} — ${esc(a.action)}</span><span class="when">${ago(a.createdAt)}</span></li>`; }).join('')}</ul></div>
+      <div class="card pad"><h2 style="margin-bottom:.6rem">Upcoming meetings</h2>
+        ${upcoming.length ? upcoming.map(m => `<div class="item"><div class="body">
+          <h4><button class="linkish" data-act="goto" data-href="#/meetings/${m.id}">${esc(m.title)}</button></h4>
+          <p>${fmtDate(m.date)} · ${fmtTime(m.time)} · ${esc(m.location)}</p></div></div>`).join('')
+      : '<p class="muted small">Nothing scheduled.</p>'}
+        <div style="margin-top:.8rem"><button class="btn sm" data-act="new-meeting">Schedule a meeting</button></div></div>
+    </div>`);
+}
+
+function viewManageMembers() {
+  const list = db.users.all().sort((a, b) => a.firstName.localeCompare(b.firstName));
+  return page('Manage members', 'Add members, change roles, deactivate or remove accounts.',
+    !list.length ? empty('No members yet', 'Add the first member, or share the registration link so people can join themselves.',
+      '<button class="btn sm" data-act="new-member" style="margin-top:.8rem">Copy registration link</button>') : `
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr><th>Member</th><th>Contact</th><th>Role</th><th>Status</th><th class="right">Owes</th><th class="right">Actions</th></tr></thead>
+      <tbody>${list.map(u => {
+    const t = memberTotals(u.id);
+    return `<tr>
+        <td><div class="row">${avatar(u, 'sm')}<div><div style="font-weight:600">${esc(fullName(u))}</div><div class="faint">Joined ${fmtDate(u.joinedAt)}</div></div></div></td>
+        <td><div class="small">${esc(u.email)}</div><div class="faint">${esc(u.phone || '')}</div></td>
+        <td><span class="tag ${u.role === 'admin' ? 'info' : u.role === 'treasurer' ? 'warn' : ''}">${esc(ROLES[u.role].label)}</span></td>
+        <td><span class="tag ${u.status === 'active' ? 'ok' : 'bad'} dot">${u.status === 'active' ? 'Active' : 'Inactive'}</span></td>
+        <td class="right mono-num">${money(t.outstanding)}</td>
+        <td class="right"><div class="row" style="justify-content:flex-end;gap:.25rem">
+          <button class="btn quiet sm" data-act="edit-member" data-id="${u.id}">Edit</button>
+          <button class="btn quiet sm" data-act="toggle-member" data-id="${u.id}">${u.status === 'active' ? 'Deactivate' : 'Reactivate'}</button>
+          ${u.id === session.user.id ? '' : `<button class="btn quiet sm" data-act="delete-member" data-id="${u.id}">Remove</button>`}
+        </div></td></tr>`;
+  }).join('')}</tbody></table></div></div>`,
+    `<button class="btn" data-act="new-member">Copy registration link</button>`);
+}
+
+function viewManageContributions() {
+  const types = db.contributionTypes.all();
+  const recent = db.contributions.all().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 12);
+  const owing = db.users.where(u => u.status === 'active').map(u => ({ u, t: memberTotals(u.id) }))
+    .filter(x => x.t.outstanding > 0).sort((a, b) => b.t.outstanding - a.t.outstanding);
+  return page('Manage contributions', 'Record payments, keep the contribution types tidy and chase what is outstanding.', `
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:1rem">
+      <div class="card pad">
+        <div class="spread" style="margin-bottom:.6rem"><h2>Contribution types</h2>
+          ${is('admin') ? `<button class="btn sm" data-act="new-type">Add type</button>` : ''}</div>
+        ${types.map(t => `<div class="item"><div class="body">
+          <h4>${esc(t.name)} <span class="faint mono-num">— ${money(t.defaultAmount)}</span></h4>
+          <p>${esc(t.description)}</p></div>
+          ${is('admin') ? `<div class="row" style="align-items:flex-start"><button class="btn quiet sm" data-act="edit-type" data-id="${t.id}">Edit</button>
+            <button class="btn quiet sm" data-act="delete-type" data-id="${t.id}">Delete</button></div>` : ''}
+        </div>`).join('')}
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.6rem">Members who owe (${owing.length})</h2>
+        ${owing.length ? owing.slice(0, 8).map(x => `<div class="row" style="padding:.4rem 0;border-bottom:1px solid var(--border)">
+          ${avatar(x.u, 'sm')}<span class="small">${esc(fullName(x.u))}</span>
+          <b class="mono-num small" style="margin-left:auto;color:var(--green)">${money(x.t.outstanding)}</b>
+          <button class="btn quiet sm" data-act="record-for" data-id="${x.u.id}">Record</button></div>`).join('')
+      : '<p class="muted small">Everyone is paid up.</p>'}
+      </div>
+    </div>
+    <div class="card">
+      <div class="pad spread" style="padding-bottom:.6rem"><h2>Latest records</h2>
+        <a class="small" href="#/contributions">See all with filters</a></div>
+      ${recent.length ? `<div class="table-wrap"><table>
+        <thead><tr><th>Member</th><th>Type</th><th>Date</th><th class="right">Due</th><th class="right">Paid</th><th class="right">Balance</th><th>Status</th><th></th></tr></thead>
+        <tbody>${recent.map(c => contributionRow(c, { showMember: true })).join('')}</tbody></table></div>`
+        : `<div class="empty"><h3>No contributions recorded yet</h3><p class="muted">Record the first payment once members have joined.</p></div>`}
+    </div>`,
+    `<button class="btn" data-act="record-payment">Record a payment</button><button class="btn ghost" data-act="export-report">Download report</button>`);
+}
+
+function viewManageSuggestions() {
+  const list = db.suggestions.all().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return page('Manage suggestions', 'Move proposals through review so members know where they stand.', `
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr><th>Suggestion</th><th>Author</th><th>Submitted</th><th class="right">Votes</th><th>Status</th><th class="right">Actions</th></tr></thead>
+      <tbody>${list.map(s => { const v = voteCount(s.id); return `<tr>
+        <td><button class="linkish" data-act="goto" data-href="#/suggestions/${s.id}">${esc(s.title)}</button></td>
+        <td class="small">${esc(fullName(db.users.find(s.authorId)))}</td>
+        <td class="small">${fmtDate(s.date)}</td>
+        <td class="right small">👍 ${v.up} · 👎 ${v.down}</td>
+        <td>${suggestionTag(s.status)}</td>
+        <td class="right"><button class="btn quiet sm" data-act="set-suggestion-status" data-id="${s.id}">Status</button>
+          <button class="btn quiet sm" data-act="delete-suggestion" data-id="${s.id}">Delete</button></td></tr>`; }).join('')}
+      </tbody></table></div></div>`);
+}
+function viewManageAnnouncements() {
+  const list = db.announcements.all().sort((a, b) => b.date.localeCompare(a.date));
+  return page('Manage announcements', 'Drafts stay hidden until you publish them.', `
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr><th>Title</th><th>Author</th><th>Date</th><th>Status</th><th class="right">Actions</th></tr></thead>
+      <tbody>${list.map(a => `<tr>
+        <td><button class="linkish" data-act="goto" data-href="#/announcements/${a.id}">${esc(a.title)}</button></td>
+        <td class="small">${esc(fullName(db.users.find(a.authorId)))}</td>
+        <td class="small">${fmtDate(a.date)}</td>
+        <td>${a.published ? '<span class="tag ok dot">Published</span>' : '<span class="tag warn dot">Draft</span>'}</td>
+        <td class="right"><button class="btn quiet sm" data-act="edit-announcement" data-id="${a.id}">Edit</button>
+          <button class="btn quiet sm" data-act="toggle-publish" data-id="${a.id}">${a.published ? 'Unpublish' : 'Publish'}</button>
+          <button class="btn quiet sm" data-act="delete-announcement" data-id="${a.id}">Delete</button></td></tr>`).join('')}
+      </tbody></table></div></div>`,
+    `<button class="btn" data-act="new-announcement">Write an announcement</button>`);
+}
+function viewManageMeetings() {
+  const list = db.meetings.all().sort((a, b) => b.date.localeCompare(a.date));
+  return page('Manage meetings', 'Schedule meetings, publish agendas and file the minutes afterwards.', `
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr><th>Meeting</th><th>Date</th><th>Venue</th><th>Minutes</th><th class="right">Actions</th></tr></thead>
+      <tbody>${list.map(m => `<tr>
+        <td><button class="linkish" data-act="goto" data-href="#/meetings/${m.id}">${esc(m.title)}</button></td>
+        <td class="small">${fmtDate(m.date)} · ${fmtTime(m.time)}</td>
+        <td class="small">${esc(m.location)}</td>
+        <td>${db.meetingMinutes.where(x => x.meetingId === m.id).length ? '<span class="tag ok">Filed</span>' : '<span class="tag">None</span>'}</td>
+        <td class="right"><button class="btn quiet sm" data-act="edit-meeting" data-id="${m.id}">Edit</button>
+          <button class="btn quiet sm" data-act="edit-minutes" data-id="${m.id}">Minutes</button>
+          <button class="btn quiet sm" data-act="delete-meeting" data-id="${m.id}">Delete</button></td></tr>`).join('')}
+      </tbody></table></div></div>`,
+    `<button class="btn" data-act="new-meeting">Schedule a meeting</button>`);
+}
+
+function viewSettings() {
+  const s = state.settings;
+  return page('Settings', 'Your own preferences, and — for administrators — how the association is set up.', `
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="card pad">
+        <h2 style="margin-bottom:.7rem">Appearance</h2>
+        <p class="muted small">ClassConnect uses the school crest colours — deep green, light green and white — so the interface matches the school's identity on every screen.</p>
+        <div class="row wrap" style="margin-bottom:.4rem">
+          <span class="tag info">Crest green — actions</span>
+          <span class="tag ok">Light green — highlights</span>
+          <span class="tag warn">White — surfaces</span>
+        </div>
+        <hr class="divider">
+        <h2 style="margin-bottom:.5rem">Security</h2>
+        <p class="muted small">Your password is stored as a salted SHA-256 hash. Signing out clears the session for this device only.</p>
+        <div class="row wrap"><button class="btn ghost sm" data-act="change-password">Change password</button>
+        <button class="btn ghost sm" data-act="logout">Sign out</button></div>
+      </div>
+      ${is('admin') ? `
+      <div class="card pad">
+        <h2 style="margin-bottom:.7rem">Association</h2>
+        <form id="settings-form" novalidate>
+          ${fieldHTML('orgName', 'Association name', { value: s.orgName })}
+          ${fieldHTML('tagline', 'Tagline', { value: s.tagline })}
+          <div class="field-row">
+            ${fieldHTML('currency', 'Currency code', { value: s.currency })}
+            ${fieldHTML('monthlyWelfare', 'Standard monthly contribution', { type: 'number', value: s.monthlyWelfare })}
+          </div>
+          <label class="checkrow" style="margin:.2rem 0 1rem"><input type="checkbox" name="allowRegistration"${s.allowRegistration ? ' checked' : ''}>
+            <span>Let former pupils register themselves. Turn this off once everyone has an account.</span></label>
+          <button class="btn" type="submit">Save settings</button>
+        </form>
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.5rem">Payments</h2>
+        <p class="muted small">No money moves through ClassConnect yet. These fields are stored ready for the M-Pesa Daraja integration; until a driver is registered the treasurer records every payment by hand.</p>
+        <form id="mpesa-form" novalidate>
+          ${fieldHTML('mpesaPaybill', 'Paybill or till number', { value: s.mpesaPaybill, placeholder: 'e.g. 400200' })}
+          ${fieldHTML('mpesaAccountPrefix', 'Account number prefix', { value: s.mpesaAccountPrefix })}
+          <label class="checkrow" style="margin:.2rem 0 1rem"><input type="checkbox" disabled>
+            <span class="muted">Enable STK push (needs the Daraja driver — see the setup guide)</span></label>
+          <button class="btn ghost" type="submit">Save payment details</button>
+        </form>
+      </div>
+      <div class="card pad">
+        <h2 style="margin-bottom:.5rem">Resetting data</h2>
+        <p class="muted small">ClassConnect only ever holds the publishable key, which cannot delete sign-in accounts — that keeps a stolen key from wiping the association. To clear everything and start over, run <code>truncate table contributions, suggestions, suggestion_votes, announcements, meetings, meeting_minutes, notifications, activity_logs, profiles cascade;</code> in the Supabase SQL Editor, then remove the accounts under Authentication → Users. The next person to register becomes administrator again.</p>
+      </div>` : ''}
+    </div>`);
+}
+
+/* ---------------- setup guide ---------------- */
+function viewDocs() {
+  return page('Setup guide', 'How ClassConnect is wired to Supabase, and how to operate it day to day.', `
+  <div class="card pad docs prose" style="max-width:none">
+    <p>ClassConnect is the management platform for the St. Veronica Bumadeya Primary School Association. This build stores everything in Supabase — Postgres for the data, Supabase Auth for sign-in — so every member sees the same association from any device or browser. There is no local database and nothing is stored only on one person's computer.</p>
+
+    <h2>1. What's already connected</h2>
+    <p>This copy of the app is pre-configured with the association's Supabase project:</p>
+    <pre class="code">Project URL:      ${esc(SUPABASE_URL)}
+Publishable key:  ${esc(SUPABASE_ANON_KEY)}</pre>
+    <p>The publishable (anon) key is safe to ship inside the HTML — it can only do what the database's row-level security policies allow, which is why the schema step below matters as much as the app file itself.</p>
+
+    <h2>2. One-time database setup</h2>
+    <p>Before the app can be used, run <code>supabase-schema.sql</code> once, in full, in the Supabase dashboard's SQL Editor for this project. It creates every table this app reads and writes (profiles, contribution_types, contributions, suggestions, suggestion_votes, announcements, meetings, meeting_minutes, notifications, activity_logs, settings), the row-level security policy on each one, and a trigger on new sign-ups. It is safe to run more than once.</p>
+    <p>Two settings are worth checking under Authentication in the dashboard:</p>
+    <ul>
+      <li><b>Providers → Email</b> should be turned on.</li>
+      <li><b>Settings → Confirm email.</b> Leave it on for a real rollout — new members get a confirmation link before their first sign-in works, and the registration page already tells them to expect that. Turn it off only for quick internal testing, so new accounts are signed in immediately.</li>
+      <li><b>URL Configuration → Site URL / Redirect URLs</b> should include wherever this HTML file ends up being hosted, so "forgot password" links open correctly.</li>
+    </ul>
+
+    <h2>3. How the first administrator is chosen</h2>
+    <p>There is no seeded login and no separate admin-creation step. A trigger in <code>supabase-schema.sql</code> checks the <code>profiles</code> table at the moment each new account is created: if it is empty, that account becomes <code>admin</code>; every account after that starts as <code>member</code>. This runs inside the database itself, not in the browser, so it can't be spoofed by editing the page.</p>
+
+    <h2>4. Running it</h2>
+    <p>This is one self-contained HTML file — open it directly, or host it anywhere that serves static files (Netlify, Vercel, GitHub Pages, S3, or a folder behind Nginx). There is no build step and nothing else to deploy; the file talks straight to Supabase over HTTPS.</p>
+
+    <h2>5. Test each role</h2>
+    <ol>
+      <li><b>Administrator</b> — register the very first account on the project. You'll have every permission: members, contributions, announcements, meetings, contribution types and settings.</li>
+      <li><b>Treasurer</b> — register a second account, then from Manage members open it and set its role to Treasurer. A treasurer can record payments, edit records, filter and download the report, but cannot manage members, announcements or meetings.</li>
+      <li><b>Member</b> — a third account, left on the default role. The sidebar has no administration group; Contributions shows only their own records; the association's overall totals still appear on their dashboard (via a database function that reports the summary without exposing anyone else's individual payments).</li>
+      <li>Try an admin URL such as <code>#/admin/members</code> while signed in as a member — the route guard sends it back to the dashboard, and the database would refuse the underlying request even if it didn't.</li>
+    </ol>
+
+    <h2>6. What's different from a bare prototype</h2>
+    <ul>
+      <li><b>Adding members.</b> An administrator can edit, promote, deactivate or remove an existing member, but cannot create a login for someone else — only Supabase Auth can create an account, and only the person themselves can prove they own that email address. Manage members has a "Copy registration link" button for exactly this: share it, they register, then you set their role.</li>
+      <li><b>Passwords.</b> Supabase Auth stores and hashes every password; this app never sees or stores one. Changing your password re-confirms your current one first; "forgot password" sends a real, single-use email link.</li>
+      <li><b>Row-level security.</b> A member's own contribution rows are the only ones their account can read — the database enforces this, not just the interface. The association-wide totals a member sees on their dashboard come from a database function that returns aggregate numbers only, never another member's individual record.</li>
+      <li><b>Notifications.</b> Posting an announcement or a meeting notifies every member by inserting a row addressed to each of them; a member can only ever read their own notifications back.</li>
+    </ul>
+
+    <h2>What slots in next</h2>
+    <p>M-Pesa STK push (register a driver on the <code>PaymentGateway</code> seam), a Supabase Edge Function for sending SMS/WhatsApp alongside the in-app notifications, PDF statements, file storage for minutes and attachments via Supabase Storage, and Supabase Realtime so open tabs update the moment someone else records a payment.</p>
+  </div>`);
+}
+
+/* =========================================================================
+   Forms and actions
+   ========================================================================= */
+function suggestionForm(existing) {
+  openModal({
+    title: existing ? 'Edit suggestion' : 'Submit a suggestion',
+    body: fieldHTML('title', 'Title', { value: existing ? existing.title : '', placeholder: 'What do you propose?' })
+      + fieldHTML('description', 'Describe it', { type: 'textarea', rows: 5, value: existing ? existing.description : '', placeholder: 'What should happen, and why it helps the class.' }),
+    submitLabel: existing ? 'Save changes' : 'Submit suggestion',
+    onSubmit: async (form, data) => {
+      if (!validate(form, { title: ['required'], description: ['required'] })) return;
+      if (existing) {
+        await db.suggestions.update(existing.id, { title: data.title, description: data.description });
+        toast('Suggestion updated.');
+      } else {
+        const s = await db.suggestions.insert({ title: data.title, description: data.description, authorId: session.user.id, status: 'Submitted', date: todayISO() });
+        notifyAll(`${fullName(session.user)} suggested "${data.title}".`, '#/suggestions/' + s.id, session.user.id);
+        logActivity('Submitted suggestion "' + data.title + '"');
+        toast('Suggestion submitted.');
+      }
+      closeModal(); render();
+    }
+  });
+}
+function contributionForm(existing, presetUser) {
+  const types = db.contributionTypes.all();
+  const members = db.users.where(u => u.status === 'active');
+  if (!members.length || !types.length) { toast('Add an active member and a contribution type first.', true); return; }
+  openModal({
+    title: existing ? 'Edit contribution record' : 'Record a payment', wide: true,
+    body: `<div class="field-row">
+      ${fieldHTML('userId', 'Member', { type: 'select', value: existing ? existing.userId : (presetUser || members[0].id), options: members.map(u => ({ value: u.id, label: fullName(u) })) })}
+      ${fieldHTML('typeId', 'Contribution type', { type: 'select', value: existing ? existing.typeId : types[0].id, options: types.map(t => ({ value: t.id, label: `${t.name} (${money(t.defaultAmount)})` })) })}
+    </div>
+    <div class="field-row">
+      ${fieldHTML('amount', 'Amount due', { type: 'number', value: existing ? existing.amount : types[0].defaultAmount })}
+      ${fieldHTML('paid', 'Amount paid now', { type: 'number', value: existing ? existing.paid : '' })}
+    </div>
+    <div class="field-row">
+      ${fieldHTML('date', 'Date received', { type: 'date', value: existing ? existing.date : todayISO() })}
+      ${fieldHTML('reference', 'Payment reference', { value: existing ? existing.reference : '', hint: 'M-Pesa code, receipt or cheque number.' })}
+    </div>
+    ${fieldHTML('notes', 'Notes', { type: 'textarea', rows: 2, value: existing ? existing.notes : '' })}
+    <p class="faint small" style="margin:0">Status is worked out from the amounts: nothing paid is Pending, part of it is Partially Paid, all of it is Paid.</p>`,
+    submitLabel: existing ? 'Save record' : 'Record payment',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { amount: ['required', 'positive'], paid: ['money'], date: ['required'] })) return;
+      const amount = Number(d.amount), paid = Number(d.paid || 0);
+      if (paid > amount) { toast('The amount paid cannot be more than the amount due.', true); return; }
+      const patch = {
+        userId: d.userId, typeId: d.typeId, amount, paid, date: d.date,
+        status: deriveStatus(amount, paid), reference: d.reference, notes: d.notes,
+        recordedBy: session.user.id
+      };
+      if (existing) { await db.contributions.update(existing.id, patch); toast('Record updated.'); }
+      else {
+        const c = await db.contributions.insert(patch);
+        const ty = db.contributionTypes.find(d.typeId);
+        notify(d.userId, `Your ${ty ? ty.name.toLowerCase() : 'contribution'} of ${money(paid)} has been recorded.`, '#/contributions/' + c.id);
+        toast('Payment recorded.');
+      }
+      logActivity(`${existing ? 'Updated' : 'Recorded'} a contribution for ${fullName(db.users.find(d.userId))}`);
+      closeModal(); render();
+    }
+  });
+}
+function announcementForm(existing) {
+  openModal({
+    title: existing ? 'Edit announcement' : 'Write an announcement', wide: true,
+    body: fieldHTML('title', 'Title', { value: existing ? existing.title : '' })
+      + fieldHTML('content', 'Message', { type: 'textarea', rows: 7, value: existing ? existing.content : '', placeholder: 'Keep it short and say what members need to do.' })
+      + `<div class="field-row">${fieldHTML('date', 'Date', { type: 'date', value: existing ? existing.date : todayISO() })}
+      ${fieldHTML('attachment', 'Attachment name', { value: existing ? existing.attachment : '', hint: 'Filename only for now.' })}</div>
+      <label class="checkrow"><input type="checkbox" name="published"${!existing || existing.published ? ' checked' : ''}> <span>Publish to all members now</span></label>`,
+    submitLabel: existing ? 'Save announcement' : 'Publish',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { title: ['required'], content: ['required'] })) return;
+      const patch = { title: d.title, content: d.content, date: d.date, attachment: d.attachment, published: !!d.published };
+      if (existing) { await db.announcements.update(existing.id, patch); toast('Announcement saved.'); }
+      else {
+        const a = await db.announcements.insert(Object.assign({ authorId: session.user.id }, patch));
+        if (patch.published) notifyAll('New announcement: ' + d.title, '#/announcements/' + a.id, session.user.id);
+        toast('Announcement published.');
+      }
+      logActivity(`${existing ? 'Edited' : 'Published'} announcement "${d.title}"`);
+      closeModal(); render();
+    }
+  });
+}
+function meetingForm(existing) {
+  openModal({
+    title: existing ? 'Edit meeting' : 'Schedule a meeting', wide: true,
+    body: fieldHTML('title', 'Title', { value: existing ? existing.title : '' })
+      + `<div class="field-row">${fieldHTML('date', 'Date', { type: 'date', value: existing ? existing.date : todayISO() })}
+      ${fieldHTML('time', 'Start time', { type: 'time', value: existing ? existing.time : '14:00' })}</div>`
+      + fieldHTML('location', 'Venue', { value: existing ? existing.location : '', placeholder: 'Where members should turn up' })
+      + fieldHTML('description', 'Description', { type: 'textarea', rows: 3, value: existing ? existing.description : '' })
+      + fieldHTML('agenda', 'Agenda', { type: 'textarea', rows: 5, value: existing ? (existing.agenda || []).join('\n') : '', hint: 'One item per line.' }),
+    submitLabel: existing ? 'Save meeting' : 'Schedule meeting',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { title: ['required'], date: ['required'], time: ['required'], location: ['required'] })) return;
+      const patch = {
+        title: d.title, date: d.date, time: d.time, location: d.location, description: d.description,
+        agenda: String(d.agenda || '').split('\n').map(x => x.trim()).filter(Boolean)
+      };
+      if (existing) { await db.meetings.update(existing.id, patch); toast('Meeting updated.'); }
+      else {
+        const m = await db.meetings.insert(Object.assign({ createdBy: session.user.id }, patch));
+        notifyAll(`New meeting: ${d.title} on ${fmtDate(d.date)}.`, '#/meetings/' + m.id, session.user.id);
+        toast('Meeting scheduled.');
+      }
+      logActivity(`${existing ? 'Updated' : 'Scheduled'} meeting "${d.title}"`);
+      closeModal(); render();
+    }
+  });
+}
+function memberForm(existing) {
+  if (!existing) return; // guarded by the caller too; see the 'new-member' action
+  openModal({
+    title: 'Edit member', wide: true,
+    body: `<div class="field-row">${fieldHTML('firstName', 'First name', { value: existing.firstName })}
+      ${fieldHTML('lastName', 'Last name', { value: existing.lastName })}</div>
+      <div class="field-row">${fieldHTML('email', 'Email address', { type: 'email', value: existing.email })}
+      ${fieldHTML('phone', 'Phone number', { value: existing.phone })}</div>
+      <div class="field-row">
+      ${fieldHTML('role', 'Role', { type: 'select', value: existing.role, options: Object.entries(ROLES).map(([v, r]) => ({ value: v, label: r.label })) })}
+      ${fieldHTML('status', 'Status', { type: 'select', value: existing.status, options: [{ value: 'active', label: 'Active' }, { value: 'inactive', label: 'Inactive' }] })}</div>
+      <div class="field-row">${fieldHTML('occupation', 'What they do', { value: existing.occupation || '' })}
+      ${fieldHTML('town', 'Town', { value: existing.town || '' })}</div>
+      <p class="faint small" style="margin:0">Email here updates their ClassConnect profile only. To change the address they sign in with, they should do that themselves from a future account-settings option, or you can ask Supabase support to update auth.users directly.</p>`,
+    submitLabel: 'Save member',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { firstName: ['required'], lastName: ['required'], email: ['required', 'email'], phone: ['required', 'phone'] })) return;
+      const clash = db.users.where(u => u.email.toLowerCase() === d.email.toLowerCase() && u.id !== existing.id);
+      if (clash.length) { toast('That email address belongs to another member.', true); return; }
+      const roleChanged = existing.role !== d.role;
+      await db.users.update(existing.id, { firstName: d.firstName, lastName: d.lastName, email: d.email.toLowerCase(), phone: d.phone, role: d.role, status: d.status, occupation: d.occupation, town: d.town });
+      if (roleChanged) notify(existing.id, `Your role is now ${ROLES[d.role].label}.`, '#/dashboard');
+      logActivity(`Updated member ${d.firstName} ${d.lastName}`);
+      toast('Member updated.');
+      closeModal(); render();
+    }
+  });
+}
+function copyRegistrationLink() {
+  const link = location.origin + location.pathname + '#/register';
+  const done = () => toast('Registration link copied — share it with the new member.');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done).catch(() => openModal({
+      title: 'Registration link', body: `<p class="muted small">Copy this link and share it:</p><pre class="code">${esc(link)}</pre>`,
+      submitLabel: 'Done', onSubmit: () => closeModal()
+    }));
+  } else {
+    openModal({
+      title: 'Registration link', body: `<p class="muted small">Copy this link and share it:</p><pre class="code">${esc(link)}</pre>`,
+      submitLabel: 'Done', onSubmit: () => closeModal()
+    });
+  }
+}
+function typeForm(existing) {
+  openModal({
+    title: existing ? 'Edit contribution type' : 'Add contribution type',
+    body: fieldHTML('name', 'Name', { value: existing ? existing.name : '', placeholder: 'e.g. Monthly welfare' })
+      + fieldHTML('defaultAmount', 'Standard amount', { type: 'number', value: existing ? existing.defaultAmount : '' })
+      + fieldHTML('description', 'What it is for', { type: 'textarea', rows: 3, value: existing ? existing.description : '' }),
+    submitLabel: 'Save type',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { name: ['required'], defaultAmount: ['required', 'positive'] })) return;
+      const patch = { name: d.name, defaultAmount: Number(d.defaultAmount), description: d.description, active: true };
+      if (existing) await db.contributionTypes.update(existing.id, patch); else await db.contributionTypes.insert(patch);
+      logActivity(`${existing ? 'Updated' : 'Created'} contribution type "${d.name}"`);
+      toast('Contribution type saved.'); closeModal(); render();
+    }
+  });
+}
+function minutesForm(meetingId) {
+  const m = db.meetings.find(meetingId);
+  const mins = db.meetingMinutes.where(x => x.meetingId === meetingId)[0];
+  openModal({
+    title: (mins ? 'Edit' : 'Add') + ' minutes', wide: true,
+    body: `<p class="muted small">${esc(m.title)} · ${fmtDate(m.date)}</p>`
+      + fieldHTML('content', 'Minutes', { type: 'textarea', rows: 10, value: mins ? mins.content : '', placeholder: 'What was discussed, what was decided, and who is doing what.' }),
+    submitLabel: 'Save minutes',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { content: ['required'] })) return;
+      if (mins) await db.meetingMinutes.update(mins.id, { content: d.content });
+      else {
+        await db.meetingMinutes.insert({ meetingId, content: d.content, authorId: session.user.id });
+        notifyAll(`Minutes for "${m.title}" are now available.`, '#/meetings/' + meetingId, session.user.id);
+      }
+      logActivity(`Filed minutes for "${m.title}"`);
+      toast('Minutes saved.'); closeModal(); render();
+    }
+  });
+}
+function passwordForm() {
+  openModal({
+    title: 'Change password',
+    body: fieldHTML('current', 'Current password', { type: 'password' })
+      + fieldHTML('next', 'New password', { type: 'password', hint: 'At least 8 characters.' })
+      + fieldHTML('confirm', 'Repeat new password', { type: 'password' }),
+    submitLabel: 'Change password',
+    onSubmit: async (form, d) => {
+      if (!validate(form, { current: ['required'], next: ['required', 'password'], confirm: ['required'] })) return;
+      if (d.next !== d.confirm) { toast('The two new passwords do not match.', true); return; }
+      // Re-authenticate with the current password first — Supabase will not
+      // let a client change a password without recently proving identity.
+      const { error: authError } = await sb.auth.signInWithPassword({ email: session.user.email, password: d.current });
+      if (authError) { toast('Your current password is not correct.', true); return; }
+      const res = await completePasswordReset(d.next);
+      if (res.error) { toast(res.error, true); return; }
+      logActivity('Changed their password');
+      toast('Password changed.'); closeModal();
+    }
+  });
+}
+function statusForm(s) {
+  openModal({
+    title: 'Change suggestion status',
+    body: `<p class="muted small">${esc(s.title)}</p>` + fieldHTML('status', 'Status', { type: 'select', value: s.status, options: SUGGESTION_STATUSES }),
+    submitLabel: 'Save status',
+    onSubmit: async (form, d) => {
+      await db.suggestions.update(s.id, { status: d.status });
+      notify(s.authorId, `Your suggestion "${s.title}" is now ${d.status}.`, '#/suggestions/' + s.id);
+      logActivity(`Marked suggestion "${s.title}" as ${d.status}`);
+      toast('Status updated.'); closeModal(); render();
+    }
+  });
+}
+function exportReport() {
+  const rows = [['Member', 'Type', 'Date', 'Due', 'Paid', 'Balance', 'Status', 'Reference', 'Recorded by', 'Notes']];
+  db.contributions.all().sort((a, b) => a.date.localeCompare(b.date)).forEach(c => {
+    const u = db.users.find(c.userId), t = db.contributionTypes.find(c.typeId), r = db.users.find(c.recordedBy);
+    rows.push([fullName(u), t ? t.name : '', c.date, c.amount, c.paid, outstandingOf(c), c.status, c.reference, r ? fullName(r) : '', (c.notes || '').replace(/\n/g, ' ')]);
+  });
+  const g = groupTotals();
+  rows.push([], ['Totals', '', '', g.expected, g.collected, g.outstanding]);
+  const csv = rows.map(r => r.map(v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  try {
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    const a = document.createElement('a');
+    a.href = url; a.download = `contributions-${todayISO()}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('Report downloaded.');
+  } catch (e) {
+    openModal({ title: 'Contribution report', wide: true, body: `<pre class="code" style="max-height:50vh">${esc(csv)}</pre>`, submitLabel: 'Done', onSubmit: () => closeModal() });
+  }
+  logActivity('Generated a contribution report');
+}
+
+/* ---------------- delegated events ---------------- */
+const ACTIONS = {
+  'open-nav': () => document.body.classList.add('nav-open'),
+  'close-nav': () => document.body.classList.remove('nav-open'),
+  'goto': (el) => go(el.dataset.href),
+  'logout': async () => { await logout(); go('#/login'); render(); toast('Signed out.'); },
+  'user-menu': () => $('#user-menu').classList.toggle('open'),
+  'new-suggestion': () => suggestionForm(),
+  'edit-suggestion': (el) => suggestionForm(db.suggestions.find(el.dataset.id)),
+  'set-suggestion-status': (el) => { if (is('admin')) statusForm(db.suggestions.find(el.dataset.id)); },
+  'delete-suggestion': (el) => confirmAction('Delete this suggestion and all its votes?', async () => {
+    const id = el.dataset.id;
+    await Promise.all(db.suggestionVotes.where(v => v.suggestionId === id).map(v => db.suggestionVotes.remove(v.id)));
+    await db.suggestions.remove(id); toast('Suggestion deleted.'); render();
+  }),
+  'vote': async (el) => {
+    const sid = el.dataset.id, value = Number(el.dataset.value);
+    const existing = db.suggestionVotes.where(v => v.suggestionId === sid && v.userId === session.user.id)[0];
+    const s = db.suggestions.find(sid);
+    if (existing && existing.value === value) { await db.suggestionVotes.remove(existing.id); toast('Vote withdrawn.'); }
+    else if (existing) { await db.suggestionVotes.update(existing.id, { value }); toast('Vote changed.'); }
+    else {
+      await db.suggestionVotes.insert({ suggestionId: sid, userId: session.user.id, value });
+      if (s.authorId !== session.user.id) notify(s.authorId, `Your suggestion "${s.title}" received a new vote.`, '#/suggestions/' + sid);
+      toast(value === 1 ? 'Backed.' : 'Recorded.');
+    }
+    render();
+  },
+  'record-payment': () => { if (canManageMoney()) contributionForm(); },
+  'record-for': (el) => { if (canManageMoney()) contributionForm(null, el.dataset.id); },
+  'edit-contribution': (el) => { if (canManageMoney()) contributionForm(db.contributions.find(el.dataset.id)); },
+  'mark-paid': async (el) => {
+    const c = db.contributions.find(el.dataset.id);
+    await db.contributions.update(c.id, { paid: c.amount, status: 'Paid', recordedBy: session.user.id });
+    notify(c.userId, 'Your contribution has been marked as fully paid.', '#/contributions/' + c.id);
+    logActivity('Marked a contribution as fully paid');
+    toast('Marked as paid.'); render();
+  },
+  'delete-contribution': (el) => confirmAction('Delete this contribution record? The member will no longer see it.', async () => {
+    await db.contributions.remove(el.dataset.id); logActivity('Deleted a contribution record');
+    toast('Record deleted.'); go('#/contributions'); render();
+  }),
+  'export-report': () => { if (canManageMoney()) exportReport(); },
+  'new-type': () => typeForm(),
+  'edit-type': (el) => typeForm(db.contributionTypes.find(el.dataset.id)),
+  'delete-type': (el) => {
+    const id = el.dataset.id;
+    if (db.contributions.where(c => c.typeId === id).length) { toast('This type still has contributions recorded against it.', true); return; }
+    confirmAction('Delete this contribution type?', async () => { await db.contributionTypes.remove(id); toast('Type deleted.'); render(); });
+  },
+  'new-announcement': () => { if (is('admin')) announcementForm(); },
+  'edit-announcement': (el) => { if (is('admin')) announcementForm(db.announcements.find(el.dataset.id)); },
+  'toggle-publish': async (el) => {
+    const a = db.announcements.find(el.dataset.id);
+    const wasPublished = a.published;
+    await db.announcements.update(a.id, { published: !wasPublished, date: wasPublished ? a.date : todayISO() });
+    if (!wasPublished) notifyAll('New announcement: ' + a.title, '#/announcements/' + a.id, session.user.id);
+    logActivity((wasPublished ? 'Unpublished' : 'Published') + ' announcement "' + a.title + '"');
+    toast(wasPublished ? 'Unpublished.' : 'Published.'); render();
+  },
+  'delete-announcement': (el) => confirmAction('Delete this announcement?', async () => {
+    await db.announcements.remove(el.dataset.id); toast('Announcement deleted.'); go('#/announcements'); render();
+  }),
+  'new-meeting': () => { if (is('admin', 'treasurer')) meetingForm(); },
+  'edit-meeting': (el) => { if (is('admin', 'treasurer')) meetingForm(db.meetings.find(el.dataset.id)); },
+  'delete-meeting': (el) => confirmAction('Delete this meeting and its minutes?', async () => {
+    const id = el.dataset.id;
+    await Promise.all(db.meetingMinutes.where(x => x.meetingId === id).map(x => db.meetingMinutes.remove(x.id)));
+    await db.meetings.remove(id); toast('Meeting deleted.'); go('#/meetings'); render();
+  }),
+  'edit-minutes': (el) => { if (is('admin', 'treasurer')) minutesForm(el.dataset.id); },
+  'new-member': () => { if (is('admin')) copyRegistrationLink(); },
+  'edit-member': (el) => { if (is('admin')) memberForm(db.users.find(el.dataset.id)); },
+  'toggle-member': async (el) => {
+    const u = db.users.find(el.dataset.id);
+    if (u.id === session.user.id) { toast('You cannot deactivate your own account.', true); return; }
+    const wasActive = u.status === 'active';
+    await db.users.update(u.id, { status: wasActive ? 'inactive' : 'active' });
+    logActivity(`${wasActive ? 'Deactivated' : 'Reactivated'} ${fullName(u)}`);
+    toast('Member updated.'); render();
+  },
+  'delete-member': (el) => confirmAction("Remove this member's profile and every record attached to it? This cannot be undone. Their sign-in account itself must be removed separately from the Supabase dashboard.", async () => {
+    const id = el.dataset.id;
+    for (const t of ['contributions', 'suggestions', 'notifications']) {
+      await Promise.all(db[t].where(r => r.userId === id || r.authorId === id).map(r => db[t].remove(r.id)));
+    }
+    await Promise.all(db.suggestionVotes.where(v => v.userId === id).map(v => db.suggestionVotes.remove(v.id)));
+    await db.users.remove(id); logActivity('Removed a member profile');
+    toast('Member profile removed.'); render();
+  }),
+  'change-password': () => passwordForm(),
+  'read-one': async (el) => { await db.notifications.update(el.dataset.id, { read: true }); render(); },
+  'read-all': async () => {
+    await Promise.all(db.notifications.where(n => n.userId === session.user.id && !n.read).map(n => db.notifications.update(n.id, { read: true })));
+    toast('All notifications marked as read.'); render();
+  }
+};
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-act]');
+  if (!el) { const m = $('#user-menu'); if (m) m.classList.remove('open'); return; }
+  const act = el.dataset.act;
+  if (el.tagName === 'FORM') return;
+  if (ACTIONS[act]) { e.preventDefault(); ACTIONS[act](el); }
+});
+
+/* form submissions (delegated) */
+document.addEventListener('submit', async (e) => {
+  const form = e.target;
+  e.preventDefault();
+
+  if (form.id === 'login-form') {
+    if (!validate(form, { email: ['required', 'email'], password: ['required'] })) return;
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Signing in…';
+    const res = await login(form.elements.email.value, form.elements.password.value);
+    btn.disabled = false; btn.textContent = 'Sign in';
+    if (res.error) { toast(res.error, true); return; }
+    await loadAllData();
+    go('#/dashboard'); render(); toast(`Welcome back, ${res.user.firstName || res.user.email}.`);
+    return;
+  }
+  if (form.id === 'register-form') {
+    const d = Object.fromEntries(new FormData(form));
+    if (!validate(form, { firstName: ['required'], lastName: ['required'], email: ['required', 'email'], phone: ['required', 'phone'], password: ['required', 'password'], confirm: ['required'] })) return;
+    if (d.password !== d.confirm) { toast('The two passwords do not match.', true); return; }
+    if (!d.terms) { toast('Please accept the visibility note to continue.', true); return; }
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Creating account…';
+    const res = await register(d);
+    btn.disabled = false; btn.textContent = 'Create account';
+    if (res.error) { toast(res.error, true); return; }
+    if (res.needsConfirmation) {
+      go('#/login'); render();
+      toast('Check your email to confirm your account, then sign in.');
+      return;
+    }
+    await loadAllData();
+    go('#/dashboard'); render();
+    toast(res.isFirstAccount ? 'Account created — you are the administrator.' : 'Account created. Welcome to the association.');
+    return;
+  }
+  if (form.id === 'forgot-form') {
+    if (!validate(form, { email: ['required', 'email'] })) return;
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true;
+    const res = await requestPasswordReset(form.elements.email.value);
+    btn.disabled = false;
+    if (res.error) { toast(res.error, true); return; }
+    go('#/login'); render();
+    toast('If that email is registered, a reset link is on its way.');
+    return;
+  }
+  if (form.id === 'reset-form') {
+    const d = Object.fromEntries(new FormData(form));
+    if (!validate(form, { password: ['required', 'password'], confirm: ['required'] })) return;
+    if (d.password !== d.confirm) { toast('The two passwords do not match.', true); return; }
+    const res = await completePasswordReset(d.password);
+    if (res.error) { toast(res.error, true); return; }
+    recoveryActive = false;
+    go('#/dashboard'); render();
+    toast('Password set. You are signed in.');
+    return;
+  }
+  if (form.id === 'profile-form') {
+    if (!validate(form, { firstName: ['required'], lastName: ['required'], email: ['required', 'email'], phone: ['required', 'phone'] })) return;
+    const d = Object.fromEntries(new FormData(form));
+    const clash = db.users.where(u => u.email.toLowerCase() === d.email.toLowerCase() && u.id !== session.user.id);
+    if (clash.length) { toast('That email address belongs to another member.', true); return; }
+    const updated = await db.users.update(session.user.id, { firstName: d.firstName, lastName: d.lastName, email: d.email.toLowerCase(), phone: d.phone, occupation: d.occupation, town: d.town, bio: d.bio });
+    session.user = updated;
+    logActivity('Updated their profile');
+    render(); toast('Profile saved.');
+    return;
+  }
+  if (form.id === 'settings-form') {
+    if (!validate(form, { orgName: ['required'], currency: ['required'], monthlyWelfare: ['required', 'money'] })) return;
+    const d = Object.fromEntries(new FormData(form));
+    const { error } = await sb.from('settings').update({
+      org_name: d.orgName, tagline: d.tagline, currency: d.currency,
+      monthly_welfare: Number(d.monthlyWelfare), allow_registration: !!d.allowRegistration
+    }).eq('id', 1);
+    if (error) { toast('Could not save: ' + error.message, true); return; }
+    Object.assign(state.settings, { orgName: d.orgName, tagline: d.tagline, currency: d.currency, monthlyWelfare: Number(d.monthlyWelfare), allowRegistration: !!d.allowRegistration });
+    logActivity('Updated association settings');
+    render(); toast('Settings saved.');
+    return;
+  }
+  if (form.id === 'mpesa-form') {
+    const d = Object.fromEntries(new FormData(form));
+    const { error } = await sb.from('settings').update({ mpesa_paybill: d.mpesaPaybill, mpesa_account_prefix: d.mpesaAccountPrefix }).eq('id', 1);
+    if (error) { toast('Could not save: ' + error.message, true); return; }
+    Object.assign(state.settings, { mpesaPaybill: d.mpesaPaybill, mpesaAccountPrefix: d.mpesaAccountPrefix });
+    toast('Payment details saved for the future integration.');
+    return;
+  }
+  if (form.dataset.act === 'search-form' || form.dataset.act === 'member-search') {
+    const q = form.elements.q.value.trim();
+    go(form.dataset.act === 'member-search'
+      ? (q ? '#/members?q=' + encodeURIComponent(q) : '#/members')
+      : (q ? '#/search?q=' + encodeURIComponent(q) : '#/search'));
+    return;
+  }
+  if (form.dataset.act === 'contrib-filter') {
+    const d = Object.fromEntries(new FormData(form));
+    const qs = Object.entries(d).filter(([, v]) => v).map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&');
+    go('#/contributions' + (qs ? '?' + qs : ''));
+    return;
+  }
+});
+
+/* ---------------- theme ---------------- */
+
+
+/* ---------------- render ---------------- */
+function render() {
+  route = parseHash();
+  document.body.classList.remove('nav-open');
+  const root = $('#root');
+  const p = route.parts;
+  const head = p[0] || '';
+
+  if (head === 'reset') {
+    root.innerHTML = viewResetPassword();
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  if (!session.user) {
+    if (!PUBLIC_ROUTES.includes(head)) { location.replace('#/login'); route = parseHash(); }
+    const v = { '': viewLanding, 'login': viewLogin, 'register': viewRegister, 'forgot': viewForgot }[route.parts[0] || ''] || viewLogin;
+    root.innerHTML = v();
+    window.scrollTo(0, 0);
+    return;
+  }
+  if (PUBLIC_ROUTES.includes(head) && head !== '') { location.replace('#/dashboard'); route = parseHash(); }
+
+  let body;
+  const seg = route.parts;
+  switch (seg[0] || 'dashboard') {
+    case '': case 'dashboard': body = viewDashboard(); break;
+    case 'profile': body = viewProfile(); break;
+    case 'members': body = viewMembers(); break;
+    case 'contributions': body = seg[1] ? viewContributionDetail(seg[1]) : viewContributions(); break;
+    case 'suggestions': body = seg[1] ? viewSuggestionDetail(seg[1]) : viewSuggestions(); break;
+    case 'announcements': body = seg[1] ? viewAnnouncementDetail(seg[1]) : viewAnnouncements(); break;
+    case 'meetings': body = seg[1] ? viewMeetingDetail(seg[1]) : viewMeetings(); break;
+    case 'notifications': body = viewNotifications(); break;
+    case 'search': body = viewSearch(); break;
+    case 'settings': body = viewSettings(); break;
+    case 'docs': body = viewDocs(); break;
+    case 'admin': {
+      const sub = seg[1];
+      const treasurerOK = sub === 'contributions' && is('treasurer');
+      if (!is('admin') && !treasurerOK) {
+        body = page('Not permitted', 'That area is limited to other roles.',
+          empty('You do not have access to this page', 'Your role is ' + ROLES[session.user.role].label + '. Ask an administrator if you think that is wrong.',
+            '<a class="btn" href="#/dashboard" style="margin-top:.8rem">Back to dashboard</a>'));
+        break;
+      }
+      body = !sub ? viewAdmin()
+        : sub === 'members' ? viewManageMembers()
+          : sub === 'contributions' ? viewManageContributions()
+            : sub === 'suggestions' ? viewManageSuggestions()
+              : sub === 'announcements' ? viewManageAnnouncements()
+                : sub === 'meetings' ? viewManageMeetings()
+                  : viewAdmin();
+      break;
+    }
+    default:
+      body = page('Page not found', 'That address does not match anything in ClassConnect.',
+        empty('Nothing here', 'Check the link, or head back to your dashboard.', '<a class="btn" href="#/dashboard" style="margin-top:.8rem">Back to dashboard</a>'));
+  }
+  root.innerHTML = shell(body);
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- boot ---------------- */
+let recoveryActive = false;
+(async function boot() {
+  window.addEventListener('hashchange', render);
+  if (/type=recovery/.test(location.hash)) recoveryActive = true;
+
+  sb.auth.onAuthStateChange((event) => {
+    if (event === 'PASSWORD_RECOVERY') { recoveryActive = true; render(); }
+    if (event === 'SIGNED_OUT') { session.user = null; resetCache(); render(); }
+  });
+
+  const { data: { session: sbSession } } = await sb.auth.getSession();
+  if (sbSession && sbSession.user) {
+    const profile = await fetchProfile(sbSession.user.id);
+    if (profile && profile.status === 'active') { session.user = profile; await loadAllData(); }
+    else if (profile) { await sb.auth.signOut(); }
+  }
+  if (recoveryActive) history.replaceState(null, '', location.pathname + '#/reset');
+  else if (!location.hash) location.replace(session.user ? '#/dashboard' : '#/');
+  render();
+})();
+
+</script>
+</body>
+</html>
