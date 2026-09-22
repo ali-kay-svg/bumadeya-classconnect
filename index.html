@@ -932,56 +932,6 @@ function viewLanding() {
     <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Knowledge For Life</footer>
   </div>`;
 }
-  const members = db.users.where(u => u.status === 'active');
-  const t = groupTotals();
-  const cells = members.slice(0, 15).map(u => `<div class="rc-cell" style="background:${avatarColor(u.id)}" title="${esc(fullName(u))}">${esc(initials(u))}</div>`).join('')
-    + `<div class="rc-cell empty" title="Seats still open">+</div>`;
-  return `<div class="public">
-    <nav class="pubnav">
-      <a class="brand" href="#/">
-        <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
-        <span><b>St. Veronica Bumadeya Primary School</b><span class="sub">Knowledge For Life</span></span>
-      </a>
-      <div class="row"><a class="btn ghost sm" href="#/login">Sign in</a><a class="btn sm" href="#/register">Join the association</a></div>
-    </nav>
-    <section class="hero"><div class="hero-grid">
-      <div>
-        <div class="crest-hero">
-          <img src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
-          <div><h2 style="font-size:1.05rem;line-height:1.25">St. Veronica Bumadeya<br>Primary School Association</h2>
-          <div class="motto">Knowledge For Life</div></div>
-        </div>
-        <h1>The school register never really closed.</h1>
-        <p class="lede">ClassConnect keeps the St. Veronica Bumadeya school association together long after the last assembly: one place for announcements, meetings, suggestions and the money every member contributes — with a record anyone can check.</p>
-        <div class="row wrap" style="margin-top:1.5rem">
-          <a class="btn" href="#/register">${members.length ? 'Create your account' : 'Register — first account becomes admin'}</a>
-          <a class="btn ghost" href="#/login">Sign in</a>
-        </div>
-        <p class="faint" style="margin-top:1rem">${members.length ? 'Members, contributions and meetings are all recorded here.' : 'No one has registered yet. The first person to sign up sets up the association as its administrator.'}</p>
-      </div>
-      <div class="rollcall">
-        <div class="rc-head"><span>Association roll call</span><span class="motto">Knowledge For Life</span></div>
-        ${members.length ? `<div class="rc-grid">${cells}</div>
-        <div class="rc-foot">
-          <div><b class="mono-num">${members.length}</b><span class="faint">members</span></div>
-          <div><b class="mono-num">${money(t.collected)}</b><span class="faint">collected</span></div>
-          <div><b class="mono-num">${db.meetings.all().length}</b><span class="faint">meetings held</span></div>
-        </div>`
-        : `<div style="padding:1.6rem 0;text-align:center">
-          <div class="rc-cell empty" style="width:56px;height:56px;font-size:1.4rem;margin:0 auto 1rem">+</div>
-          <p class="muted small" style="margin:0">This roll call is empty. Register to fill the first seat.</p>
-        </div>`}
-      </div>
-    </div></section>
-    <section class="features">
-      <div class="feature"><h3>Contributions with receipts</h3><p>The treasurer records every payment against a member, a type and a reference. Members see their own balance and the group total.</p></div>
-      <div class="feature"><h3>Suggestions the members vote on</h3><p>Anyone can propose something. Everyone else backs it or doesn't, and the committee moves it through review to implemented.</p></div>
-      <div class="feature"><h3>Meetings, agendas and minutes</h3><p>Upcoming meetings with agendas, past meetings with the minutes attached, so nobody has to ask what was agreed.</p></div>
-      <div class="feature"><h3>Roles that actually restrict</h3><p>Members, treasurer and administrator each see a different application. Permissions are checked on every screen and action.</p></div>
-    </section>
-    <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Knowledge For Life. </footer>
-  </div>`;
-}
 const authShell = (inner) => `<div class="public">
   <nav class="pubnav"><a class="brand" href="#/">
         <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
@@ -990,7 +940,6 @@ const authShell = (inner) => `<div class="public">
   <a class="btn ghost sm" href="#/">Back to home</a></nav>
   <div class="auth-wrap">${inner}</div>
   <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Passwords are hashed with a per-account salt before storage.</footer></div>`;
-
 function viewLogin() {
   return authShell(`<div class="auth-card">
     <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
