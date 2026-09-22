@@ -898,6 +898,40 @@ const empty = (h, p, action = '') => `<div class="card empty"><h3>${esc(h)}</h3>
    Public views
    ========================================================================= */
 function viewLanding() {
+  return `<div class="public">
+    <nav class="pubnav">
+      <a class="brand" href="#/">
+        <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+        <span><b>St. Veronica Bumadeya Primary School</b><span class="sub">Knowledge For Life</span></span>
+      </a>
+      <div class="row"><a class="btn ghost sm" href="#/login">Sign in</a><a class="btn sm" href="#/register">Join the association</a></div>
+    </nav>
+    <section class="hero">
+      <div style="max-width:640px;margin:0 auto;text-align:center">
+        <div class="crest-hero" style="justify-content:center;flex-direction:column;gap:.75rem">
+          <img src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest" style="width:100px;height:100px">
+          <div>
+            <h2 style="font-size:1.1rem;line-height:1.3">St. Veronica Bumadeya<br>Primary School Association</h2>
+            <div class="motto">Knowledge For Life</div>
+          </div>
+        </div>
+        <h1 style="margin-top:1.25rem">The school register never really closed.</h1>
+        <p class="lede" style="margin-left:auto;margin-right:auto">ClassConnect keeps the St. Veronica Bumadeya school association together long after the last assembly: one place for announcements, meetings, suggestions and the money every member contributes.</p>
+        <div class="row wrap" style="margin-top:1.75rem;justify-content:center">
+          <a class="btn" href="#/register">Join the association</a>
+          <a class="btn ghost" href="#/login">Sign in</a>
+        </div>
+      </div>
+    </section>
+    <section class="features">
+      <div class="feature"><h3>Contributions with receipts</h3><p>The treasurer records every payment against a member, a type and a reference. Members see their own balance and the group total.</p></div>
+      <div class="feature"><h3>Suggestions the members vote on</h3><p>Anyone can propose something. Everyone else backs it or doesn't, and the committee moves it through review to implemented.</p></div>
+      <div class="feature"><h3>Meetings, agendas and minutes</h3><p>Upcoming meetings with agendas, past meetings with the minutes attached, so nobody has to ask what was agreed.</p></div>
+      <div class="feature"><h3>Roles that actually restrict</h3><p>Members, treasurer and administrator each see a different application. Permissions are checked on every screen and action.</p></div>
+    </section>
+    <footer class="pubfoot">St. Veronica Bumadeya Primary School Association · Knowledge For Life</footer>
+  </div>`;
+}
   const members = db.users.where(u => u.status === 'active');
   const t = groupTotals();
   const cells = members.slice(0, 15).map(u => `<div class="rc-cell" style="background:${avatarColor(u.id)}" title="${esc(fullName(u))}">${esc(initials(u))}</div>`).join('')
