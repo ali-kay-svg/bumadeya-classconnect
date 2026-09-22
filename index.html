@@ -962,10 +962,8 @@ function viewRegister() {
   const isFirst = db.users.all().length === 0;
   return authShell(`<div class="auth-card">
     <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
-    <h1 style="text-align:center">${isFirst ? 'Set up the association' : 'Join the association'}</h1>
-    <p class="sub" style="text-align:center">${isFirst
-      ? 'No account exists yet. The first person to register becomes the administrator and can add everyone else afterwards.'
-      : 'Your account starts as a member. An administrator can change that later.'}</p>
+      <h1 style="text-align:center">Join the association</h1>
+    <p class="sub" style="text-align:center">Create your account to access announcements, meetings, suggestions and contributions.</p>
     <form id="register-form" novalidate>
       <div class="field-row">${fieldHTML('firstName', 'First name')}${fieldHTML('lastName', 'Last name')}</div>
       ${fieldHTML('email', 'Email address', { type: 'email', placeholder: 'you@example.com' })}
