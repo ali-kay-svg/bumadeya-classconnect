@@ -164,7 +164,90 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 .auth-card{width:100%; max-width:430px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:clamp(1.3rem,3vw,2rem); box-shadow:var(--shadow-lg)}
 .auth-card h1{font-size:1.5rem; margin-bottom:.35rem}
 .auth-card .sub{color:var(--muted); font-size:.92rem; margin-bottom:1.3rem}
+/* ========== Landing page (structured) ========== */
+.landing-page{display:flex;flex-direction:column;min-height:100vh}
+.landing-nav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border)}
+.landing-nav .nav-links{display:flex;align-items:center;gap:1.1rem}
+.landing-nav .nav-a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem}
+.landing-nav .nav-a:hover{color:var(--green)}
+.landing-menu{display:none;flex-direction:column;gap:.5rem;padding:1rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.landing-menu.open{display:flex}
+.landing-menu a{color:var(--ink);text-decoration:none;font-weight:600;padding:.45rem 0}
 
+.landing-hero{
+  text-align:center;
+  padding:clamp(2.5rem,7vw,4.5rem) clamp(1rem,4vw,3rem);
+  background:linear-gradient(180deg,var(--green-soft) 0%,var(--paper) 100%);
+  border-bottom:1px solid var(--border);
+}
+.hero-inner{max-width:720px;margin:0 auto}
+.hero-crest{width:96px;height:96px;margin-bottom:.75rem}
+.landing-hero h1{font-size:clamp(1.85rem,1.2rem + 2.8vw,3rem);line-height:1.1;margin:.5rem 0 1rem}
+.landing-hero .lede{margin:0 auto 1.75rem;max-width:52ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+
+.landing-section{padding:clamp(2.2rem,5vw,3.5rem) clamp(1rem,4vw,3rem);max-width:1140px;margin:0 auto;width:100%}
+.landing-section.alt{background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:none}
+.landing-section.alt > *{max-width:1140px;margin-left:auto;margin-right:auto}
+.section-head{text-align:center;margin-bottom:1.75rem}
+.section-head h2{font-size:1.45rem;margin-bottom:.25rem}
+.section-sub{color:var(--muted);margin:0}
+
+.about-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:1.5rem;align-items:start}
+@media (max-width:800px){.about-grid{grid-template-columns:1fr}}
+.about-text p{margin-bottom:1rem}
+.mission-list{margin:1rem 0 0;padding-left:1.1rem;color:var(--muted)}
+.mission-list li{margin-bottom:.45rem}
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow)}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.service-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow)}
+.service-icon{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--on-green);font-family:var(--display);font-weight:700;font-size:.9rem;margin-bottom:.7rem}
+.service-card h3{margin-bottom:.4rem;font-size:1.05rem}
+.service-card p{margin:0;font-size:.9rem;color:var(--muted)}
+
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.benefit{display:flex;gap:.85rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--shadow)}
+.benefit .check{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--on-green);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.benefit h3{margin-bottom:.25rem;font-size:1rem}
+.benefit p{margin:0;font-size:.9rem;color:var(--muted)}
+
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.testimonial{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin:0;box-shadow:var(--shadow)}
+.testimonial p{font-size:.95rem;color:var(--ink);margin:0 0 .75rem;font-style:italic}
+.testimonial footer{font-size:.82rem;color:var(--faint)}
+
+.landing-cta{text-align:center;padding:clamp(2.5rem,6vw,3.8rem) clamp(1rem,4vw,3rem);background:var(--green);color:var(--on-green)}
+.landing-cta h2{color:var(--on-green);margin-bottom:.5rem}
+.landing-cta .lede{color:rgba(255,255,255,.9);max-width:48ch;margin:0 auto 1.5rem}
+.landing-cta .btn{background:var(--white);color:var(--green)}
+.landing-cta .btn:hover{background:var(--green-soft);color:var(--green-2)}
+.landing-cta a{color:rgba(255,255,255,.95)}
+
+.contact-card{max-width:480px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.75rem;box-shadow:var(--shadow-lg)}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:.75rem;padding:.7rem 1.2rem;background:#25D366;color:#fff;border-radius:var(--r-sm);font-weight:700;text-decoration:none}
+.whatsapp-btn:hover{filter:brightness(.95);color:#fff}
+.wa-icon{font-size:.85rem;opacity:.95}
+
+.landing-footer{background:var(--ink);color:var(--green-soft);padding:2rem clamp(1rem,4vw,3rem) 1.25rem;margin-top:auto}
+.landing-footer a{color:var(--light-green-2);text-decoration:none;display:block;margin:.3rem 0;font-size:.9rem}
+.landing-footer a:hover{color:var(--white)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.5rem;max-width:1140px;margin:0 auto 1.5rem}
+@media (max-width:700px){.footer-grid{grid-template-columns:1fr}}
+.footer-title{font-weight:700;color:var(--white);margin-bottom:.5rem;font-size:.85rem;letter-spacing:.03em}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;max-width:1140px;margin:0 auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12);font-size:.82rem;color:var(--light-green-2)}
+
+.legal-block{max-width:720px;margin:0 auto;padding:1.5rem clamp(1rem,4vw,3rem);border-top:1px solid var(--border)}
+.legal-block h3{margin-bottom:.4rem}
+
+@media (max-width:900px){
+  .landing-nav .nav-links{display:none}
+  .hide-desktop{display:grid}
+}
+@media (min-width:901px){
+  .hide-desktop{display:none}
+  .landing-menu{display:none !important}
+}
 /* ---------- app shell ---------- */
 .shell{display:grid; grid-template-columns:var(--sidebar) 1fr; min-height:100vh}
 @media (max-width:1000px){.shell{grid-template-columns:1fr}}
