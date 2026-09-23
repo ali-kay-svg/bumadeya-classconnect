@@ -887,6 +887,270 @@ function shell(content) {
     </div>
   </div>`;
 }
+  function viewLanding() {
+  return `<div class="public landing-page">
+    <!-- ========== HEADER ========== -->
+    <nav class="pubnav landing-nav">
+      <a class="brand" href="#/">
+        <img class="crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
+        <span>
+          <b>St. Veronica Bumadeya</b>
+          <span class="sub">Primary School Association</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#/" class="nav-a">Home</a>
+        <a href="#about" class="nav-a">About</a>
+        <a href="#services" class="nav-a">Services</a>
+        <a href="#contact" class="nav-a">Contact</a>
+        <a class="btn sm" href="#/register">Join</a>
+      </div>
+      <button class="icon-btn hide-desktop" data-act="open-landing-menu" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div class="landing-menu" id="landing-menu">
+      <a href="#/" data-close-menu>Home</a>
+      <a href="#about" data-close-menu>About</a>
+      <a href="#services" data-close-menu>Services</a>
+      <a href="#benefits" data-close-menu>Benefits</a>
+      <a href="#contact" data-close-menu>Contact</a>
+      <a class="btn sm" href="#/register" data-close-menu>Join the association</a>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="landing-hero" id="home">
+      <div class="hero-inner">
+        <img class="hero-crest" src="${LOGO}" alt="School crest">
+        <p class="motto">Knowledge For Life</p>
+        <h1>The school register never really closed.</h1>
+        <p class="lede">
+          ClassConnect is the official home of the St. Veronica Bumadeya Primary School Association —
+          the place where former pupils stay connected, contribute, vote on ideas and keep the school’s spirit alive.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#/register">Join the association</a>
+          <a class="btn ghost" href="#about">Learn more</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT US ========== -->
+    <section class="landing-section" id="about">
+      <div class="section-head">
+        <h2>About Us</h2>
+        <p class="section-sub">Who we are and why we exist</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            The <strong>St. Veronica Bumadeya Primary School Association</strong> brings together
+            former pupils, parents and friends of the school. Its purpose is to support the school’s
+            mission of “Knowledge For Life”, keep the community connected long after the last assembly,
+            and raise the resources needed for welfare, events and school development.
+          </p>
+          <p>
+            ClassConnect is the association’s official platform for communication, meetings,
+            suggestions and contributions — so every member sees the same association from any device.
+          </p>
+          <ul class="mission-list">
+            <li><strong>Purpose</strong> — Keep former students connected and active in the life of the school.</li>
+            <li><strong>Mission</strong> — Support the school through organised contributions, clear communication and shared decisions.</li>
+            <li><strong>Vision</strong> — A strong, transparent association that former pupils are proud to belong to.</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>What we stand for</h3>
+          <p class="muted">Transparency · Community · Service · Continuity</p>
+          <hr class="divider">
+          <p class="small">Every contribution is recorded. Every meeting has an agenda and minutes. Every member has a voice through suggestions and votes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== OUR SERVICES ========== -->
+    <section class="landing-section alt" id="services">
+      <div class="section-head">
+        <h2>Our Services</h2>
+        <p class="section-sub">What the association offers former students</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">1</div>
+          <h3>Bring former students together</h3>
+          <p>A living directory of members, class-year connections and a shared digital home so Bumadeya alumni never lose touch.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">2</div>
+          <h3>Contributions &amp; welfare</h3>
+          <p>Transparent recording of every payment against a member and a purpose, with clear balances and group totals.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">3</div>
+          <h3>Meetings, agendas &amp; minutes</h3>
+          <p>Upcoming events with agendas, past meetings with filed minutes — so everyone knows what was decided.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">4</div>
+          <h3>Suggestions &amp; voting</h3>
+          <p>Any member can propose an idea. Others vote. The committee moves accepted proposals from review to action.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BENEFITS / WHY JOIN ========== -->
+    <section class="landing-section" id="benefits">
+      <div class="section-head">
+        <h2>Why join the association?</h2>
+        <p class="section-sub">Benefits for former students of St. Veronica Bumadeya</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>Stay connected</h3>
+            <p>Find classmates, see who is active, and keep the bonds formed at school alive.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>Transparent contributions</h3>
+            <p>Know exactly what you have paid, what is outstanding, and how the association kitty stands.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>A real voice</h3>
+            <p>Submit suggestions, vote on proposals and help shape what the association does next.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>Clear meetings &amp; decisions</h3>
+            <p>Access agendas and minutes so you never miss what was agreed or who is responsible.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>Support the school</h3>
+            <p>Channel your contribution toward welfare, events and development that honour “Knowledge For Life”.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <span class="check">✓</span>
+          <div>
+            <h3>One trusted place</h3>
+            <p>Announcements, notifications and records live in one secure platform instead of scattered chats.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS (optional but in structure) ========== -->
+    <section class="landing-section alt" id="testimonials">
+      <div class="section-head">
+        <h2>What members say</h2>
+        <p class="section-sub">Voices from the association</p>
+      </div>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial">
+          <p>“Finally we have one place where contributions are clear and meetings are documented. It feels professional.”</p>
+          <footer>— Association member</footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>“Being able to vote on suggestions and see the status change makes me feel the association actually listens.”</p>
+          <footer>— Former pupil</footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>“I can check my balance and the group total from my phone. No more asking the treasurer every time.”</p>
+          <footer>— Active contributor</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ========== CALL TO ACTION ========== -->
+    <section class="landing-cta" id="join">
+      <h2>Join the association today</h2>
+      <p class="lede">
+        Create your account in under a minute. Reconnect with former classmates,
+        contribute transparently and help keep St. Veronica Bumadeya’s spirit alive.
+      </p>
+      <a class="btn" href="#/register">Join the association</a>
+      <p class="faint small" style="margin-top:1rem">Already a member? <a href="#/login">Sign in</a></p>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="landing-section" id="contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p class="section-sub">Reach the association</p>
+      </div>
+      <div class="contact-card">
+        <p>For questions about membership, contributions or meetings, message us on WhatsApp:</p>
+        <a class="whatsapp-btn" href="https://wa.me/254780927598" target="_blank" rel="noopener">
+          <span class="wa-icon">WhatsApp</span>
+          +254 780 927 598
+        </a>
+        <p class="faint small" style="margin-top:1rem">
+          St. Veronica Bumadeya Primary School Association · Knowledge For Life
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="landing-footer">
+      <div class="footer-grid">
+        <div>
+          <b>St. Veronica Bumadeya Primary School Association</b>
+          <div class="faint">Knowledge For Life</div>
+          <p class="small muted" style="margin-top:.6rem">
+            Official platform for former pupils, contributions, meetings and shared decisions.
+          </p>
+        </div>
+        <div>
+          <div class="footer-title">Quick links</div>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#/register">Join</a>
+          <a href="#/login">Sign in</a>
+        </div>
+        <div>
+          <div class="footer-title">Legal &amp; contact</div>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms &amp; Conditions</a>
+          <a href="https://wa.me/254780927598" target="_blank" rel="noopener">WhatsApp +254 780 927 598</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© ${new Date().getFullYear()} St. Veronica Bumadeya Primary School Association. All rights reserved.</span>
+        <span class="faint">Powered by ClassConnect</span>
+      </div>
+    </footer>
+
+    <!-- Simple Privacy / Terms placeholders (scroll targets) -->
+    <section id="privacy" class="legal-block">
+      <h3>Privacy Policy</h3>
+      <p class="small muted">
+        ClassConnect stores membership and contribution data in a secured Supabase project.
+        Only authorised roles can see sensitive records. We do not sell personal data.
+        For data requests or account removal, contact the association via WhatsApp.
+      </p>
+    </section>
+    <section id="terms" class="legal-block">
+      <h3>Terms &amp; Conditions</h3>
+      <p class="small muted">
+        By registering you agree to use the platform for legitimate association purposes,
+        provide accurate information, and respect other members. The association may update
+        these terms; continued use constitutes acceptance.
+      </p>
+    </section>
+  </div>`;
+}
 const page = (title, sub, body, actions = '') => `
   <div class="page-head spread">
     <div><h1>${esc(title)}</h1>${sub ? `<p>${esc(sub)}</p>` : ''}</div>
