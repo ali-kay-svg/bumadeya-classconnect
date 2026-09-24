@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="google-site-verification" content="2nDXBnxwaE3uxcTz6x4tFWHYnifQqn-xD9je7ugmVdU" />
-<title>St. Veronica Bumadeya Primary School — ClassConnect</title>
+<title>St. Veronica Bumadeya Primary School, ClassConnect</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,26 +14,15 @@
      Every colour in the app resolves to one of these tokens. There are no
      blues, purples, reds, golds or neutral greys anywhere in the build. */
   --white:#FFFFFF;
-  --paper:#F4F9EF;          /* very light green tint behind the app */
-  --surface:#FFFFFF;        /* cards */
-  --surface2:#F8FBF4;       /* subtle tinted surface */
-  --sunken:#E9F3E0;         /* wells, chart grid, inactive chips */
-  --border:#D9E9CE; --border-strong:#BCD8A6;
-
-  --ink:#06331C;            /* dark forest green — all body text */
-  --muted:#2E5C42;
-  --faint:#45785B;
-
-  --green:#095C32;          /* crest shield green — primary accent */
-  --green-2:#063F22;        /* hover / pressed */
-  --green-soft:#E6F2DD;     /* light green fill behind active items */
-  --light-green:#90C144;    /* crest lower-panel green — secondary accent */
-  --light-green-2:#BBDB8C;
-
-  /* legacy semantic names, all resolved into the crest palette */
-  --ochre:#4F8C2F; --ochre-soft:#EDF5E1;
-  --clay:#063F22;  --clay-soft:#E6F2DD;
-  --ok:#095C32;    --ok-soft:#E6F2DD;
+  --paper:#F5FBFA; --surface:#FFFFFF; --surface2:#F2FAF8; --sunken:#E5F4F1;
+  --border:#CDE7E2; --border-strong:#9CCFC6;
+  --ink:#073B4C; --muted:#245B68; --faint:#4C7C87;
+  --green:#087F5B; --green-2:#05634A; --green-soft:#DDF3EC;
+  --light-green:#2FBF71; --light-green-2:#9BE3BD;
+  --blue:#1769AA; --blue-2:#0D4F82; --blue-soft:#E3F0FA;
+  --ochre:#1769AA; --ochre-soft:#E3F0FA;
+  --clay:#0D4F82; --clay-soft:#DDF3EC;
+  --ok:#087F5B; --ok-soft:#DDF3EC;
   --on-green:#FFFFFF;
 
   --r-sm:8px; --r:12px; --r-lg:18px;
@@ -172,12 +161,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 .landing-nav .nav-a:hover{color:var(--green)}
 .landing-menu{display:none;flex-direction:column;gap:.5rem;padding:1rem;background:var(--surface);border-bottom:1px solid var(--border)}
 .landing-menu.open{display:flex}
+.landing-menu-toggle{display:grid !important}
+.landing-menu{align-items:stretch}
+.landing-menu .btn{width:100%}
+@media (min-width:901px){
+  .landing-menu{position:absolute;right:clamp(1rem,4vw,3rem);top:76px;width:230px;border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-lg);z-index:60}
+}
 .landing-menu a{color:var(--ink);text-decoration:none;font-weight:600;padding:.45rem 0}
 
 .landing-hero{
   text-align:center;
   padding:clamp(2.5rem,7vw,4.5rem) clamp(1rem,4vw,3rem);
-  background:linear-gradient(180deg,var(--green-soft) 0%,var(--paper) 100%);
+  background:linear-gradient(135deg,var(--blue-soft) 0%,var(--green-soft) 52%,var(--white) 100%);
   border-bottom:1px solid var(--border);
 }
 .hero-inner{max-width:720px;margin:0 auto}
@@ -219,13 +214,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 
 .landing-cta{text-align:center;padding:clamp(2.5rem,6vw,3.8rem) clamp(1rem,4vw,3rem);background:var(--green);color:var(--on-green)}
 .landing-cta h2{color:var(--on-green);margin-bottom:.5rem}
-.landing-cta .lede{color:rgba(255,255,255,.9);max-width:48ch;margin:0 auto 1.5rem}
+.landing-cta .lede{color:rgba(255,255,255,.92);max-width:48ch;margin:0 auto 1.5rem}
 .landing-cta .btn{background:var(--white);color:var(--green)}
 .landing-cta .btn:hover{background:var(--green-soft);color:var(--green-2)}
-.landing-cta a{color:rgba(255,255,255,.95)}
+.landing-cta a{color:rgba(255,255,255,.96)}
 
 .contact-card{max-width:480px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.75rem;box-shadow:var(--shadow-lg)}
-.whatsapp-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:.75rem;padding:.7rem 1.2rem;background:#25D366;color:#fff;border-radius:var(--r-sm);font-weight:700;text-decoration:none}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:.75rem;padding:.7rem 1.2rem;background:var(--green);color:#fff;border-radius:var(--r-sm);font-weight:700;text-decoration:none}
 .whatsapp-btn:hover{filter:brightness(.95);color:#fff}
 .wa-icon{font-size:.85rem;opacity:.95}
 
@@ -235,7 +230,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.5rem;max-width:1140px;margin:0 auto 1.5rem}
 @media (max-width:700px){.footer-grid{grid-template-columns:1fr}}
 .footer-title{font-weight:700;color:var(--white);margin-bottom:.5rem;font-size:.85rem;letter-spacing:.03em}
-.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;max-width:1140px;margin:0 auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12);font-size:.82rem;color:var(--light-green-2)}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;max-width:1140px;margin:0 auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.16);font-size:.82rem;color:var(--light-green-2)}
 
 .legal-block{max-width:720px;margin:0 auto;padding:1.5rem clamp(1rem,4vw,3rem);border-top:1px solid var(--border)}
 .legal-block h3{margin-bottom:.4rem}
@@ -271,7 +266,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 }
 .nav-link:hover{background:var(--surface2); color:var(--ink)}
 .nav-link.active{background:var(--green-soft); color:var(--green); font-weight:600}
-.nav-link svg{width:17px; height:17px; flex:none; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.nav-link svg{width:16px; height:16px; flex:none; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
 .nav-link .count{margin-left:auto; background:var(--green); color:var(--white); font-size:.7rem; font-weight:700; padding:.05rem .4rem; border-radius:999px}
 .side-foot{margin-top:auto; padding-top:.8rem; border-top:1px solid var(--border)}
 
@@ -287,7 +282,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green); outline:2px s
 .search svg{position:absolute; left:.65rem; top:50%; transform:translateY(-50%); width:16px; height:16px; stroke:var(--faint); fill:none; stroke-width:1.8}
 .icon-btn{position:relative; display:grid; place-items:center; width:38px; height:38px; border-radius:var(--r-sm); border:1px solid transparent; background:transparent; cursor:pointer; color:var(--muted)}
 .icon-btn:hover{background:var(--surface2); color:var(--ink)}
-.icon-btn svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.icon-btn svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
 .badge{position:absolute; top:4px; right:4px; min-width:17px; height:17px; padding:0 4px; border-radius:999px; background:var(--green); color:var(--white); font-size:.66rem; font-weight:700; display:grid; place-items:center; font-family:var(--display)}
 .menu{position:relative}
 .menu-pop{position:absolute; right:0; top:calc(100% + .5rem); background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow-lg); min-width:220px; padding:.35rem; display:none; z-index:50}
@@ -385,10 +380,10 @@ pre.code{background:var(--sunken); border:1px solid var(--border); border-radius
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 /* =========================================================================
-   ClassConnect — St. Veronica Bumadeya Primary School Association
+   ClassConnect, St. Veronica Bumadeya Primary School Association
    Production build backed by Supabase (Postgres + Auth), not localStorage.
    Run supabase-schema.sql once in the Supabase SQL Editor before using this
-   file — it creates the tables, security policies and the trigger that
+   file, it creates the tables, security policies and the trigger that
    makes the first person to register the administrator.
    ========================================================================= */
 'use strict';
@@ -402,7 +397,7 @@ const LOGO = 'data:image/webp;base64,UklGRvRKAABXRUJQVlA4WAoAAAAQAAAA/wAA/wAAQUx
 const SUPABASE_URL = 'https://lxshtrqgyhcrcfpvjehb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Bc4E8gA7mjtvC46B3SUCPg_GVhU4v_j';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: true }
 });
 
 /* ---------------- tiny utilities ---------------- */
@@ -414,7 +409,7 @@ const initials = (u) => ((u && u.firstName || '?')[0] + ((u && u.lastName) || ''
 const fullName = (u) => u ? `${u.firstName} ${u.lastName}`.trim() || u.email : 'Unknown member';
 const todayISO = () => new Date().toISOString().slice(0, 10);
 function fmtDate(iso) {
-  if (!iso) return '—';
+  if (!iso) return ', ';
   const d = new Date(iso);
   if (isNaN(d)) return iso;
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -437,7 +432,7 @@ function ago(iso) {
   if (s < 604800) return Math.floor(s / 86400) + 'd ago';
   return fmtDate(iso);
 }
-const AVATAR_GREENS = ['#095C32', '#063F22', '#177040', '#0B4A29', '#2E7F3C'];
+const AVATAR_GREENS = ['#087F5B', '#1769AA', '#05634A', '#0D4F82', '#2FBF71'];
 function avatarColor(seed) {
   let h = 0;
   for (const ch of String(seed)) h = (h * 31 + ch.charCodeAt(0)) % 997;
@@ -479,7 +474,7 @@ function objToRow(obj) {
    state[cacheKey] mirrors the current user's readable rows (Postgres RLS
    decides what that includes) so every view function can keep reading
    db.x.all()/find()/where() synchronously, exactly as before. Only the
-   mutating calls — insert/update/remove — talk to the network, so every
+   mutating calls, insert/update/remove, talk to the network, so every
    call site that writes data has to be awaited; the render-only call
    sites needed no changes at all when this replaced localStorage. */
 let state = null;
@@ -564,7 +559,7 @@ function memberTotals(userId) {
   };
 }
 // A plain member's `contributions` cache only ever contains their own rows
-// — Postgres RLS enforces that server-side (see supabase-schema.sql) so
+//, Postgres RLS enforces that server-side (see supabase-schema.sql) so
 // there is no separate client-side check needed. Staff (treasurer/admin)
 // can read every row, so groupTotals() computes exact figures from the
 // full cache for them; everyone else falls back to the pre-fetched
@@ -617,7 +612,7 @@ const canManageMoney = () => is('treasurer', 'admin');
 function friendlyAuthError(error) {
   const m = String(error && error.message || error);
   if (/invalid login credentials/i.test(m)) return 'That email and password combination is not correct.';
-  if (/email not confirmed/i.test(m)) return 'Please confirm your email address first — check your inbox for the link we sent.';
+  if (/email not confirmed/i.test(m)) return 'Please confirm your email address first, check your inbox for the link we sent.';
   if (/user already registered/i.test(m)) return 'That email address is already registered.';
   if (/password.*at least/i.test(m)) return 'Use a password of at least 8 characters.';
   return m;
@@ -819,7 +814,7 @@ function donut(parts, centerTop, centerSub) {
       <text x="70" y="84" text-anchor="middle" style="font-size:10px">${esc(centerSub)}</text>
     </svg>
     <div class="legend" style="flex-direction:column;gap:.45rem;margin:0">
-      ${parts.map(p => `<span><i style="background:${p.color}"></i>${esc(p.label)} — <b class="mono-num">${esc(money(p.value))}</b></span>`).join('')}
+      ${parts.map(p => `<span><i style="background:${p.color}"></i>${esc(p.label)}, <b class="mono-num">${esc(money(p.value))}</b></span>`).join('')}
     </div></div>`;
 }
 // Staff (full row access) compute the trend live from the cache, same as
@@ -902,7 +897,6 @@ function navConfig() {
       ['#/notifications', 'bell', 'Notifications', unreadCount()],
       ['#/profile', 'user', 'My profile'],
       ['#/settings', 'cog', 'Settings'],
-      ['#/docs', 'book', 'Setup guide'],
     ]
   }];
   if (is('treasurer')) groups[1].items.push(['#/admin/contributions', 'shield', 'Record payments']);
@@ -950,7 +944,7 @@ function shell(content) {
         <button class="icon-btn hide-desktop" data-act="open-nav" aria-label="Open menu">${icon('menu')}</button>
         <form class="search" data-act="search-form" role="search">
           ${icon('search')}
-          <input type="search" name="q" placeholder="Search members, suggestions, meetings…" value="${esc(route.query.q || '')}" aria-label="Search">
+          <input type="search" name="q" placeholder="Search members, suggestions, meetings" value="${esc(route.query.q || '')}" aria-label="Search">
         </form>
         <div style="margin-left:auto"></div>
         <a class="icon-btn" href="#/notifications" aria-label="Notifications">${icon('bell')}${unreadCount() ? `<span class="badge">${unreadCount()}</span>` : ''}</a>
@@ -988,7 +982,7 @@ function shell(content) {
         <a href="#contact" class="nav-a">Contact</a>
         <a class="btn sm" href="#/register">Join</a>
       </div>
-      <button class="icon-btn hide-desktop" data-act="open-landing-menu" aria-label="Menu">
+      <button class="icon-btn landing-menu-toggle" data-act="open-landing-menu" aria-label="Menu">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </nav>
@@ -998,7 +992,8 @@ function shell(content) {
       <a href="#services" data-close-menu>Services</a>
       <a href="#benefits" data-close-menu>Benefits</a>
       <a href="#contact" data-close-menu>Contact</a>
-      <a class="btn sm" href="#/register" data-close-menu>Join the association</a>
+      <a class="btn ghost sm" href="#/login" data-close-menu>Sign in</a>
+       <a class="btn sm" href="#/register" data-close-menu>Join the association</a>
     </div>
 
     <!-- ========== HERO ========== -->
@@ -1008,12 +1003,12 @@ function shell(content) {
         <p class="motto">Knowledge For Life</p>
         <h1>The school register never really closed.</h1>
         <p class="lede">
-          ClassConnect is the official home of the St. Veronica Bumadeya Primary School Association —
+          ClassConnect is the official home of the St. Veronica Bumadeya Primary School Association , 
           the place where former pupils stay connected, contribute, vote on ideas and keep the school’s spirit alive.
         </p>
         <div class="hero-actions">
           <a class="btn" href="#/register">Join the association</a>
-          <a class="btn ghost" href="#about">Learn more</a>
+          <a class="btn ghost" href="#/login">Sign in</a>
         </div>
       </div>
     </section>
@@ -1034,12 +1029,12 @@ function shell(content) {
           </p>
           <p>
             ClassConnect is the association’s official platform for communication, meetings,
-            suggestions and contributions — so every member sees the same association from any device.
+            suggestions and contributions, so every member sees the same association from any device.
           </p>
           <ul class="mission-list">
-            <li><strong>Purpose</strong> — Keep former students connected and active in the life of the school.</li>
-            <li><strong>Mission</strong> — Support the school through organised contributions, clear communication and shared decisions.</li>
-            <li><strong>Vision</strong> — A strong, transparent association that former pupils are proud to belong to.</li>
+            <li><strong>Purpose</strong>, Keep former students connected and active in the life of the school.</li>
+            <li><strong>Mission</strong>, Support the school through organised contributions, clear communication and shared decisions.</li>
+            <li><strong>Vision</strong>, A strong, transparent association that former pupils are proud to belong to.</li>
           </ul>
         </div>
         <div class="about-card">
@@ -1071,7 +1066,7 @@ function shell(content) {
         <div class="service-card">
           <div class="service-icon">3</div>
           <h3>Meetings, agendas &amp; minutes</h3>
-          <p>Upcoming events with agendas, past meetings with filed minutes — so everyone knows what was decided.</p>
+          <p>Upcoming events with agendas, past meetings with filed minutes, so everyone knows what was decided.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">4</div>
@@ -1142,15 +1137,15 @@ function shell(content) {
       <div class="testimonials-grid">
         <blockquote class="testimonial">
           <p>“Finally we have one place where contributions are clear and meetings are documented. It feels professional.”</p>
-          <footer>— Association member</footer>
+          <footer>,  Association member</footer>
         </blockquote>
         <blockquote class="testimonial">
           <p>“Being able to vote on suggestions and see the status change makes me feel the association actually listens.”</p>
-          <footer>— Former pupil</footer>
+          <footer>,  Former pupil</footer>
         </blockquote>
         <blockquote class="testimonial">
           <p>“I can check my balance and the group total from my phone. No more asking the treasurer every time.”</p>
-          <footer>— Active contributor</footer>
+          <footer>,  Active contributor</footer>
         </blockquote>
       </div>
     </section>
@@ -1313,7 +1308,7 @@ function viewResetPassword() {
   return authShell(`<div class="auth-card">
     <img class="auth-crest" src="${LOGO}" alt="St. Veronica Bumadeya Primary School crest">
     <h1 style="text-align:center">Choose a new password</h1>
-    <p class="sub" style="text-align:center">You're verified — set a new password to finish.</p>
+    <p class="sub" style="text-align:center">You're verified, set a new password to finish.</p>
     <form id="reset-form" novalidate>
       ${fieldHTML('password', 'New password', { type: 'password', hint: 'At least 8 characters.' })}
       ${fieldHTML('confirm', 'Repeat new password', { type: 'password' })}
@@ -1338,7 +1333,7 @@ function viewDashboard() {
   return page(`${greet}, ${u.firstName} 👋`, `Here is where the association stands today, ${fmtLong(todayISO())}.`, `
   <div class="stats" style="margin-bottom:1rem">
     <div class="stat accent"><div class="k">You have paid</div><div class="v">${money(t.paid)}</div><div class="s">${t.count} contribution records</div></div>
-    <div class="stat warnline"><div class="k">You still owe</div><div class="v">${money(t.outstanding)}</div><div class="s">${t.outstanding ? 'Pay the treasurer to clear this' : 'Nothing outstanding — thank you'}</div></div>
+    <div class="stat warnline"><div class="k">You still owe</div><div class="v">${money(t.outstanding)}</div><div class="s">${t.outstanding ? 'Pay the treasurer to clear this' : 'Nothing outstanding, thank you'}</div></div>
     <div class="stat"><div class="k">Association kitty</div><div class="v">${money(g.collected)}</div><div class="s">${money(g.outstanding)} still expected</div></div>
     <div class="stat ochreline"><div class="k">Members</div><div class="v">${g.members}</div><div class="s">${g.fullyPaid} fully paid up</div></div>
   </div>
@@ -1405,7 +1400,7 @@ function viewProfile() {
       </div>
       <div class="card pad">
         <h2 style="margin-bottom:.5rem">Password</h2>
-        <p class="muted small">Changing your password signs out nobody else — sessions are per device.</p>
+        <p class="muted small">Changing your password signs out nobody else, sessions are per device.</p>
         <button class="btn ghost sm" data-act="change-password">Change password</button>
       </div>
     </div>
@@ -1530,7 +1525,7 @@ function viewContributionDetail(id) {
     <div class="grid" style="grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)">
       <div class="card pad"><table style="min-width:0"><tbody>
         ${row('Member', esc(fullName(u)))}
-        ${row('Contribution type', esc(ty ? ty.name : '—'))}
+        ${row('Contribution type', esc(ty ? ty.name : ', '))}
         ${row('Amount due', `<span class="mono-num">${money(c.amount)}</span>`)}
         ${row('Amount paid', `<span class="mono-num">${money(c.paid)}</span>`)}
         ${row('Balance', `<span class="mono-num" style="color:${outstandingOf(c) ? 'var(--green)' : 'inherit'}">${money(outstandingOf(c))}</span>`)}
@@ -1538,7 +1533,7 @@ function viewContributionDetail(id) {
         ${row('Status', statusTag(c.status))}
         ${row('Payment reference', esc(c.reference || 'Not recorded'))}
         ${row('Recorded by', esc(rec ? fullName(rec) : 'System'))}
-        ${row('Notes', esc(c.notes || '—'))}
+        ${row('Notes', esc(c.notes || ', '))}
       </tbody></table></div>
       <div class="stack">
         ${canManageMoney() ? `<div class="card pad"><h2 style="margin-bottom:.6rem">Treasurer actions</h2>
@@ -1571,8 +1566,8 @@ function viewSuggestions() {
         <p class="muted small clamp2" style="margin:.5rem 0">${esc(s.description)}</p>
         <div class="row" style="margin-bottom:.7rem">${avatar(a, 'sm')}<span class="faint">${esc(fullName(a))} · ${fmtDate(s.date)}</span></div>
         <div class="row">
-          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">👍 ${v.up}</button>
-          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">👎 ${v.down}</button>
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Backed' : 'Back'}</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Withdrawn' : 'Withdraw'}</button>
         </div></div>`;
   }).join('')}</div>` : empty('No suggestions with that status', 'Try another filter, or add the first one.')}`,
     `<button class="btn" data-act="new-suggestion">Submit a suggestion</button>`);
@@ -1592,8 +1587,8 @@ function viewSuggestionDetail(id) {
         <div class="prose"><p>${esc(s.description)}</p></div>
         <hr class="divider">
         <div class="row wrap">
-          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">👍 Support (${v.up})</button>
-          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">👎 Do not support (${v.down})</button>
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Backed' : 'Back'}</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Withdrawn' : 'Withdraw'}</button>
           ${isOwner && s.status === 'Submitted' ? `<button class="btn ghost sm" data-act="edit-suggestion" data-id="${s.id}">Edit</button>` : ''}
           ${is('admin') ? `<button class="btn ghost sm" data-act="set-suggestion-status" data-id="${s.id}">Change status</button>` : ''}
         </div>
@@ -1678,7 +1673,7 @@ function viewMeetingDetail(id) {
             <tr><td class="muted" style="padding-left:0;width:36%">Date</td><td><b>${fmtLong(m.date)}</b></td></tr>
             <tr><td class="muted" style="padding-left:0">Time</td><td><b>${fmtTime(m.time)}</b></td></tr>
             <tr><td class="muted" style="padding-left:0">Venue</td><td>${esc(m.location)}</td></tr>
-            <tr><td class="muted" style="padding-left:0;border-bottom:0">Called by</td><td style="border-bottom:0">${esc(by ? fullName(by) : '—')}</td></tr>
+            <tr><td class="muted" style="padding-left:0;border-bottom:0">Called by</td><td style="border-bottom:0">${esc(by ? fullName(by) : ', ')}</td></tr>
           </tbody></table>
           <hr class="divider">
           <p class="muted" style="margin:0">${esc(m.description)}</p>
@@ -1764,7 +1759,7 @@ function viewAdmin() {
     </div>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
       <div class="card pad"><h2 style="margin-bottom:.6rem">Recent activity</h2>
-        <ul class="timeline">${acts.map(a => { const u = db.users.find(a.actorId); return `<li><span>${esc(u ? fullName(u) : 'System')} — ${esc(a.action)}</span><span class="when">${ago(a.createdAt)}</span></li>`; }).join('')}</ul></div>
+        <ul class="timeline">${acts.map(a => { const u = db.users.find(a.actorId); return `<li><span>${esc(u ? fullName(u) : 'System')}, ${esc(a.action)}</span><span class="when">${ago(a.createdAt)}</span></li>`; }).join('')}</ul></div>
       <div class="card pad"><h2 style="margin-bottom:.6rem">Upcoming meetings</h2>
         ${upcoming.length ? upcoming.map(m => `<div class="item"><div class="body">
           <h4><button class="linkish" data-act="goto" data-href="#/meetings/${m.id}">${esc(m.title)}</button></h4>
@@ -1809,7 +1804,7 @@ function viewManageContributions() {
         <div class="spread" style="margin-bottom:.6rem"><h2>Contribution types</h2>
           ${is('admin') ? `<button class="btn sm" data-act="new-type">Add type</button>` : ''}</div>
         ${types.map(t => `<div class="item"><div class="body">
-          <h4>${esc(t.name)} <span class="faint mono-num">— ${money(t.defaultAmount)}</span></h4>
+          <h4>${esc(t.name)} <span class="faint mono-num">,  ${money(t.defaultAmount)}</span></h4>
           <p>${esc(t.description)}</p></div>
           ${is('admin') ? `<div class="row" style="align-items:flex-start"><button class="btn quiet sm" data-act="edit-type" data-id="${t.id}">Edit</button>
             <button class="btn quiet sm" data-act="delete-type" data-id="${t.id}">Delete</button></div>` : ''}
@@ -1885,15 +1880,15 @@ function viewManageMeetings() {
 
 function viewSettings() {
   const s = state.settings;
-  return page('Settings', 'Your own preferences, and — for administrators — how the association is set up.', `
+  return page('Settings', 'Your own preferences, and, for administrators, how the association is set up.', `
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
       <div class="card pad">
         <h2 style="margin-bottom:.7rem">Appearance</h2>
-        <p class="muted small">ClassConnect uses the school crest colours — deep green, light green and white — so the interface matches the school's identity on every screen.</p>
+        <p class="muted small">ClassConnect uses the school crest colours, deep green, light green and white, so the interface matches the school's identity on every screen.</p>
         <div class="row wrap" style="margin-bottom:.4rem">
-          <span class="tag info">Crest green — actions</span>
-          <span class="tag ok">Light green — highlights</span>
-          <span class="tag warn">White — surfaces</span>
+          <span class="tag info">Crest green, actions</span>
+          <span class="tag ok">Light green, highlights</span>
+          <span class="tag warn">White, surfaces</span>
         </div>
         <hr class="divider">
         <h2 style="margin-bottom:.5rem">Security</h2>
@@ -1923,13 +1918,13 @@ function viewSettings() {
           ${fieldHTML('mpesaPaybill', 'Paybill or till number', { value: s.mpesaPaybill, placeholder: 'e.g. 400200' })}
           ${fieldHTML('mpesaAccountPrefix', 'Account number prefix', { value: s.mpesaAccountPrefix })}
           <label class="checkrow" style="margin:.2rem 0 1rem"><input type="checkbox" disabled>
-            <span class="muted">Enable STK push (needs the Daraja driver — see the setup guide)</span></label>
+            <span class="muted">Enable STK push (needs the Daraja driver, see the setup guide)</span></label>
           <button class="btn ghost" type="submit">Save payment details</button>
         </form>
       </div>
       <div class="card pad">
         <h2 style="margin-bottom:.5rem">Resetting data</h2>
-        <p class="muted small">ClassConnect only ever holds the publishable key, which cannot delete sign-in accounts — that keeps a stolen key from wiping the association. To clear everything and start over, run <code>truncate table contributions, suggestions, suggestion_votes, announcements, meetings, meeting_minutes, notifications, activity_logs, profiles cascade;</code> in the Supabase SQL Editor, then remove the accounts under Authentication → Users. The next person to register becomes administrator again.</p>
+        <p class="muted small">ClassConnect only ever holds the publishable key, which cannot delete sign-in accounts, that keeps a stolen key from wiping the association. To clear everything and start over, run <code>truncate table contributions, suggestions, suggestion_votes, announcements, meetings, meeting_minutes, notifications, activity_logs, profiles cascade;</code> in the Supabase SQL Editor, then remove the accounts under Authentication → Users. The next person to register becomes administrator again.</p>
       </div>` : ''}
     </div>`);
 }
@@ -1938,20 +1933,20 @@ function viewSettings() {
 function viewDocs() {
   return page('Setup guide', 'How ClassConnect is wired to Supabase, and how to operate it day to day.', `
   <div class="card pad docs prose" style="max-width:none">
-    <p>ClassConnect is the management platform for the St. Veronica Bumadeya Primary School Association. This build stores everything in Supabase — Postgres for the data, Supabase Auth for sign-in — so every member sees the same association from any device or browser. There is no local database and nothing is stored only on one person's computer.</p>
+    <p>ClassConnect is the management platform for the St. Veronica Bumadeya Primary School Association. This build stores everything in Supabase, Postgres for the data, Supabase Auth for sign-in, so every member sees the same association from any device or browser. There is no local database and nothing is stored only on one person's computer.</p>
 
     <h2>1. What's already connected</h2>
     <p>This copy of the app is pre-configured with the association's Supabase project:</p>
     <pre class="code">Project URL:      ${esc(SUPABASE_URL)}
 Publishable key:  ${esc(SUPABASE_ANON_KEY)}</pre>
-    <p>The publishable (anon) key is safe to ship inside the HTML — it can only do what the database's row-level security policies allow, which is why the schema step below matters as much as the app file itself.</p>
+    <p>The publishable (anon) key is safe to ship inside the HTML, it can only do what the database's row-level security policies allow, which is why the schema step below matters as much as the app file itself.</p>
 
     <h2>2. One-time database setup</h2>
     <p>Before the app can be used, run <code>supabase-schema.sql</code> once, in full, in the Supabase dashboard's SQL Editor for this project. It creates every table this app reads and writes (profiles, contribution_types, contributions, suggestions, suggestion_votes, announcements, meetings, meeting_minutes, notifications, activity_logs, settings), the row-level security policy on each one, and a trigger on new sign-ups. It is safe to run more than once.</p>
     <p>Two settings are worth checking under Authentication in the dashboard:</p>
     <ul>
       <li><b>Providers → Email</b> should be turned on.</li>
-      <li><b>Settings → Confirm email.</b> Leave it on for a real rollout — new members get a confirmation link before their first sign-in works, and the registration page already tells them to expect that. Turn it off only for quick internal testing, so new accounts are signed in immediately.</li>
+      <li><b>Settings → Confirm email.</b> Leave it on for a real rollout, new members get a confirmation link before their first sign-in works, and the registration page already tells them to expect that. Turn it off only for quick internal testing, so new accounts are signed in immediately.</li>
       <li><b>URL Configuration → Site URL / Redirect URLs</b> should include wherever this HTML file ends up being hosted, so "forgot password" links open correctly.</li>
     </ul>
 
@@ -1959,21 +1954,21 @@ Publishable key:  ${esc(SUPABASE_ANON_KEY)}</pre>
     <p>There is no seeded login and no separate admin-creation step. A trigger in <code>supabase-schema.sql</code> checks the <code>profiles</code> table at the moment each new account is created: if it is empty, that account becomes <code>admin</code>; every account after that starts as <code>member</code>. This runs inside the database itself, not in the browser, so it can't be spoofed by editing the page.</p>
 
     <h2>4. Running it</h2>
-    <p>This is one self-contained HTML file — open it directly, or host it anywhere that serves static files (Netlify, Vercel, GitHub Pages, S3, or a folder behind Nginx). There is no build step and nothing else to deploy; the file talks straight to Supabase over HTTPS.</p>
+    <p>This is one self-contained HTML file, open it directly, or host it anywhere that serves static files (Netlify, Vercel, GitHub Pages, S3, or a folder behind Nginx). There is no build step and nothing else to deploy; the file talks straight to Supabase over HTTPS.</p>
 
     <h2>5. Test each role</h2>
     <ol>
-      <li><b>Administrator</b> — register the very first account on the project. You'll have every permission: members, contributions, announcements, meetings, contribution types and settings.</li>
-      <li><b>Treasurer</b> — register a second account, then from Manage members open it and set its role to Treasurer. A treasurer can record payments, edit records, filter and download the report, but cannot manage members, announcements or meetings.</li>
-      <li><b>Member</b> — a third account, left on the default role. The sidebar has no administration group; Contributions shows only their own records; the association's overall totals still appear on their dashboard (via a database function that reports the summary without exposing anyone else's individual payments).</li>
-      <li>Try an admin URL such as <code>#/admin/members</code> while signed in as a member — the route guard sends it back to the dashboard, and the database would refuse the underlying request even if it didn't.</li>
+      <li><b>Administrator</b>, register the very first account on the project. You'll have every permission: members, contributions, announcements, meetings, contribution types and settings.</li>
+      <li><b>Treasurer</b>, register a second account, then from Manage members open it and set its role to Treasurer. A treasurer can record payments, edit records, filter and download the report, but cannot manage members, announcements or meetings.</li>
+      <li><b>Member</b>, a third account, left on the default role. The sidebar has no administration group; Contributions shows only their own records; the association's overall totals still appear on their dashboard (via a database function that reports the summary without exposing anyone else's individual payments).</li>
+      <li>Try an admin URL such as <code>#/admin/members</code> while signed in as a member, the route guard sends it back to the dashboard, and the database would refuse the underlying request even if it didn't.</li>
     </ol>
 
     <h2>6. What's different from a bare prototype</h2>
     <ul>
-      <li><b>Adding members.</b> An administrator can edit, promote, deactivate or remove an existing member, but cannot create a login for someone else — only Supabase Auth can create an account, and only the person themselves can prove they own that email address. Manage members has a "Copy registration link" button for exactly this: share it, they register, then you set their role.</li>
+      <li><b>Adding members.</b> An administrator can edit, promote, deactivate or remove an existing member, but cannot create a login for someone else, only Supabase Auth can create an account, and only the person themselves can prove they own that email address. Manage members has a "Copy registration link" button for exactly this: share it, they register, then you set their role.</li>
       <li><b>Passwords.</b> Supabase Auth stores and hashes every password; this app never sees or stores one. Changing your password re-confirms your current one first; "forgot password" sends a real, single-use email link.</li>
-      <li><b>Row-level security.</b> A member's own contribution rows are the only ones their account can read — the database enforces this, not just the interface. The association-wide totals a member sees on their dashboard come from a database function that returns aggregate numbers only, never another member's individual record.</li>
+      <li><b>Row-level security.</b> A member's own contribution rows are the only ones their account can read, the database enforces this, not just the interface. The association-wide totals a member sees on their dashboard come from a database function that returns aggregate numbers only, never another member's individual record.</li>
       <li><b>Notifications.</b> Posting an announcement or a meeting notifies every member by inserting a row addressed to each of them; a member can only ever read their own notifications back.</li>
     </ul>
 
@@ -2128,7 +2123,7 @@ function memberForm(existing) {
 }
 function copyRegistrationLink() {
   const link = location.origin + location.pathname + '#/register';
-  const done = () => toast('Registration link copied — share it with the new member.');
+  const done = () => toast('Registration link copied, share it with the new member.');
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(link).then(done).catch(() => openModal({
       title: 'Registration link', body: `<p class="muted small">Copy this link and share it:</p><pre class="code">${esc(link)}</pre>`,
@@ -2187,7 +2182,7 @@ function passwordForm() {
     onSubmit: async (form, d) => {
       if (!validate(form, { current: ['required'], next: ['required', 'password'], confirm: ['required'] })) return;
       if (d.next !== d.confirm) { toast('The two new passwords do not match.', true); return; }
-      // Re-authenticate with the current password first — Supabase will not
+      // Re-authenticate with the current password first, Supabase will not
       // let a client change a password without recently proving identity.
       const { error: authError } = await sb.auth.signInWithPassword({ email: session.user.email, password: d.current });
       if (authError) { toast('Your current password is not correct.', true); return; }
@@ -2252,12 +2247,12 @@ const ACTIONS = {
     const sid = el.dataset.id, value = Number(el.dataset.value);
     const existing = db.suggestionVotes.where(v => v.suggestionId === sid && v.userId === session.user.id)[0];
     const s = db.suggestions.find(sid);
-    if (existing && existing.value === value) { await db.suggestionVotes.remove(existing.id); toast('Vote withdrawn.'); }
-    else if (existing) { await db.suggestionVotes.update(existing.id, { value }); toast('Vote changed.'); }
+    if (existing && existing.value === value) { await db.suggestionVotes.remove(existing.id); toast('Withdrawn.'); }
+    else if (existing) { await db.suggestionVotes.update(existing.id, { value }); toast(value === 1 ? 'Backed.' : 'Withdrawn.'); }
     else {
       await db.suggestionVotes.insert({ suggestionId: sid, userId: session.user.id, value });
       if (s.authorId !== session.user.id) notify(s.authorId, `Your suggestion "${s.title}" received a new vote.`, '#/suggestions/' + sid);
-      toast(value === 1 ? 'Backed.' : 'Recorded.');
+      toast(value === 1 ? 'Backed.' : 'Withdrawn.');
     }
     render();
   },
@@ -2369,7 +2364,7 @@ document.addEventListener('submit', async (e) => {
     }
     await loadAllData();
     go('#/dashboard'); render();
-    toast(res.isFirstAccount ? 'Account created — you are the administrator.' : 'Account created. Welcome to the association.');
+    toast(res.isFirstAccount ? 'Account created, you are the administrator.' : 'Account created. Welcome to the association.');
     return;
   }
   if (form.id === 'forgot-form') {
