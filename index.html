@@ -2232,6 +2232,10 @@ function exportReport() {
 const ACTIONS = {
   'open-nav': () => document.body.classList.add('nav-open'),
   'close-nav': () => document.body.classList.remove('nav-open'),
+    'open-landing-menu': () => {
+    const menu = document.getElementById('landing-menu');
+    if (menu) menu.classList.toggle('open');
+  },
   'goto': (el) => go(el.dataset.href),
   'logout': async () => { await logout(); go('#/login'); render(); toast('Signed out.'); },
   'user-menu': () => $('#user-menu').classList.toggle('open'),
