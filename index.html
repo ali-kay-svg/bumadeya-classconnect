@@ -1566,8 +1566,8 @@ function viewSuggestions() {
         <p class="muted small clamp2" style="margin:.5rem 0">${esc(s.description)}</p>
         <div class="row" style="margin-bottom:.7rem">${avatar(a, 'sm')}<span class="faint">${esc(fullName(a))} · ${fmtDate(s.date)}</span></div>
         <div class="row">
-          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Backed' : 'Back'}</button>
-          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Withdrawn' : 'Withdraw'}</button>
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Agreed' : 'Agree'}</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Disagreed' : 'Disagree'}</button>
         </div></div>`;
   }).join('')}</div>` : empty('No suggestions with that status', 'Try another filter, or add the first one.')}`,
     `<button class="btn" data-act="new-suggestion">Submit a suggestion</button>`);
@@ -1587,8 +1587,8 @@ function viewSuggestionDetail(id) {
         <div class="prose"><p>${esc(s.description)}</p></div>
         <hr class="divider">
         <div class="row wrap">
-          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Backed' : 'Back'}</button>
-          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Withdrawn' : 'Withdraw'}</button>
+          <button class="vote up" data-act="vote" data-id="${s.id}" data-value="1" aria-pressed="${mine === 1}">${mine === 1 ? 'Agreed' : 'Agree'}</button>
+          <button class="vote down" data-act="vote" data-id="${s.id}" data-value="-1" aria-pressed="${mine === -1}">${mine === -1 ? 'Disagreed' : 'Disagree'}</button>
           ${isOwner && s.status === 'Submitted' ? `<button class="btn ghost sm" data-act="edit-suggestion" data-id="${s.id}">Edit</button>` : ''}
           ${is('admin') ? `<button class="btn ghost sm" data-act="set-suggestion-status" data-id="${s.id}">Change status</button>` : ''}
         </div>
@@ -2247,8 +2247,8 @@ const ACTIONS = {
     const sid = el.dataset.id, value = Number(el.dataset.value);
     const existing = db.suggestionVotes.where(v => v.suggestionId === sid && v.userId === session.user.id)[0];
     const s = db.suggestions.find(sid);
-    if (existing && existing.value === value) { await db.suggestionVotes.remove(existing.id); toast('Withdrawn.'); }
-    else if (existing) { await db.suggestionVotes.update(existing.id, { value }); toast(value === 1 ? 'Backed.' : 'Withdrawn.'); }
+    if (existing && existing.value === value) { await db.suggestionVotes.remove(existing.id); toast('Disagreed.'); }
+    else if (existing) { await db.suggestionVotes.update(existing.id, { value }); toast(value === 1 ? 'Agreed.' : 'Disagreed.'); }
     else {
       await db.suggestionVotes.insert({ suggestionId: sid, userId: session.user.id, value });
       if (s.authorId !== session.user.id) notify(s.authorId, `Your suggestion "${s.title}" received a new vote.`, '#/suggestions/' + sid);
