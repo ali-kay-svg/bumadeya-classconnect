@@ -2256,7 +2256,7 @@ const ACTIONS = {
     else {
       await db.suggestionVotes.insert({ suggestionId: sid, userId: session.user.id, value });
       if (s.authorId !== session.user.id) notify(s.authorId, `Your suggestion "${s.title}" received a new vote.`, '#/suggestions/' + sid);
-      toast(value === 1 ? 'Backed.' : 'Withdrawn.');
+      toast(value === 1 ? 'Agreed.' : 'Disagreed.');
     }
     render();
   },
