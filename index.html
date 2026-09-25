@@ -92,10 +92,11 @@ img{max-width:100%}
 .tag.info{background:var(--light-green-2); color:var(--green-2)}
 .tag.dot::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor}
 
-.avatar{display:grid; place-items:center; width:38px; height:38px; border-radius:50%; font-family:var(--display); font-weight:600; font-size:.82rem; color:var(--on-green); flex:none; letter-spacing:.01em}
+.avatar{display:grid; place-items:center; width:38px; height:38px; border-radius:50%; font-family:var(--display); font-weight:600; font-size:.82rem; color:var(--on-green); flex:none; letter-spacing:.01em; overflow:hidden; background-size:cover; background-position:center}
 .avatar.lg{width:72px; height:72px; font-size:1.4rem}
 .avatar.sm{width:30px; height:30px; font-size:.7rem}
-
+.avatar.has-photo{color:transparent; font-size:0}
+  
 /* ---------- forms ---------- */
 label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.3rem; color:var(--ink)}
 input,select,textarea{
@@ -409,7 +410,17 @@ const SUPABASE_ANON_KEY = 'sb_publishable_Bc4E8gA7mjtvC46B3SUCPg_GVhU4v_j';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: true }
 });
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: true }
+});
 
+const AVATARS_BUCKET = 'avatars';
+const LANDING_BUCKET = 'landing-images';
+function publicUrl(bucket, path) {
+  if (!path) return '';
+  return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
+}
+  
 /* ---------------- tiny utilities ---------------- */
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -450,8 +461,32 @@ function avatarColor(seed) {
 }
 function avatar(u, cls = '') {
   if (!u) return '';
+  if (u.avatarPath) {
+    return `<div class="avatar has-photo ${cls}" style="background-image:url('${esc(publicUrl(AVATARS_BUCKET, u.avatarPath))}')" role="img" aria-label="${esc(fullName(u))}"></div>`;
+  }
   return `<div class="avatar ${cls}" style="background:${avatarColor(u.id)}" aria-hidden="true">${esc(initials(u))}</div>`;
 }
+ async function uploadAvatar(file, userId) {
+  if (!file || !file.type.startsWith('image/')) {
+    toast('Please choose an image file (JPG, PNG or WebP).', true);
+    return null;
+  }
+  if (file.size > 2 * 1024 * 1024) {
+    toast('Photo must be under 2 MB.', true);
+    return null;
+  }
+  const ext = (file.name.match(/\.[a-zA-Z0-9]+$/) || ['.jpg'])[0].toLowerCase();
+  const path = `${userId}/photo${ext}`;
+  const { error } = await sb.storage.from(AVATARS_BUCKET).upload(path, file, {
+    upsert: true,
+    contentType: file.type
+  });
+  if (error) {
+    toast('Upload failed: ' + error.message, true);
+    return null;
+  }
+  return path;
+} 
 function toast(msg, bad) {
   const el = document.createElement('div');
   el.className = 'toast' + (bad ? ' bad' : '');
@@ -1390,8 +1425,16 @@ function viewProfile() {
   <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
     <div class="card pad">
       <form id="profile-form" novalidate>
-        <div class="row" style="margin-bottom:1.2rem">${avatar(u, 'lg')}
-          <div><h2>${esc(fullName(u))}</h2><div class="muted">${esc(ROLES[u.role].label)} · joined ${fmtDate(u.joinedAt)}</div></div>
+                <div class="row" style="margin-bottom:1.2rem">${avatar(u, 'lg')}
+          <div style="flex:1;min-width:0">
+            <h2>${esc(fullName(u))}</h2>
+            <div class="muted">${esc(ROLES[u.role].label)} · joined ${fmtDate(u.joinedAt)}</div>
+            <div class="field" style="margin:.7rem 0 0">
+              <label for="avatar_file">Profile photo</label>
+              <input id="avatar_file" name="avatar" type="file" accept="image/jpeg,image/png,image/webp">
+              <div class="hint">JPG, PNG or WebP · max 2 MB. Leave empty to keep the current photo.</div>
+            </div>
+          </div>
         </div>
         <div class="field-row">${fieldHTML('firstName', 'First name', { value: u.firstName })}${fieldHTML('lastName', 'Last name', { value: u.lastName })}</div>
         <div class="field-row">${fieldHTML('email', 'Email address', { type: 'email', value: u.email })}${fieldHTML('phone', 'Phone number', { value: u.phone })}</div>
@@ -2402,12 +2445,30 @@ document.addEventListener('submit', async (e) => {
     toast('Password set. You are signed in.');
     return;
   }
-  if (form.id === 'profile-form') {
+   if (form.id === 'profile-form') {
     if (!validate(form, { firstName: ['required'], lastName: ['required'], email: ['required', 'email'], phone: ['required', 'phone'] })) return;
     const d = Object.fromEntries(new FormData(form));
     const clash = db.users.where(u => u.email.toLowerCase() === d.email.toLowerCase() && u.id !== session.user.id);
     if (clash.length) { toast('That email address belongs to another member.', true); return; }
-    const updated = await db.users.update(session.user.id, { firstName: d.firstName, lastName: d.lastName, email: d.email.toLowerCase(), phone: d.phone, occupation: d.occupation, town: d.town, bio: d.bio });
+
+    const patch = {
+      firstName: d.firstName,
+      lastName: d.lastName,
+      email: d.email.toLowerCase(),
+      phone: d.phone,
+      occupation: d.occupation,
+      town: d.town,
+      bio: d.bio
+    };
+
+    const fileInput = form.elements.avatar;
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+      const path = await uploadAvatar(fileInput.files[0], session.user.id);
+      if (!path) return;
+      patch.avatarPath = path;
+    }
+
+    const updated = await db.users.update(session.user.id, patch);
     session.user = updated;
     logActivity('Updated their profile');
     render(); toast('Profile saved.');
