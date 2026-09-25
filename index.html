@@ -466,7 +466,7 @@ function avatar(u, cls = '') {
   }
   return `<div class="avatar ${cls}" style="background:${avatarColor(u.id)}" aria-hidden="true">${esc(initials(u))}</div>`;
 }
- async function uploadAvatar(file, userId) {
+async function uploadAvatar(file, userId) {
   if (!file || !file.type.startsWith('image/')) {
     toast('Please choose an image file (JPG, PNG or WebP).', true);
     return null;
