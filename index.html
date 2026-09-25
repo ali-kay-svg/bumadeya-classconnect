@@ -410,10 +410,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_Bc4E8gA7mjtvC46B3SUCPg_GVhU4v_j';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: true }
 });
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: true }
-});
-
+  
 const AVATARS_BUCKET = 'avatars';
 const LANDING_BUCKET = 'landing-images';
 function publicUrl(bucket, path) {
